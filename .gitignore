@@ -1,1 +1,6 @@
-/MAIL/.idea/
+.idea
+.gradle
+app/build
+list/build
+utilities/build
+buildSrc/build
