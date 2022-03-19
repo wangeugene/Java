@@ -1,6 +1,10 @@
-.idea
 .gradle
+.gitattributes
+.idea/
+gradle/
 app/build
 list/build
 utilities/build
 buildSrc/build
+
+gradlew
