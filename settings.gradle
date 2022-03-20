@@ -8,4 +8,6 @@
  */
 
 rootProject.name = 'Java'
-include('app', 'list', 'utilities','mail')
+include('app', 'list', 'utilities')
+include 'guice'
+
