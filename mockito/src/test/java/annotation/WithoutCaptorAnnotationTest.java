@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 8:11 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-public class WithoutCaptorAnnotation {
+public class WithoutCaptorAnnotationTest {
     @Test
     public void whenNotUseCaptorAnnotationThenCorrect() {
         List mockList = Mockito.mock(List.class);

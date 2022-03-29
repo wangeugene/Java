@@ -8,15 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Created by IntelliJ IDEA.<br/>
- *
- * @author: Eugene_Wang<br />
- * Date: 3/20/2022<br/>
- * Time: 8:26 PM<br/>
- * To change this template use File | Settings | File Templates.
- */
-class WithCaptorAnnotation {
+class WithCaptorAnnotationTest {
     @BeforeEach
     void init() {
         // to use @Mock this is a must

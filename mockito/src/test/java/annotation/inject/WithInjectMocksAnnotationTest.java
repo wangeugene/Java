@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 8:29 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-public class WithInjectMocksAnnotation {
+public class WithInjectMocksAnnotationTest {
     @Mock
     Map<String, String> wordMap;
 

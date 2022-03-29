@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 7:33 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-class WithoutMockAnnotation {
+class WithoutMockAnnotationTest {
     @Test
     public void whenNotUseMockAnnotationThenCorrect() {
         List mockList = Mockito.mock(ArrayList.class);

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 7:47 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-public class WithSpyAnnotation {
+public class WithSpyAnnotationTest {
     @BeforeEach
     void init() {
         // to use @Mock this is a must
