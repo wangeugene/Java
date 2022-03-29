@@ -11,4 +11,5 @@ rootProject.name = 'Java'
 include('app', 'list', 'utilities')
 include 'guice'
 include 'mockito'
+include 'predicate'
 

@@ -9,3 +9,4 @@ utilities/build/
 buildSrc/build/
 guice/build/
 mockito/build/
+predicate/build/

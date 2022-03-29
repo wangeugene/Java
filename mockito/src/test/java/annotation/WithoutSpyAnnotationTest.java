@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 7:45 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-public class WithoutSpyAnnotation {
+public class WithoutSpyAnnotationTest {
 
     @Test
     public void whenNotUseSpyAnnotationThenCorrect() {

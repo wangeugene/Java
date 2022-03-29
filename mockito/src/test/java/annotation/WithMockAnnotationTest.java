@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Time: 7:35 PM<br/>
  * To change this template use File | Settings | File Templates.
  */
-class WithMockAnnotation {
+class WithMockAnnotationTest {
     @Mock
     List<String> mockedList;
 
