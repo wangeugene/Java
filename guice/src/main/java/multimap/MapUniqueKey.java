@@ -1,8 +1,7 @@
-package map;
+package multimap;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Multimaps;
 
 import java.util.ArrayList;
 import java.util.List;

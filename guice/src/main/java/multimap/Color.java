@@ -1,4 +1,4 @@
-package map;
+package multimap;
 
 import lombok.Data;
 
