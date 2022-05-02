@@ -7,14 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.<br/>
- *
- * @author: Eugene_Wang<br />
- * Date: 3/20/2022<br/>
- * Time: 11:42 AM<br/>
- * To change this template use File | Settings | File Templates.
- */
 public class MapUniqueKey {
     public static void main(String[] args) {
         List<Color> colors = new ArrayList<>();
