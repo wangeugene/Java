@@ -27,4 +27,9 @@ public class Color {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s %s", name, r, g, b);
+    }
 }
