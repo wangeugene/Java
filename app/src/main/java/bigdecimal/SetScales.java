@@ -4,16 +4,36 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class SetScales {
+
+    private static BigDecimal numerator;
+    private static BigDecimal denominator;
+    private static int scale;
+
     public static void main(String[] args) {
-        BigDecimal ten = BigDecimal.TEN;
-        BigDecimal three = BigDecimal.valueOf(3);
-        BigDecimal halfUp = ten.divide(three, RoundingMode.HALF_UP);
-        System.out.println("halfUp = " + halfUp);
-        BigDecimal roundUp = ten.divide(three, RoundingMode.UP);
-        System.out.println("roundUp = " + roundUp);
-        BigDecimal scale4HalfUp = ten.divide(three, 4, RoundingMode.HALF_UP);
-        System.out.println("scale4HalfUp = " + scale4HalfUp);
-        BigDecimal scale4RoundUp = ten.divide(three, 4, RoundingMode.UP);
-        System.out.println("scale4RoundUp = " + scale4RoundUp);
+        numerator = BigDecimal.TEN;
+        denominator = BigDecimal.valueOf(3);
+        scale = 5;
+        divideWithHalfUpMode();
+        divideWithUpMode();
+        divideWithHalfUpModeAndScale();
+        divideWithUpModeAndScale();
+    }
+
+    private static void divideWithUpMode() {
+        BigDecimal quotientUp = numerator.divide(denominator, RoundingMode.UP);
+        System.out.println("quotientUp = " + quotientUp);
+    }
+
+    private static void divideWithHalfUpMode() {
+        BigDecimal quotientHalfUp = numerator.divide(denominator, RoundingMode.HALF_UP);
+        System.out.println("quotientHalfUp = " + quotientHalfUp);
+    }
+    private static void divideWithHalfUpModeAndScale() {
+        BigDecimal quotientWithScaleHalfUp = numerator.divide(denominator, scale, RoundingMode.HALF_UP);
+        System.out.println("quotientWithScaleHalfUp = " + quotientWithScaleHalfUp);
+    }
+    private static void divideWithUpModeAndScale() {
+        BigDecimal quotientWithScaleUp = numerator.divide(denominator, scale, RoundingMode.UP);
+        System.out.println("quotientWithScaleUp = " + quotientWithScaleUp);
     }
 }
