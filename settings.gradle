@@ -12,4 +12,6 @@ include('app', 'list', 'utilities')
 include 'guice'
 include 'mockito'
 include 'predicate'
+include 'designPatterns'
+include 'designPatterns'
 
