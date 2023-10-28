@@ -1,4 +1,4 @@
-package adapter;
+package adaptor;
 
 public class AdapteeImpl implements Adaptee {
     @Override

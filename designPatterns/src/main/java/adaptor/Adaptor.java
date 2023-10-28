@@ -1,4 +1,4 @@
-package adapter;
+package adaptor;
 
 public interface Adaptor {
     void fitClient();

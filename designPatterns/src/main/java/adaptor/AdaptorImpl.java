@@ -1,4 +1,4 @@
-package adapter;
+package adaptor;
 
 public class AdaptorImpl implements Adaptor {
     private Adaptee adaptee;
