@@ -1,4 +1,4 @@
-package loading;
+package classloader;
 
 class SuperClassLoader {
     public SuperClassLoader() {

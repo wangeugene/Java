@@ -1,4 +1,4 @@
-package interfaces;
+package JDKInterfaces;
 
 import java.util.ArrayList;
 import java.util.List;
