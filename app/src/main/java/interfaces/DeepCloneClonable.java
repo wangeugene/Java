@@ -37,6 +37,7 @@ public class DeepCloneClonable {
     }
 }
 
+@lombok.Getter
 class User implements Cloneable{
     private String name;
     private int age;
@@ -61,18 +62,6 @@ class User implements Cloneable{
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<String> getExperiences() {
-        return experiences;
     }
 
     public void setExperiences(List<String> experiences) {
