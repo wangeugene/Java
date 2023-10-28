@@ -8,7 +8,8 @@ plugins {
 
 dependencies {
     implementation 'org.apache.commons:commons-text'
-    implementation project(':utilities')
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 application {
