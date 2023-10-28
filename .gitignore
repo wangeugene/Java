@@ -3,10 +3,4 @@
 gradlew
 .idea/
 gradle/
-app/build/
-list/build/
-utilities/build/
-buildSrc/build/
-guice/build/
-mockito/build/
-predicate/build/
+*/build/
