@@ -17,9 +17,9 @@ public class LinkedList {
         }
     }
 
+
     private static Node tail(Node head) {
         Node it;
-
         for (it = head; it != null && it.next != null; it = it.next) {}
 
         return it;
