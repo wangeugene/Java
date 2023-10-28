@@ -54,7 +54,6 @@ class User implements Cloneable{
     @Override
     public User clone() {
         try {
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
             User cloned = (User) super.clone();
             cloned.experiences = new ArrayList<>(experiences);
             return cloned;
