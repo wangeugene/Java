@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Created by IntelliJ IDEA.<br/>
  *
- * @author: Eugene_Wang<br />
  * Date: 3/20/2022<br/>
  * Time: 7:35 PM<br/>
  * To change this template use File | Settings | File Templates.
