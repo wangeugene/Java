@@ -8,10 +8,9 @@
  */
 
 rootProject.name = 'Java'
-include('app', 'list', 'utilities')
+include 'app'
+include 'list'
 include 'guice'
 include 'mockito'
 include 'predicate'
 include 'designPatterns'
-include 'designPatterns'
-
