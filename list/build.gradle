@@ -3,7 +3,7 @@
  */
 
 plugins {
-    id 'Java.java-library-conventions'
+    id 'Java.java-application-conventions'
 }
 
 dependencies {
