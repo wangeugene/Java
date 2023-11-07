@@ -14,11 +14,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public class GuiceDemo {
     @Qualifier
     @Retention(RUNTIME)
-    @interface Message{};
+    @interface Message{}
 
     @Qualifier
     @Retention(RUNTIME)
-    @interface Count{};
+    @interface Count{}
 
     static class DemoModule extends AbstractModule{
         @Provides
