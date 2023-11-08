@@ -10,6 +10,7 @@ public class User implements Cloneable {
 
     private String name;
     private int age;
+    private double salary;
     private List<String> experiences;
 
     @Override
