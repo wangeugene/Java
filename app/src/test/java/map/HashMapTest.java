@@ -25,7 +25,7 @@ final class HashMapTest {
     }
 
     @Test
-    void groupingByTest() {
+    void testGroupingBy() {
         Map<String, List<User>> usersByFirstName = new HashMap<>();
         for (User user : users) {
             String name = user.getName();
@@ -34,7 +34,10 @@ final class HashMapTest {
                     .add(user);
         }
         assertGroupingOkay(usersByFirstName);
+    }
 
+    @Test
+    void testGroupingByStream() {
         Map<String, List<User>> usersByFirstNameStream = users.
                 stream()
                 .collect(Collectors.groupingBy(
