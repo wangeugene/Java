@@ -15,10 +15,17 @@ class SuperClassLoader {
 }
 
 public class ClassLoader extends SuperClassLoader {
+    private static int[] staticInts = {9, 8, 7};
+    private int[] ints = {1, 2, 3};
+
     {
+        System.out.println(ints[1]);
         System.out.println("Initialize Block 6");
     }
+
     public ClassLoader() {
+        System.out.println(staticInts[1]);
+        System.out.println(ints[1]);
         System.out.println("Constructor 7");
     }
 
