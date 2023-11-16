@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'Java.java-application-conventions'
 }
 
 version 'unspecified'

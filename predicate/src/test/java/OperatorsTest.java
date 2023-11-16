@@ -5,9 +5,9 @@ import java.util.List;
 
 class OperatorsTest {
     @Test
-    void operatorTest(){
+    void test(){
         List<String> names = Arrays.asList("bob", "josh", "megan");
         names.replaceAll(String::toUpperCase);
-        System.out.println(names);
+
     }
 }
