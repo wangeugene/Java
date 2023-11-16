@@ -1,36 +1,19 @@
 package interview.huawei;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SparklingWater {
-    final static int exchangeBenchmark = 3;
-
     public static void main(String[] args) {
-        int[] bottles = {10, 40, 81};
-        List<Integer> list = new ArrayList<>();
-        for (int bottle : bottles) {
-            list.add(countBottles(bottle));
-        }
-        list.forEach(System.out::println);
-    }
-
-    private static int countBottles(int divider) {
-        int count = 0;
-        return factorize(count, divider);
-    }
-
-    private static int factorize(int count, int divider) {
-        if (divider < 3) {
-            if (divider != 0) {
-                count++;
+        int[] ns = {3, 10, 81};
+        for (int n : ns) {
+            int totalDrinks = 0;
+            while (n >= 3) {
+                totalDrinks += n / 3;
+                n = n / 3 + n % 3;
             }
-            return count;
-        } else {
-            divider = divider / exchangeBenchmark;
-            count += divider;
-            return factorize(count, divider);
+            if (n == 2) {
+                totalDrinks++;
+            }
+            System.out.println(totalDrinks);
         }
     }
 }
