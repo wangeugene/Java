@@ -34,22 +34,19 @@ public class GuiceDemo {
         }
     }
 
-    static class Greeter{
-        public final String message;
-        public final int count;
+    record Greeter(String message, int count) {
+            @Inject
+            Greeter(@Message String message, @Count int count) {
+                this.message = message;
+                this.count = count;
+            }
 
-        @Inject
-        Greeter(@Message String message, @Count int count) {
-            this.message = message;
-            this.count = count;
-        }
-
-        void sayHello(){
-            for (int i = 0; i < count; i++) {
-                System.out.println(message);
+            void sayHello() {
+                for (int i = 0; i < count; i++) {
+                    System.out.println(message);
+                }
             }
         }
-    }
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new DemoModule());
