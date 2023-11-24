@@ -2,8 +2,11 @@ package hackerrank;
 
 public class CompareAnagram {
     public static void main(String[] args) {
-        boolean is = isAnagram("Abul", "BulA");
-        System.out.println(is ? "Anagram" : "Not Anagram");
+        String[] tests = {"Abul", "BulA", "Fxi", "Fix", "Road", "rod"};
+        for (int i = 0; i < tests.length; i += 2) {
+            boolean is = isAnagram(tests[i], tests[i + 1]);
+            System.out.println(is ? "Anagram" : "Not Anagram");
+        }
     }
 
     static boolean isAnagram(String a, String b) {
