@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 final class HashMapTest {
@@ -59,6 +56,18 @@ final class HashMapTest {
                         User::getName
                 ));
         assertGroupingOkay(usersByFirstNameStream);
+    }
+
+    @Test
+    void testSortByTwoKeys() {
+        List<User> usersSorted = users.stream()
+                .sorted(Comparator.comparing(User::getSalary).reversed().thenComparing(User::getAge))
+                .toList();
+
+        Assertions.assertEquals(usersSorted.size(), 6);
+        Assertions.assertEquals(usersSorted.get(0).getSalary(), 20000);
+        Assertions.assertEquals(usersSorted.get(0).getName(), "wang");
+        Assertions.assertEquals(usersSorted.get(1).getAge(), 1);
     }
 
     private static void assertGroupingOkay(Map<String, List<User>> usersByFirstName) {
