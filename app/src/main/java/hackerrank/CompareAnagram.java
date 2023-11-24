@@ -7,32 +7,30 @@ public class CompareAnagram {
     }
 
     static boolean isAnagram(String a, String b) {
-        // Complete the function
         if (a.length() != b.length()) {
             return false;
         }
-        char[] arrs = a.toUpperCase().toCharArray();
-        char[] brrs = b.toUpperCase().toCharArray();
-        arrs = bubbleSort(arrs);
-        brrs = bubbleSort(brrs);
-        for (int i = 0; i < brrs.length; i++) {
-            if (arrs[i] != brrs[i]) {
+        char[] as = a.toUpperCase().toCharArray();
+        char[] bs = b.toUpperCase().toCharArray();
+        bubbleSort(as);
+        bubbleSort(bs);
+        for (int i = 0; i < bs.length; i++) {
+            if (as[i] != bs[i]) {
                 return false;
             }
         }
         return true;
     }
 
-    static char[] bubbleSort(char[] arrs) {
-        for (int out = arrs.length - 1; out > 0; out--) {
+    static void bubbleSort(char[] chars) {
+        for (int out = chars.length - 1; out > 0; out--) {
             for (int in = 0; in < out; in++) {
-                if (arrs[in] > arrs[in + 1]) {
-                    char swap = arrs[in + 1];
-                    arrs[in + 1] = arrs[in];
-                    arrs[in] = swap;
+                if (chars[in] > chars[in + 1]) {
+                    char swap = chars[in + 1];
+                    chars[in + 1] = chars[in];
+                    chars[in] = swap;
                 }
             }
         }
-        return arrs;
     }
 }
