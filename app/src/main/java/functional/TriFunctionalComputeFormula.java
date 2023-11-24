@@ -1,6 +1,6 @@
 package functional;
 
-public class TriFunctionalMain {
+public class TriFunctionalComputeFormula {
     public static void main(String[] args) {
         TriFunctional<Integer, Integer, Integer, Integer> triFunc =
                 (x, y, z) -> x * y + z;
