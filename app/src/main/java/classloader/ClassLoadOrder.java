@@ -1,5 +1,6 @@
 package classloader;
 
+@Deprecated
 class SuperClassLoader {
     public SuperClassLoader() {
         System.out.println("SuperClass Constructor 5");
@@ -34,6 +35,7 @@ public class ClassLoadOrder extends SuperClassLoader {
     }
 }
 
+@Deprecated
 class SubClassLoadOrder extends ClassLoadOrder {
     public static void main(String[] args) {
         new SubClassLoadOrder();
