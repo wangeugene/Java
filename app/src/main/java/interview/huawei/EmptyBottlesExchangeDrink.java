@@ -1,7 +1,7 @@
 package interview.huawei;
 
 
-public class SparklingWater {
+public class EmptyBottlesExchangeDrink {
     public static void main(String[] args) {
         int[] ns = {3, 10, 81};
         for (int n : ns) {

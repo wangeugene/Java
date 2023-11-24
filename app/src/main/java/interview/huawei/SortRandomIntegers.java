@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.random.RandomGenerator;
 
-public class RandomSortingNumber {
+public class SortRandomIntegers {
 
     public static void main(String[] args) {
         List<Integer> ns = new ArrayList<>();

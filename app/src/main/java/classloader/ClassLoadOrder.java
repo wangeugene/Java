@@ -14,7 +14,7 @@ class SuperClassLoader {
     }
 }
 
-public class ClassLoader extends SuperClassLoader {
+public class ClassLoadOrder extends SuperClassLoader {
     private static int[] staticInts = {9, 8, 7};
     private int[] ints = {1, 2, 3};
 
@@ -23,7 +23,7 @@ public class ClassLoader extends SuperClassLoader {
         System.out.println("Initialize Block 6");
     }
 
-    public ClassLoader() {
+    public ClassLoadOrder() {
         System.out.println(staticInts[1]);
         System.out.println(ints[1]);
         System.out.println("Constructor 7");
@@ -34,12 +34,12 @@ public class ClassLoader extends SuperClassLoader {
     }
 }
 
-class SubClassLoader extends ClassLoader {
+class SubClassLoadOrder extends ClassLoadOrder {
     public static void main(String[] args) {
-        new SubClassLoader();
+        new SubClassLoadOrder();
     }
 
-    public SubClassLoader() {
+    public SubClassLoadOrder() {
         System.out.println("SubClass Constructor 9");
     }
 

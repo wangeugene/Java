@@ -1,8 +1,8 @@
 package hackerrank;
 
-public class RegexCompile {
+public class IPRegexMatch {
     public static void main(String[] args) {
-        String IP = "10.10.10.17";
+        String IP = "330.10.10.17";
         System.out.println(IP.matches(new MyRegex().pattern));
     }
 

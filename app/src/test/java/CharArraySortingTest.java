@@ -5,7 +5,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class StringTest {
+public class CharArraySortingTest {
 
     @Test
     void testCharacterSorting() {
