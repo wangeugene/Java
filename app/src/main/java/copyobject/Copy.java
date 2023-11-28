@@ -1,5 +1,7 @@
 package copyobject;
 
+import copyobject.pojo.User;
+
 import java.util.ArrayList;
 
 public class Copy {

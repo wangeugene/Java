@@ -1,4 +1,4 @@
-package copyobject;
+package copyobject.pojo;
 
 import lombok.Data;
 

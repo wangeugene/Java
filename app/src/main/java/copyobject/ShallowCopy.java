@@ -1,5 +1,7 @@
 package copyobject;
 
+import copyobject.pojo.User;
+
 public class ShallowCopy extends Copy {
     public static User getShallowCopy() {
         User userCopied = new User();

@@ -1,8 +1,8 @@
 package copyobjects.mapstruct;
 
 import copyobject.ShallowCopy;
-import copyobject.User;
-import copyobject.UserView;
+import copyobject.pojo.User;
+import copyobject.pojo.UserView;
 import copyobject.mapstruct.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
