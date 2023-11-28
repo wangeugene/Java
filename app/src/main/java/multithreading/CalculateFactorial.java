@@ -1,4 +1,4 @@
-package thread;
+package multithreading;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
