@@ -1,11 +1,14 @@
 package copyobjects;
 
+import copyobject.DeepCopy;
+import copyobject.ShallowCopy;
+import copyobject.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static copyobjects.Copy.user;
+import static copyobject.Copy.user;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
