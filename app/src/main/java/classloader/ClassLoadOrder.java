@@ -1,6 +1,5 @@
 package classloader;
 
-@Deprecated
 class SuperClassLoader {
     public SuperClassLoader() {
         System.out.println("SuperClass Constructor 5");
@@ -10,9 +9,6 @@ class SuperClassLoader {
         System.out.println("SuperClass Static Initialize Block 1");
     }
 
-    {
-        System.out.println("SuperClass Initialize Block 4");
-    }
 }
 
 public class ClassLoadOrder extends SuperClassLoader {
@@ -35,7 +31,6 @@ public class ClassLoadOrder extends SuperClassLoader {
     }
 }
 
-@Deprecated
 class SubClassLoadOrder extends ClassLoadOrder {
     public static void main(String[] args) {
         new SubClassLoadOrder();
@@ -49,8 +44,5 @@ class SubClassLoadOrder extends ClassLoadOrder {
         System.out.println("SubClass Static Initialize Block 3");
     }
 
-    {
-        System.out.println("SubClass Initialize Block 8");
-    }
 }
 
