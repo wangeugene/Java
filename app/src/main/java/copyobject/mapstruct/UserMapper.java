@@ -1,8 +1,8 @@
 package copyobject.mapstruct;
 
 
-import copyobject.User;
-import copyobject.UserView;
+import copyobject.pojo.User;
+import copyobject.pojo.UserView;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

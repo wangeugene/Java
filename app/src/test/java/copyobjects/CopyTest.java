@@ -2,7 +2,7 @@ package copyobjects;
 
 import copyobject.DeepCopy;
 import copyobject.ShallowCopy;
-import copyobject.User;
+import copyobject.pojo.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

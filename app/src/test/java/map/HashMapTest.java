@@ -1,6 +1,6 @@
 package map;
 
-import copyobject.User;
+import copyobject.pojo.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
