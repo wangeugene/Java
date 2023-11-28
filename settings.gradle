@@ -9,8 +9,5 @@
 
 rootProject.name = 'Java'
 include 'app'
-include 'list'
 include 'guice'
 include 'mockito'
-include 'predicate'
-include 'designPatterns'

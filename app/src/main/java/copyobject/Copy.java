@@ -3,7 +3,7 @@ package copyobject;
 import java.util.ArrayList;
 
 public class Copy {
-    protected static User user;
+    public static User user;
 
     static {
         user = new User();
