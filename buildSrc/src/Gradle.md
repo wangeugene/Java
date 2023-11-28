@@ -15,10 +15,12 @@ task // defined in build script
 ./gradlew <task-name>
 ./gradlew tasks // display tasks
 
-### config plugin 
-`which equals a predefined tasks set` 
+### config plugin
+
+`which equals a predefined tasks set`
 
 `to make gradle compile what in the src/main/java folder`
+
 ~~~groovy
 plugins {
     id 'java'
@@ -26,6 +28,7 @@ plugins {
 ~~~
 
 ### config packaging
+
 `to make the packaged jar executable from command line`
 
 `it is predefined task `
@@ -35,5 +38,32 @@ jar {
     manifest {
         attributes 'Main-Class': 'path_to_class_which_contains_the_main'
     }
+}
+~~~
+
+### Q & A
+
+`to support Kotlin, what to add in build.gradle`
+
+~~~groovy
+plugins {
+    kotlin("jvm") version "1.5.31"
+}
+dependencies {
+    implementation(kotlin("stdlib"))
+}
+~~~
+
+`to add customized task before the process resource lifecycle`
+short answers: use dependOn method.
+
+~~~groovy
+task.register("myTask") {
+    doLast {
+        println("hello world")
+    }
+}
+tasks.named("processResource") {
+    dependOn("MyTask")
 }
 ~~~
