@@ -47,7 +47,7 @@ jar {
 
 ~~~groovy
 plugins {
-    kotlin("jvm") version "1.5.31"
+    id "org.jetbrains.kotlin.jvm" version "1.9.21"
 }
 dependencies {
     implementation(kotlin("stdlib"))

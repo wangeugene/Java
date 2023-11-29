@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Function Component</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--    to support JSX syntax -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<!-- script type changed -->
+<script type="text/babel">
+    function Header(props) {
+        return (
+            <header>
+                <h1>{props.name}'s Kitchen</h1>
+            </header>
+        )
+    }
+
+    // arrow function () => ()
+    // avoid list rendering (<ul>) with array looping (dishes) by pre-executing map loop
+    function Main(props) {
+        return (
+            <section>
+                <p>
+                    We serve the most delicious food around
+                </p>
+                <ul>
+                    {props.dishes.map((dish) => (
+                        <li key={dish.id}>
+                            {dish.title}
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        )
+    }
+
+    function Footer(props) {
+        console.log(props)
+        return (
+            <footer>
+                <p>Copyright {props.year}</p>
+            </footer>
+        )
+    }
+
+    const dishes = [
+        "Black Bean Soup",
+        "Macaroni and Cheese",
+        "Salmon and Potatoes",
+        "Pizza"
+    ]
+
+    const dishObjects = dishes.map((dish, i) => ({
+            id: i,
+            title: dish
+        }
+    ))
+
+    // <Footer year={2023}/> number can also pass like this
+    // component returned to return method must be a single one
+    // either can wrap components using <div> or <React.Fragment>
+    // <React.Fragment> direct wrapper will add anything to DOM
+    function App() {
+        return (
+            <React.Fragment>
+                <Header name="Cindy"/>
+                <Main dishes={dishObjects}/>
+                <Footer year={new Date().getFullYear()}/>
+            </React.Fragment>
+        )
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("root")
+    )
+</script>
+
+</body>
+</html>
