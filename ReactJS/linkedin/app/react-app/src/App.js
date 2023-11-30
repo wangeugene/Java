@@ -26,11 +26,25 @@ function App({library}) {
 
     const [checked2, setChecked2] = useReducer((checked2) => !checked2, false);
 
-    const txtTitle = useRef();
-    const hexColor = useRef();
+    const [color, setColor] = useState("#000000")
     const submit = (e) => {
         e.preventDefault();
+        alert(`${title.value}, ${color}`)
+        setTitle()
+        setColor("#000000")
     }
+
+    // customized hook
+    const [title, setTitle] = useInput("")
+
+    function useInput(initialValue) {
+        const [value, setValue] = useState(initialValue)
+        return [
+            {value, onChange: e => setValue(e.target.value)},
+            () => setValue(initialValue)
+        ];
+    }
+
     return (
         <div className="App">
             <h1>Hello from {library}</h1>
@@ -56,14 +70,15 @@ function App({library}) {
             <label>{checked2 ? "Checked2" : "Not Checked2"}</label>
 
             <p/>
-            <form>
+            <form onSubmit={submit}>
                 <input
-                    ref={txtTitle}
+                    {...title} // spread operator == the returned array of useInput customized hook
                     type="text"
                     placeholder="color title"
                 />
                 <input
-                    ref={hexColor}
+                    value={color}
+                    onChange={(event) => setColor(event.target.value)}
                     type="color"/>
                 <button>ADD</button>
             </form>
