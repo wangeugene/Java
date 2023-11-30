@@ -59,3 +59,8 @@ the states of threads changes between one another without making any progress
 ### BlockingQueue
 
 Thread-Safe Queue used to implement 
+
+### scheduling goals
+fairness
+wait time
+
