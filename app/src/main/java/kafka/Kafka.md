@@ -15,3 +15,5 @@
    read-many analytics
    .Avro: row-based storage, binary format, compact & space-efficient
    .ORC: columnar storage format, suited for read-heavy operations.
+
+#
