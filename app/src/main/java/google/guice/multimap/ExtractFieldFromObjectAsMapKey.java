@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * derive key directly from value object
  */
-public class MapUniqueIndexExample {
+public class ExtractFieldFromObjectAsMapKey {
     public static void main(String[] args) {
         List<Color> colors = new ArrayList<>();
         colors.add(new Color("red", 255, 0, 0));
