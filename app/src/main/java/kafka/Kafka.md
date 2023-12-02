@@ -16,4 +16,15 @@
    .Avro: row-based storage, binary format, compact & space-efficient
    .ORC: columnar storage format, suited for read-heavy operations.
 
-#
+# Concepts:
+
+To enhance the learning process, all the concept part should be written by recalling from brain memory, should not be
+typing by looking at other resources, so error may occur
+
+My UnderStanding about how kafka works as an overview:
+Kafka is a message(event) middleware that supports decoupling the components in a big software architecture
+Kafka Clusters consist of many brokers(nodes where save the topic partitions, nodes can be real servers or docker
+containers)
+Kafka brokers read from data source layers (e.g. a relational database),using Kafka Connect API (which is used to
+import / export data), and save these data (events in context of kafka) as partitions in brokers as immutable data.
+which by default have life span of one week, before automatically removed by the kafka mechanism.
