@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "message": "marshalling okay",
+  "code": 200,
+  "result": [
+    {
+      "json_str": {
+        "time": 1701014820,
+        "index": 0.63
+      }
+    },
+    {
+      "json_str": {
+        "time": 1701015240,
+        "index": 0.64
+      }
+    },
+    {
+      "json_str": {
+        "time": 1701098553,
+        "index": 0.7
+      }
+    }
+  ],
+  "timestamp": 1701654082888
+}

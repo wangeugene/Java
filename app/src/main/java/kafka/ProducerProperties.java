@@ -1,8 +1,5 @@
 package kafka;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-
 import java.util.Properties;
 
 /**
@@ -16,8 +13,8 @@ import java.util.Properties;
  * Current Storage
  * 125B
  */
-public class ProducerClient {
-    public static void main(String[] args) throws Exception {
+public class ProducerProperties {
+    public static Properties getBasicProperties() {
         var props = new Properties();
         props.put("bootstrap.servers", "rich-sunbird-12750-us1-kafka.upstash.io:9092");
         props.put("sasl.mechanism", "SCRAM-SHA-256");
@@ -25,12 +22,6 @@ public class ProducerClient {
         props.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"cmljaC1zdW5iaXJkLTEyNzUwJMkIC8gJ27v70YF_4n00KkgRPlpl9J2O-o9OAOc\" password=\"NjllNWFjZmEtMDZlMi00NTk4LWI2MmEtNzg1ZjdjNDc0N2Q5\";");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
-        try (var producer = new KafkaProducer<String, String>(props)) {
-            String topic = "todolist_topic";
-            String message = "this is a message to be sent to the todolist_topic topic.";
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, message);
-            producer.send(record);
-        }
+        return props;
     }
 }
