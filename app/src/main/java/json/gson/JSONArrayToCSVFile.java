@@ -1,4 +1,4 @@
-package json;
+package json.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Run this <a href="nio.ExtractJSONArrayFromKeyValueStringFile">Preprocessor</a>
+ * Before run this class
+ */
 public class JSONArrayToCSVFile {
     private static final Gson gson = new Gson();
 

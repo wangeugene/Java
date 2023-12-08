@@ -15,7 +15,7 @@ import java.util.List;
 public class ExtractJSONArrayFromKeyValueStringFile {
 
     public static void main(String[] args) {
-        Path path = Path.of("/Users/eugene/IdeaProjects/Java/app/src/main/resources/input.response");
+        Path path = Path.of("/Users/eugene/IdeaProjects/Java/app/src/main/resources/jsonAlikeInput.response");
         Path pathOut = Path.of("/Users/eugene/IdeaProjects/Java/app/src/main/resources/nioWrite.json");
         try {
             List<String> lines = Files.readAllLines(path);
