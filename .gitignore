@@ -904,3 +904,4 @@ gradle/
 /graphQL/node_modules/vary/package.json
 /graphQL/node_modules/vary/README.md
 /graphQL/node_modules/.package-lock.json
+/app/src/main/generated/
