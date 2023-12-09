@@ -16,7 +16,8 @@ dependencies {
 
     implementation 'com.google.inject:guice:5.1.0'
 
-//  the single jar contains both producer / consumer APIs already
+    // kafka related start
+    // the single jar contains both producer / consumer APIs already
     implementation 'org.apache.kafka:kafka-clients:3.6.0'
     // for Live Monitor
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
@@ -24,6 +25,9 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'
     implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0'
+
+    implementation 'org.opensearch.client:opensearch-rest-high-level-client:2.1.0'
+    // kafka related end
 
 
     implementation 'com.google.code.gson:gson:2.8.9'
