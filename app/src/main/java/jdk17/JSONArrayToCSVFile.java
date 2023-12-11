@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:app/src/main/java/json/gson/JSONArrayToCSVFile.java
 package json.gson;
+========
+package jdk17;
+>>>>>>>> origin/main:app/src/main/java/jdk17/JSONArrayToCSVFile.java
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,6 +17,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Run this <a href="nio.ExtractJSONArrayFromKeyValueStringFile">Preprocessor</a>
