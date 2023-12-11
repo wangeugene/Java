@@ -1,4 +1,4 @@
-package json;
+package jdk17;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,6 +13,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JSONArrayToCSVFile {
     private static final Gson gson = new Gson();
