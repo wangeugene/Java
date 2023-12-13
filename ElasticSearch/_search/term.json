@@ -1,0 +1,7 @@
+{
+  "query": {
+    "term": {
+      "account_number": 516
+    }
+  }
+}

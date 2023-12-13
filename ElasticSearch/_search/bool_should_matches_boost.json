@@ -1,0 +1,21 @@
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "state": "CA"
+          }
+        },
+        {
+          "match": {
+            "lastName": {
+              "query": "Smith",
+              "boost": 3
+            }
+          }
+        }
+      ]
+    }
+  }
+}

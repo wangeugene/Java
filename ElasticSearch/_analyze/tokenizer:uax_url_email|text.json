@@ -1,0 +1,4 @@
+{
+  "tokenizer": "uax_url_email",
+  "text": "you@example.com login at https://bensuillins.com attempt"
+}

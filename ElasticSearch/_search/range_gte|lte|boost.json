@@ -1,0 +1,11 @@
+{
+  "query": {
+    "range": {
+      "account_number": {
+        "gte": 516,
+        "lte": 851,
+        "boost": 2
+      }
+    }
+  }
+}
