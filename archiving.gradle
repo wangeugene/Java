@@ -1,0 +1,13 @@
+task copyDoc(type: Copy) {
+    from 'app'
+    into 'markdown'
+    include '**/*.md'
+    includeEmptyDirs = false
+}
+
+task createZip(type: Zip) {
+    from 'markdown'
+    archiveFileName = 'docs.zip'
+    destinationDirectory = file('build/test')
+    dependsOn(copyDoc)
+}
