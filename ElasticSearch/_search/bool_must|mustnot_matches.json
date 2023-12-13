@@ -1,0 +1,20 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "state": "CA"
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "match": {
+            "employer": "Techade"
+          }
+        }
+      ]
+    }
+  }
+}
