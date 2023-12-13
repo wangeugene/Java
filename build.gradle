@@ -1,5 +1,7 @@
-task "helloWorld" {
+task helloWorld {
     doLast {
-        println("hello world")
+        println('hello world')
     }
 }
+apply from: 'archiving.gradle'
+apply plugin: 'base'
