@@ -1,0 +1,14 @@
+{
+  "size": 0,
+  "aggs": {
+    "bal_outlier": {
+      "percentile_ranks": {
+        "field": "balance",
+        "values": [
+          35000,
+          50000
+        ]
+      }
+    }
+  }
+}

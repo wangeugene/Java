@@ -1,0 +1,27 @@
+{
+  "size": 0,
+  "aggs": {
+    "state_avg": {
+      "terms": {
+        "field": "state.keyword"
+      },
+      "aggs": {
+        "avg_bal": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    },
+    "global_avg": {
+      "global": {},
+      "aggs": {
+        "avg_bal": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}

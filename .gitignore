@@ -9,5 +9,5 @@ app/out
 app/src/main/generated/
 build/
 markdown/
-
+/ElasticSearch/uploadData/shakespeare.json
 
