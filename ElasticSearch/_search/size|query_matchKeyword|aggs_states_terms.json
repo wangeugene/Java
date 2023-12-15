@@ -1,0 +1,15 @@
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "state.keyword": "CA"
+    }
+  },
+  "aggs": {
+    "states": {
+      "terms": {
+        "field": "state.keyword"
+      }
+    }
+  }
+}

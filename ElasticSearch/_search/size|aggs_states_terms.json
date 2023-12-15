@@ -1,0 +1,10 @@
+{
+  "size": 0,
+  "aggs": {
+    "states": {
+      "terms": {
+        "field": "state.keyword"
+      }
+    }
+  }
+}

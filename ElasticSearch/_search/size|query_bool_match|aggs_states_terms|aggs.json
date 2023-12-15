@@ -1,0 +1,35 @@
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "state.keyword": "CA"
+          }
+        },
+        {
+          "range": {
+            "age": {
+              "gte": 35
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "states": {
+      "terms": {
+        "field": "state.keyword"
+      }
+    },
+    "aggs": {
+      "avg_bal": {
+        "avg": {
+          "field": "balance"
+        }
+      }
+    }
+  }
+}

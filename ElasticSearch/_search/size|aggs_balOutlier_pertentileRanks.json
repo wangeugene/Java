@@ -1,0 +1,19 @@
+{
+  "size": 0,
+  "aggs": {
+    "pct_balances": {
+      "per": {
+        "field": "balance",
+        "percents": [
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99
+        ]
+      }
+    }
+  }
+}
