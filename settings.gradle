@@ -9,5 +9,3 @@
 
 rootProject.name = 'Java'
 include 'app'
-include 'guice'
-include 'mockito'

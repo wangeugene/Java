@@ -28,5 +28,6 @@ curl -XPOST -i -k -H "Content-Type: application/x-ndjson" -H "Authorization: Api
 ?pretty option didn't work, but removing that worked.
 
 ```shell
-curl -XPOST -i -k  -H "Content-Type: application/x-ndjson"  -H "Authorization: ApiKey $ES_API_KEY"  $ES_HOST/shakespeare/_bulk --data-binary @shakespeare.json; echo
+curl -XPOST -i -k -H "Content-Type: application/x-ndjson"  -H "Authorization: ApiKey $ES_API_KEY"  $ES_HOST/shakespeare/_bulk --data-binary @shakespeare.json; echo
 ```
+`curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)`
