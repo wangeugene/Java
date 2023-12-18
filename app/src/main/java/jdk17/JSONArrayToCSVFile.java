@@ -1,9 +1,3 @@
-<<<<<<<< HEAD:app/src/main/java/json/gson/JSONArrayToCSVFile.java
-package json.gson;
-========
-package jdk17;
->>>>>>>> origin/main:app/src/main/java/jdk17/JSONArrayToCSVFile.java
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -56,7 +50,7 @@ public class JSONArrayToCSVFile {
 
             List<String> outlines = outs.stream()
                     .map(line -> String.join(",", line))
-                    .toList();
+                    .collect(Collectors.toList());
             Files.write(outPath, outlines, StandardOpenOption.CREATE);
 
         } catch (IOException e) {
