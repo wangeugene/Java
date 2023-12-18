@@ -28,13 +28,16 @@ The primary AWS platform includes computing, storage, database, and networking
 
 #EC2 vs Beanstalk
 EC2 you have to configure hardware parameters and dependencies for your web app
-Elastic Beanstalk can automatically implement the dependencies based on your web app, e.g. your web app is .Net based
+Elastic Beanstalk can automatically implement the dependencies based on your web app, e.g., your web app is .Net based
 
 #Storages
 S3: Simple Storage
 EFS: Elastic FileSystem
 Glacier: for archival purpose, cheapest.
 Storage Gateway: local storage sync with cloud storage
+CloudFront: Get stuff closer to your users
+Elastic Block Store(EBS): Block level rapid access than object level access like S3
+Storage Gateway: appliances(software or hardware) on your local network that acts like VPN to your remote storage
 
 #Databases
 RDS: Traditional relational database
