@@ -1,17 +1,16 @@
 package multithreading;
 
+import lombok.Setter;
+
 class ChopperThread extends Thread {
     private int countChopped;
     private String chopper;
+    @Setter
     private boolean started;
 
     public ChopperThread(String chopper, boolean started) {
         this.started = started;
         this.chopper = chopper;
-    }
-
-    public void setStarted(boolean started) {
-        this.started = started;
     }
 
     @Override

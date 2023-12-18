@@ -50,17 +50,21 @@ CPU cache, so each thread can get an updated value of the variable
 
 ### thread starvation
 
-because current thread is of low priority can't get the CPU resource to execute
+because the current thread is of low priority can't get the CPU resource to execute
 
 ### LiveLock
 
-the states of threads changes between one another without making any progress
+the states of threads change between one another without making any progress
 
 ### BlockingQueue
 
-Thread-Safe Queue used to implement 
+Thread-Safe Queue used to implement
 
 ### scheduling goals
+
 fairness
 wait time
 
+### What's the difference between a thread in wait status or in block status
+
+Both are waiting to acquire a lock on a lock
