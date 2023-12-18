@@ -2,6 +2,7 @@ package hackerrank;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HourGlassSum {
     public static void main(String[] args) {
@@ -14,8 +15,8 @@ public class HourGlassSum {
                 {-1, -3, -1, -2, -4, -5}
         };
         List<List<Integer>> arr = Arrays.stream(arr2D)
-                .map(row -> Arrays.stream(row).boxed().toList())
-                .toList();
+                .map(row -> Arrays.stream(row).boxed().collect(Collectors.toList()))
+                .collect(Collectors.toList());
 
         int sum = getSum(arr);
         System.out.println(sum);
