@@ -14,8 +14,8 @@ call threadObject.start() for a single thread
 
 ### ThreadPool
 
-Executors a static utility classes to trigger
-But not recommended to use, because it used unbounded linked list as work queue for thread objects.
+The `Executors` class is a static utility classes to trigger
+But not recommended to use, because it used an unbounded linked list as work queue for thread objects.
 MaximumPoolSize = workQueueSize + corePoolSize
 
 ### Synchronized vs ReentrantLock
@@ -31,7 +31,7 @@ Object-level lock: synchronized
 
 ### wait vs sleep
 
-wait: non-static method,should be only called from a synchronized context, will release the lock
+wait: non-static method should be only called from a synchronized context will release the lock
 sleep: static method, no need to be called from a synchronized context, won't release the lock
 
 ### notify vs notifyAll
@@ -65,6 +65,13 @@ Thread-Safe Queue used to implement
 fairness
 wait time
 
-### What's the difference between a thread in wait status or in block status
+### What's the difference between a thread in wait status or in block status?
 
-Both are waiting to acquire a lock on a lock
+WAIT & TIMED_WAIT are Java unique thread statuses in addition to the standard four thread statuses:
+NEW, RUNNABLE, BLOCKED, TERMINATED;
+
+### Why should you avoid using Java's synchronized statement on an immutable object such as an Integer?
+
+If you change that variable's value, you will be synchronized to a different object
+
+If you run multiple Java applications at the same time, they will execute in separate JVM processes
