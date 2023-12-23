@@ -1,5 +1,6 @@
 package map;
 
+import com.google.common.collect.ImmutableList;
 import copyobject.pojo.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,16 +9,16 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
-final class HashMapTest {
+final class StreamTest {
     private List<User> users = new ArrayList<>();
     private List<User> user2s = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        users.add(User.builder().age(22).salary(2000).name("wang").build());
+        users.add(User.builder().age(22).salary(2000).name("wang").experiences(ImmutableList.of("IBM", "APPLE", "TESLA")).build());
         users.add(User.builder().age(25).salary(5000).name("wang").build());
         users.add(User.builder().age(32).salary(20000).name("wang").build());
-        users.add(User.builder().age(22).salary(3000).name("li").build());
+        users.add(User.builder().age(22).salary(3000).name("li").experiences(ImmutableList.of("IBM", "MICROSOFT", "TENCENT")).build());
         users.add(User.builder().age(52).salary(3000).name("li").build());
         users.add(User.builder().age(10).salary(10).name("xu").build());
 
@@ -34,6 +35,27 @@ final class HashMapTest {
         Assertions.assertEquals(users.size(), 1);
         Assertions.assertEquals(users.get(0).getName(), "xu");
         Assertions.assertEquals(users.get(0).getAge(), 10);
+    }
+
+    @Test
+    void testMaxSalary() {
+        Integer max = users.stream()
+                .map(User::getSalary)
+                .max(Comparator.naturalOrder())
+                .map(Double::intValue)
+                .orElse(0);
+        Assertions.assertEquals(20000, max);
+    }
+
+    @Test
+    void testListExperiences() {
+        List<String> uniqueExperiences = users.stream()
+                .filter(u -> u.getExperiences() != null)
+                .flatMap(u -> u.getExperiences().stream())
+                .distinct()
+                .collect(Collectors.toList());
+        Assertions.assertEquals(5, uniqueExperiences.size());
+        Assertions.assertTrue(uniqueExperiences.contains("TESLA"));
     }
 
     @Test
@@ -62,12 +84,12 @@ final class HashMapTest {
     void testSortByTwoKeys() {
         List<User> usersSorted = users.stream()
                 .sorted(Comparator.comparing(User::getSalary).reversed().thenComparing(User::getAge))
-                .toList();
+                .collect(Collectors.toList());
 
         Assertions.assertEquals(usersSorted.size(), 6);
         Assertions.assertEquals(usersSorted.get(0).getSalary(), 20000);
         Assertions.assertEquals(usersSorted.get(0).getName(), "wang");
-        Assertions.assertEquals(usersSorted.get(1).getAge(), 1);
+        Assertions.assertEquals(usersSorted.get(1).getAge(), 25);
     }
 
     private static void assertGroupingOkay(Map<String, List<User>> usersByFirstName) {

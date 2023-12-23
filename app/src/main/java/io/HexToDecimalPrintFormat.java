@@ -1,6 +1,6 @@
-package interview.huawei;
+package io;
 
-public class HexToDecimal {
+public class HexToDecimalPrintFormat {
     public static void main(String[] args) {
         String hex = "AA";
         System.out.println(Integer.parseInt(hex, 16));
