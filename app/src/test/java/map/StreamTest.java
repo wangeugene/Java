@@ -92,6 +92,46 @@ final class StreamTest {
         Assertions.assertEquals(usersSorted.get(1).getAge(), 25);
     }
 
+    @Test
+    void testSumSalary() {
+        Double sumSalary = users.stream()
+                .map(User::getSalary)
+                .reduce(0.0, Double::sum);
+        Assertions.assertEquals(sumSalary, 33010);
+    }
+
+    @Test
+    void testMeanSalary() {
+        Double meanSalary = users.stream()
+                .map(User::getSalary)
+                .reduce(0.0, Double::sum) / users.size();
+        Assertions.assertEquals(meanSalary, 5501.666666666667);
+    }
+
+    @Test
+    void testMedianSalary() {
+        Double medianSalary = users.stream()
+                .map(User::getSalary)
+                .sorted()
+                .skip(users.size() / 2)
+                .limit(1 + (users.size() % 2))
+                .reduce(0.0, Double::sum);
+        Assertions.assertEquals(medianSalary, 3000);
+    }
+
+    @Test
+    void testMostOccurrenceSalary() {
+        Double mostOccurrenceSalary = users.stream()
+                .map(User::getSalary)
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(0.0);
+        Assertions.assertEquals(mostOccurrenceSalary, 3000);
+    }
+
     private static void assertGroupingOkay(Map<String, List<User>> usersByFirstName) {
         Assertions.assertEquals(usersByFirstName.size(), 3);
         Assertions.assertEquals(usersByFirstName.get("wang").size(), 3);
