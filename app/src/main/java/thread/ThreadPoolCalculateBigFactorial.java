@@ -1,10 +1,10 @@
-package multithreading;
+package thread;
 
 import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class CalculateFactorial {
+public class ThreadPoolCalculateBigFactorial {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(3, 7, 10, 14, 20);
         Map<Integer, BigInteger> answers = findAnswer(numbers);
