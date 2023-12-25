@@ -5,3 +5,6 @@ console.log(arr.indexOf(99) >= 0)
 
 // check if 2 is in the array
 console.log(arr.indexOf(2) >= 0)
+
+console.log(arr.includes(1))
+console.log(arr.includes(100))
