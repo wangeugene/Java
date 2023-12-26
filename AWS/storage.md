@@ -1,4 +1,4 @@
-#Object storage
+# Object storage
 
 ## S3 Storage
 
@@ -68,3 +68,15 @@ Like other AWS services, EFS shares can be tagged for better management and loca
 
 Endpoints are created within your Virtual Private Cloud (VPC).
 PrivateLink allows for secure connection between VPCs, Services, and applications in AWS.
+
+### FSx
+
+When setting up FSx, adding a file system name is optional, but makes it easier to manage
+FSx, just like other AWS file systems, can be deployed to one or more availability zones (AZ).
+In FSx, Windows authentication through Active Directory can be self-managed or AWS-managed.
+
+### Storage Gateway
+
+The Storage Gateway connects on-premises software appliance with cloud-based storage.
+Storage Gateway supports three types of storage: file, volume, and tape.
+The File Gateway provides an Interface to S3 buckets.
