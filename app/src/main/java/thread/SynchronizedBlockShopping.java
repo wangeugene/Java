@@ -31,8 +31,8 @@ class SynchronizedBlockShopper extends Thread {
     private void addPotato() {
         synchronized (garlicLock) {
             potatoCount++;
+            addGarlic();
         }
-        addGarlic();
     }
 }
 
