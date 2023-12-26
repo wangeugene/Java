@@ -23,7 +23,7 @@ aRectangle = create_rectangle(2, 3)
 console.log(aRectangle.area());
 console.log(aRectangle.perimeter());
 
-const rec = new Rectangle(5,6)
+const rec = new Rectangle(5, 6)
 console.log(rec.length)
 console.log(rec.width)
 console.log(rec.area)
