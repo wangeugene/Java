@@ -28,7 +28,8 @@ final class MemoryAllocation {
             return false;
         }
         Integer ceilingKeyCount = sizeCounts.get(ceilingKey);
-        while (ceilingKeyCount > 0) {
+        // refactor the block below
+        if (ceilingKeyCount > 0) {
             ceilingKeyCount--;
             if (ceilingKeyCount == 0) {
                 sizeCounts.remove(ceilingKey);

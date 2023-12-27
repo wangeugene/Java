@@ -10,4 +10,4 @@ app/src/main/generated/
 build/
 markdown/
 /ElasticSearch/uploadData/shakespeare.json
-
+NodeJS/node_file_write.txt
