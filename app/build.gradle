@@ -14,13 +14,13 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
-    implementation 'com.google.inject:guice:5.1.0'
+    implementation 'com.google.inject:guice:7.0.0'
 
     // kafka related start
     // the single jar contains both producer / consumer APIs already
     implementation 'org.apache.kafka:kafka-clients:3.6.0'
     // for Live Monitor
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.launchdarkly:okhttp-eventsource:2.5.0'
 
     implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'

@@ -20,7 +20,9 @@ public class LinkedList {
 
     private static Node tail(Node head) {
         Node it;
-        for (it = head; it != null && it.next != null; it = it.next) {}
+        for (it = head; it != null && it.next != null; it = it.next) {
+            System.out.println("it = " + it);
+        }
 
         return it;
     }
@@ -28,8 +30,8 @@ public class LinkedList {
     public boolean remove(String element) {
         boolean result = false;
         Node previousIt = null;
-        Node it = null;
-        for (it = head; !result && it != null; previousIt = it, it = it.next) {
+        Node it;
+        for (it = head; it != null; previousIt = it, it = it.next) {
             if (0 == element.compareTo(it.data)) {
                 result = true;
                 unlink(previousIt, it);
@@ -51,7 +53,9 @@ public class LinkedList {
     public int size() {
         int size = 0;
 
-        for (Node it = head; it != null; ++size, it = it.next) {}
+        for (Node it = head; it != null; ++size, it = it.next) {
+            System.out.println("it = " + it);
+        }
 
         return size;
     }

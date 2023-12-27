@@ -17,8 +17,6 @@ public class ArrayListMapExample {
         String key = "key1";
         Collection<String> values = asList("NAV", "CLIENT", "PRICE");
         map.putAll(key, values);
-
-        map.get(key);
         System.out.println("map = " + map);
     }
 }
