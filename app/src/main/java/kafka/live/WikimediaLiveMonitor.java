@@ -3,7 +3,7 @@ package kafka.live;
 import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.EventSource;
 import com.launchdarkly.eventsource.MessageEvent;
-import kafka.ProducerProperties;
+import kafka.ProducerPropertiesProvider;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -35,11 +35,11 @@ import java.util.concurrent.TimeUnit;
  * good for: Larger batches and reduced latency
  * Over time, records are still spread evenly across partitions
  */
-public class LiveMonitorWikimedia {
-    private static final Logger logger = LoggerFactory.getLogger(LiveMonitorWikimedia.class);
+public class WikimediaLiveMonitor {
+    private static final Logger logger = LoggerFactory.getLogger(WikimediaLiveMonitor.class);
 
     public static void main(String[] args) throws MalformedURLException {
-        Properties props = ProducerProperties.getBasicProperties();
+        Properties props = ProducerPropertiesProvider.getBasicProperties();
         // set high throughput producer config
         props.put(ProducerConfig.LINGER_MS_CONFIG, "20");
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024));

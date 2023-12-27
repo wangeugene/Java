@@ -1,6 +1,6 @@
 package kafka.basic;
 
-import kafka.ProducerProperties;
+import kafka.ProducerPropertiesProvider;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -19,14 +19,14 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class ProducerClient {
     public static void main(String[] args) throws Exception {
-        var props = ProducerProperties.getBasicProperties();
+        var props = ProducerPropertiesProvider.getBasicProperties();
 
         try (var producer = new KafkaProducer<String, String>(props)) {
             String topic = "todolist_topic";
             String message = "this is a message to be sent to the todolist_topic topic with a callback method";
             ProducerRecord<String, String> record = new ProducerRecord<>(topic, message);
             producer.send(record, (metadata, exception) -> {
-                // this callback is actually the acknowledgement from brokers,that the event or message is received, for confirmation purpose
+                // this callback is actually the acknowledgement from brokers that the event or message is received, for confirmation purpose
                 if (exception == null) {
                     System.out.printf("%s : %s : %d : %s", metadata.topic(), metadata.partition(), metadata.offset(), metadata.timestamp());
                 } else {

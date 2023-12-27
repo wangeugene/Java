@@ -2,7 +2,7 @@ package kafka;
 
 import java.util.Properties;
 
-public class ConsumerProperties {
+public class ConsumerPropertiesProvider {
     public static Properties getProperties() {
         var props = new Properties();
         props.put("bootstrap.servers", "rich-sunbird-12750-us1-kafka.upstash.io:9092");

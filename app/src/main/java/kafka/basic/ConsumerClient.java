@@ -1,6 +1,6 @@
 package kafka.basic;
 
-import kafka.ConsumerProperties;
+import kafka.ConsumerPropertiesProvider;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,7 +15,7 @@ import java.util.Collections;
  */
 public class ConsumerClient {
     public static void main(String[] args) throws Exception {
-        var props = ConsumerProperties.getProperties();
+        var props = ConsumerPropertiesProvider.getProperties();
 
         try (var consumer = new KafkaConsumer<String, String>(props)) {
             String topic = "todolist_topic";
