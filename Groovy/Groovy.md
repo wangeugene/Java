@@ -17,4 +17,5 @@ Simplify testing and mocking out of the box
 ```shell
 GROOVY_HOME=$HOMEBREW_PREFIX/opt/groovy/libexec
 echo $GROOVY_HOME
+groovy -version
 ```
