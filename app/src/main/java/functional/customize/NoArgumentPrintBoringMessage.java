@@ -1,4 +1,4 @@
-package functional;
+package functional.customize;
 
 public class NoArgumentPrintBoringMessage {
     public static void main(String[] args) {

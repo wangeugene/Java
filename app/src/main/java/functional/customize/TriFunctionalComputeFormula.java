@@ -1,4 +1,4 @@
-package functional;
+package functional.customize;
 
 public class TriFunctionalComputeFormula {
     public static void main(String[] args) {
