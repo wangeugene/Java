@@ -13,7 +13,7 @@ import java.util.Properties;
  * Current Storage
  * 125B
  */
-public class ProducerProperties {
+public class ProducerPropertiesProvider {
     public static Properties getBasicProperties() {
         var props = new Properties();
         props.put("bootstrap.servers", "rich-sunbird-12750-us1-kafka.upstash.io:9092");
