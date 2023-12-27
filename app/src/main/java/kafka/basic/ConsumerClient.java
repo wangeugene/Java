@@ -13,6 +13,7 @@ import java.util.Collections;
  * offset = 0, key = null, value = this is a message to be sent to the todolist_topic topic.
  * so the offset starts from 0 index
  */
+@SuppressWarnings("InfiniteLoopStatement")
 public class ConsumerClient {
     public static void main(String[] args) throws Exception {
         var props = ConsumerPropertiesProvider.getProperties();
