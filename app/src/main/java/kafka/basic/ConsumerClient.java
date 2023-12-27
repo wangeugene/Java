@@ -11,7 +11,7 @@ import java.util.Collections;
 /**
  * read from console
  * offset = 0, key = null, value = this is a message to be sent to the todolist_topic topic.
- * so the offset starts from 0 index
+ * so the offset starts from index 0
  */
 @SuppressWarnings("InfiniteLoopStatement")
 public class ConsumerClient {
