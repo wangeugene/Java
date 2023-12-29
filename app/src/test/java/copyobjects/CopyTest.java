@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 final class CopyTest {
-
     private static User shallowCopy;
     private static User deepCopy;
 
