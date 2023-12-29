@@ -28,11 +28,11 @@ import java.io.IOException;
  *
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html">BufferedReader</a>
  */
-public class ReadFileBufferedReader {
+public class BufferedFileReader {
     public static void main(String[] args) {
         try {
             // Notice that the path is relative to the project root directory.
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("app/src/main/java/io/ReadFileBufferedReader.java"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("app/src/main/java/io/BufferedFileReader.java"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);

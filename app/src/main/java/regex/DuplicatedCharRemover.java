@@ -1,11 +1,11 @@
-package interview.bytedance;
+package regex;
 
 import java.util.function.Function;
 
 /**
  * \\w is to match single character
  */
-public class StringDuplicateCharRemoval {
+public class DuplicatedCharRemover {
     public static void main(String[] args) {
         Function<String, String> changeAAAtoAA
                 = s -> s.replaceAll("(\\w)\\1{2,}", "$1$1");

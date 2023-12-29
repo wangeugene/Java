@@ -3,7 +3,7 @@ package io;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-public class StandardInputBufferedInputStream {
+public class StandardInputReader {
     public static void main(String[] args) throws IOException {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(System.in);
         System.out.println("Enter some text: ");

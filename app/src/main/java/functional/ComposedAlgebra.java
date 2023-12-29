@@ -2,7 +2,7 @@ package functional;
 
 import java.util.function.Function;
 
-public class FunctionalComposition {
+public class ComposedAlgebra {
     public static void main(String[] args) {
         Function<Integer, Integer> times3 = x -> x * 3;
         Function<Integer, Integer> plus1 = x -> x + 1;

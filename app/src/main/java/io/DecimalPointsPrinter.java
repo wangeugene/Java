@@ -1,6 +1,6 @@
 package io;
 
-public class DecimalPointsSystemPrintFormat {
+public class DecimalPointsPrinter {
     public static void main(String[] args) {
         final double d = 5.0;
         System.out.printf("%f%n", d);
