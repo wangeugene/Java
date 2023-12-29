@@ -1,6 +1,6 @@
 package hackerrank;
 
-public class SpitStringByNonAlphabet {
+public class WordSplitter {
     public static void main(String[] args) {
         String input = "He is a very very good boy,,,,      isn't he?";
         String[] split = input.split("[^A-Za-z]+");

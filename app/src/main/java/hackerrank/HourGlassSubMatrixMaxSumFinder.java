@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HourGlassSum {
+public class HourGlassSubMatrixMaxSumFinder {
     public static void main(String[] args) {
         int[][] arr2D = {
                 {-1, -1, 0, -9, -2, -2},

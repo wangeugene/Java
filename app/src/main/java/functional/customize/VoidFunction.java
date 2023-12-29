@@ -1,5 +1,5 @@
 package functional.customize;
 
-public interface NoArgumentFunctional {
+public interface VoidFunction {
     void apply();
 }
