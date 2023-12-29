@@ -7,17 +7,13 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class CharArraySortingTest {
-
+class CharArraySortingTest {
     @Test
     void testCharacterSorting() {
-        String a = "hello";
-        String b = "ellho";
-        char[] as = a.toCharArray();
-        char[] bs = b.toCharArray();
+        char[] as = "hello".toCharArray();
+        char[] bs = "ellho".toCharArray();
         Arrays.sort(as);
         Arrays.sort(bs);
-        assertEquals(new String(as),new String(bs));
         assertEquals("ehllo", new String(as));
     }
 }

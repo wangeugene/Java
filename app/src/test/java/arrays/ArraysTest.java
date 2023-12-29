@@ -6,14 +6,16 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * expanded elements in the array are initialized with their default values, which are 0.
+ */
 final class ArraysTest {
-    private int[] ints = {1, 2, 3, 4, 5, 6, 7};
+    private int[] numbers = {1, 2, 3, 4, 5, 6, 7};
 
     @Test
-    void testCopyOf() {
-        int[] intsCopyOf = Arrays.copyOf(ints, 10);
-        Arrays.stream(intsCopyOf).forEach(System.out::println);
-        assertEquals(intsCopyOf.length, 10);
-        assertEquals(intsCopyOf[intsCopyOf.length - 1], 0);
+    void testCopyArray() {
+        int[] numbersCopied = Arrays.copyOf(numbers, 10);
+        assertEquals(numbersCopied.length, 10);
+        assertEquals(numbersCopied[numbersCopied.length - 1], 0);
     }
 }

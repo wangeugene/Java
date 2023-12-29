@@ -3,7 +3,7 @@
  */
 package datastructure;
 
-public class LinkedList {
+public class SingleLinkedList {
     private Node head;
 
     public void add(String element) {

@@ -8,7 +8,7 @@ import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalendarTest {
+class LocalDateTimeTest {
     @Test
     void testWeekDay() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, Month.of(11), 19, 10, 0);
