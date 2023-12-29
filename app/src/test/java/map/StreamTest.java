@@ -1,6 +1,5 @@
 package map;
 
-import com.google.common.collect.ImmutableList;
 import copyobject.pojo.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +14,10 @@ final class StreamTest {
 
     @BeforeEach
     void setUp() {
-        users.add(User.builder().age(22).salary(2000).name("wang").experiences(ImmutableList.of("IBM", "APPLE", "TESLA")).build());
+        users.add(User.builder().age(22).salary(2000).name("wang").experiences(List.of("IBM", "APPLE", "TESLA")).build());
         users.add(User.builder().age(25).salary(5000).name("wang").build());
         users.add(User.builder().age(32).salary(20000).name("wang").build());
-        users.add(User.builder().age(22).salary(3000).name("li").experiences(ImmutableList.of("IBM", "MICROSOFT", "TENCENT")).build());
+        users.add(User.builder().age(22).salary(3000).name("li").experiences(List.of("IBM", "MICROSOFT", "TENCENT")).build());
         users.add(User.builder().age(52).salary(3000).name("li").build());
         users.add(User.builder().age(10).salary(10).name("xu").build());
 

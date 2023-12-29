@@ -1,5 +1,11 @@
 package hackerrank;
 
+/**
+ * count all the sub-arrays with a negative sum.
+ * [-2], [-5], [-2,4,-5] are the sub-arrays with a negative sum.
+ * [1, -2], [4, -5] are the sub-arrays with a negative sum.
+ * [-2,-5] is not counted as a valid subarray as the indices of -2 and -5 are not continuous.
+ */
 public class CountOfAllNegativeSumSubArray {
     public static void main(String[] args) {
         int[] arr = {1, -2, 4, -5, 1};
