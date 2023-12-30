@@ -30,7 +30,7 @@ final class StreamTest {
     }
 
     @Test
-    void testReverseListIndex() {
+    void testReverseByListIndex() {
         Collections.reverse(users);
         assertEquals(users.get(0).getName(), "xu");
         assertEquals(users.get(0).getAge(), 10);
@@ -45,7 +45,7 @@ final class StreamTest {
     }
 
     @Test
-    void testFindCommons() {
+    void testFindUsersExistInTwoLists() {
         users.retainAll(user2s);
         Assertions.assertNotNull(users);
         assertEquals(users.size(), 1);
@@ -54,17 +54,7 @@ final class StreamTest {
     }
 
     @Test
-    void testMaxSalary() {
-        Integer max = users.stream()
-                .map(User::getSalary)
-                .max(Comparator.naturalOrder())
-                .map(Double::intValue)
-                .orElse(0);
-        assertEquals(20000, max);
-    }
-
-    @Test
-    void testListExperiences() {
+    void testFlatmapExperiences() {
         List<String> uniqueExperiences = users.stream()
                 .filter(u -> u.getExperiences() != null)
                 .flatMap(u -> u.getExperiences().stream())
@@ -75,7 +65,7 @@ final class StreamTest {
     }
 
     @Test
-    void testGroupingBy() {
+    void testGroupByNameWithLoop() {
         Map<String, List<User>> usersByFirstName = new HashMap<>();
         for (User user : users) {
             String name = user.getName();
@@ -83,21 +73,28 @@ final class StreamTest {
                     .computeIfAbsent(name, k -> new ArrayList<>())
                     .add(user);
         }
-        assertGroupingOkay(usersByFirstName);
+        assertGroupByName(usersByFirstName);
     }
 
     @Test
-    void testGroupingByStream() {
+    void testGroupByNameWithStream() {
         Map<String, List<User>> usersByFirstNameStream = users.
                 stream()
                 .collect(Collectors.groupingBy(
                         User::getName
                 ));
-        assertGroupingOkay(usersByFirstNameStream);
+        assertGroupByName(usersByFirstNameStream);
+    }
+
+    private static void assertGroupByName(Map<String, List<User>> usersByFirstName) {
+        assertEquals(usersByFirstName.size(), 3);
+        assertEquals(usersByFirstName.get("wang").size(), 3);
+        assertEquals(usersByFirstName.get("li").size(), 2);
+        assertEquals(usersByFirstName.get("xu").size(), 1);
     }
 
     @Test
-    void testSortByTwoKeys() {
+    void testSortBySalaryThenAge() {
         List<User> usersSorted = users.stream()
                 .sorted(Comparator.comparing(User::getSalary).reversed().thenComparing(User::getAge))
                 .collect(Collectors.toList());
@@ -106,6 +103,16 @@ final class StreamTest {
         assertEquals(usersSorted.get(0).getSalary(), 20000);
         assertEquals(usersSorted.get(0).getName(), "wang");
         assertEquals(usersSorted.get(1).getAge(), 25);
+    }
+
+    @Test
+    void testMaxSalary() {
+        Integer max = users.stream()
+                .map(User::getSalary)
+                .max(Comparator.naturalOrder())
+                .map(Double::intValue)
+                .orElse(0);
+        assertEquals(20000, max);
     }
 
     @Test
@@ -146,12 +153,5 @@ final class StreamTest {
                 .map(Map.Entry::getKey)
                 .orElse(0.0);
         assertEquals(mostOccurrenceSalary, 3000);
-    }
-
-    private static void assertGroupingOkay(Map<String, List<User>> usersByFirstName) {
-        assertEquals(usersByFirstName.size(), 3);
-        assertEquals(usersByFirstName.get("wang").size(), 3);
-        assertEquals(usersByFirstName.get("li").size(), 2);
-        assertEquals(usersByFirstName.get("xu").size(), 1);
     }
 }
