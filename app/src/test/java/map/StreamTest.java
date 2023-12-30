@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 final class StreamTest {
     private List<User> users = new ArrayList<>();
     private List<User> user2s = new ArrayList<>();
@@ -28,12 +30,27 @@ final class StreamTest {
     }
 
     @Test
+    void testReverseListIndex() {
+        Collections.reverse(users);
+        assertEquals(users.get(0).getName(), "xu");
+        assertEquals(users.get(0).getAge(), 10);
+        assertEquals(users.get(1).getName(), "li");
+        assertEquals(users.get(1).getAge(), 52);
+        assertEquals(users.get(2).getName(), "li");
+        assertEquals(users.get(2).getAge(), 22);
+        assertEquals(users.get(3).getName(), "wang");
+        assertEquals(users.get(3).getAge(), 32);
+        assertEquals(users.get(4).getName(), "wang");
+        assertEquals(users.get(4).getAge(), 25);
+    }
+
+    @Test
     void testFindCommons() {
         users.retainAll(user2s);
         Assertions.assertNotNull(users);
-        Assertions.assertEquals(users.size(), 1);
-        Assertions.assertEquals(users.get(0).getName(), "xu");
-        Assertions.assertEquals(users.get(0).getAge(), 10);
+        assertEquals(users.size(), 1);
+        assertEquals(users.get(0).getName(), "xu");
+        assertEquals(users.get(0).getAge(), 10);
     }
 
     @Test
@@ -43,7 +60,7 @@ final class StreamTest {
                 .max(Comparator.naturalOrder())
                 .map(Double::intValue)
                 .orElse(0);
-        Assertions.assertEquals(20000, max);
+        assertEquals(20000, max);
     }
 
     @Test
@@ -53,7 +70,7 @@ final class StreamTest {
                 .flatMap(u -> u.getExperiences().stream())
                 .distinct()
                 .collect(Collectors.toList());
-        Assertions.assertEquals(5, uniqueExperiences.size());
+        assertEquals(5, uniqueExperiences.size());
         Assertions.assertTrue(uniqueExperiences.contains("TESLA"));
     }
 
@@ -85,10 +102,10 @@ final class StreamTest {
                 .sorted(Comparator.comparing(User::getSalary).reversed().thenComparing(User::getAge))
                 .collect(Collectors.toList());
 
-        Assertions.assertEquals(usersSorted.size(), 6);
-        Assertions.assertEquals(usersSorted.get(0).getSalary(), 20000);
-        Assertions.assertEquals(usersSorted.get(0).getName(), "wang");
-        Assertions.assertEquals(usersSorted.get(1).getAge(), 25);
+        assertEquals(usersSorted.size(), 6);
+        assertEquals(usersSorted.get(0).getSalary(), 20000);
+        assertEquals(usersSorted.get(0).getName(), "wang");
+        assertEquals(usersSorted.get(1).getAge(), 25);
     }
 
     @Test
@@ -96,7 +113,7 @@ final class StreamTest {
         Double sumSalary = users.stream()
                 .map(User::getSalary)
                 .reduce(0.0, Double::sum);
-        Assertions.assertEquals(sumSalary, 33010);
+        assertEquals(sumSalary, 33010);
     }
 
     @Test
@@ -104,7 +121,7 @@ final class StreamTest {
         Double meanSalary = users.stream()
                 .map(User::getSalary)
                 .reduce(0.0, Double::sum) / users.size();
-        Assertions.assertEquals(meanSalary, 5501.666666666667);
+        assertEquals(meanSalary, 5501.666666666667);
     }
 
     @Test
@@ -115,7 +132,7 @@ final class StreamTest {
                 .skip(users.size() / 2)
                 .limit(1 + (users.size() % 2))
                 .reduce(0.0, Double::sum);
-        Assertions.assertEquals(medianSalary, 3000);
+        assertEquals(medianSalary, 3000);
     }
 
     @Test
@@ -128,13 +145,13 @@ final class StreamTest {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse(0.0);
-        Assertions.assertEquals(mostOccurrenceSalary, 3000);
+        assertEquals(mostOccurrenceSalary, 3000);
     }
 
     private static void assertGroupingOkay(Map<String, List<User>> usersByFirstName) {
-        Assertions.assertEquals(usersByFirstName.size(), 3);
-        Assertions.assertEquals(usersByFirstName.get("wang").size(), 3);
-        Assertions.assertEquals(usersByFirstName.get("li").size(), 2);
-        Assertions.assertEquals(usersByFirstName.get("xu").size(), 1);
+        assertEquals(usersByFirstName.size(), 3);
+        assertEquals(usersByFirstName.get("wang").size(), 3);
+        assertEquals(usersByFirstName.get("li").size(), 2);
+        assertEquals(usersByFirstName.get("xu").size(), 1);
     }
 }
