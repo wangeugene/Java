@@ -18,11 +18,17 @@ public class HourGlassSubMatrixMaxSumFinder {
                 .map(row -> Arrays.stream(row).boxed().collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
-        int sum = getSum(arr);
+        int sum = getMaxSumOfHourGlassPattern(arr);
         System.out.println(sum);
     }
 
-    private static int getSum(List<List<Integer>> arr) {
+    /**
+     * a b c
+     *   d
+     * e f g
+     * <a href="https://www.hackerrank.com/challenges/30-2d-arrays/problem?isFullScreen=false">question</a>
+     */
+    private static int getMaxSumOfHourGlassPattern(List<List<Integer>> arr) {
         int sum = Integer.MIN_VALUE;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
