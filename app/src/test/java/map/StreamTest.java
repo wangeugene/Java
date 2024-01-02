@@ -143,7 +143,7 @@ final class StreamTest {
     }
 
     @Test
-    void testMostOccurrenceSalary() {
+    void testMaxFrequencySalary() {
         Double mostOccurrenceSalary = users.stream()
                 .map(User::getSalary)
                 .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
@@ -153,5 +153,15 @@ final class StreamTest {
                 .map(Map.Entry::getKey)
                 .orElse(0.0);
         assertEquals(mostOccurrenceSalary, 3000);
+    }
+
+    @Test
+    void testMaxRepeatedOneInBinaryRepresentationString() {
+        String binaryRepresentation = Integer.toBinaryString(125); // 1111101
+        int maxRepeatedOne = Arrays.stream(binaryRepresentation.split("0"))
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+        assertEquals(maxRepeatedOne, 5);
     }
 }

@@ -11,3 +11,4 @@ build/
 markdown/
 /ElasticSearch/uploadData/shakespeare.json
 NodeJS/node_file_write.txt
+/lib
