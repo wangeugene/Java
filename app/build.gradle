@@ -35,7 +35,6 @@ dependencies {
 
     testImplementation 'org.mockito:mockito-core:4.3.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk11:1.5.31"
 }
 repositories {
     mavenCentral()
