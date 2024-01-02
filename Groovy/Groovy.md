@@ -11,11 +11,17 @@ Simplify testing and mocking out of the box
 
 # To use Groovy
 
-1. config jdk / libs
-2. download groovy libs & set the environment variable path e.g., or `brew install groovy`
+1. JDK environment required
+2. Need to download Groovy libs
 
 ```shell
-GROOVY_HOME=$HOMEBREW_PREFIX/opt/groovy/libexec
+brew install groovy
+```
+
+Failed to utilize brew installed groovy, used IntelliJ prompted to install groovy.
+
+```shell
+GROOVY_HOME=/Users/eugene/IdeaProjects/Java/lib
 echo $GROOVY_HOME
-groovy -version
+groovy -version  ## print out the brew installed groovy version
 ```
