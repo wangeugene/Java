@@ -132,6 +132,30 @@ final class StreamTest {
     }
 
     @Test
+    void testToIntArray() {
+        int[] ages = users.stream()
+                .mapToInt(User::getAge)
+                .toArray();
+        assertEquals(ages.length, 6);
+        assertEquals(ages[0], 22);
+        assertEquals(ages[1], 25);
+        assertEquals(ages[2], 32);
+        assertEquals(ages[3], 22);
+        assertEquals(ages[4], 52);
+        assertEquals(ages[5], 10);
+    }
+
+    @Test
+    void testAverageIntArray() {
+        int[] integers = {1, 2, 3, 4, 5};
+        int average = (int) Arrays
+                .stream(integers)
+                .average()
+                .orElse(0);
+        assertEquals(average, 3);
+    }
+
+    @Test
     void testMedianSalary() {
         Double medianSalary = users.stream()
                 .map(User::getSalary)

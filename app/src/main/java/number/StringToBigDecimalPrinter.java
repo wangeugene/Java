@@ -1,10 +1,8 @@
 package number;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
-public class TypesToBigDecimal {
+public class StringToBigDecimalPrinter {
     public static void main(String[] args) {
         String[] data = {".12", "0.12", "0.0000", "02.34", "-100"};
         BigDecimal f0 = new BigDecimal(data[0]);
@@ -17,6 +15,5 @@ public class TypesToBigDecimal {
         System.out.println(f1.compareTo(f3));
         System.out.println(f3);
         System.out.println(f4);
-
     }
 }

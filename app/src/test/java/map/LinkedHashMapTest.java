@@ -1,6 +1,7 @@
 package map;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,5 +24,15 @@ class LinkedHashMapTest {
         Map<String, Integer> basket = new LinkedHashMap<>();
         basket.put(null, 2);
         assertEquals(basket.get(null), 2);
+    }
+
+    @Test
+    void testMerge() {
+        Map<String, Integer> basket = new LinkedHashMap<>();
+        basket.put("orange", 1);
+        basket.put("banana", 3);
+        basket.put("apple", 99);
+        basket.merge("apple", 11, Integer::sum);
+        assertEquals(basket.get("apple"), 110);
     }
 }
