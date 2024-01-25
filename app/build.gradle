@@ -1,5 +1,11 @@
 plugins {
-    id 'java'
+    id 'java-library'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
 
 dependencies {
@@ -27,4 +33,11 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    maxHeapSize = '1G'
+    testLogging {
+        events "passed"
+    }
 }
