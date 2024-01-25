@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Login the upstash.com using my GitHub account will see the console, the following url session id will change!
- * The broker WEB UI url: <a href="https://console.upstash.com/kafka/514bfd93-8a06-4841-8cd4-0b4064f310a2/030665d9-9278-4e36-a9c0-3d64921b088d"/>
  * Key Hashing is the process of determining the mapping of a key to a partition
  * In the default Kafka partitioner, the keys are hashed using hte murmur2 algorithm
  * targetPartition = Math.abs(Utils.murmur2(keyBytes)) % (numPartitions - 1 );
