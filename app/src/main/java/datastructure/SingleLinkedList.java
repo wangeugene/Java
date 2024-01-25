@@ -17,13 +17,12 @@ public class SingleLinkedList {
         }
     }
 
-
     private static Node tail(Node head) {
         Node it;
-        for (it = head; it != null && it.next != null; it = it.next) {
-            System.out.println("it = " + it);
+        it = head;
+        while (it != null && it.next != null) {
+            it = it.next;
         }
-
         return it;
     }
 
@@ -52,11 +51,11 @@ public class SingleLinkedList {
 
     public int size() {
         int size = 0;
-
-        for (Node it = head; it != null; ++size, it = it.next) {
-            System.out.println("it = " + it);
+        Node it = head;
+        while (it != null) {
+            ++size;
+            it = it.next;
         }
-
         return size;
     }
 
