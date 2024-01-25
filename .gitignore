@@ -4,7 +4,7 @@ gradlew
 .idea/
 gradle/
 */build/
-/graphQL/node_modules/
+/GraphQL/node_modules/
 app/out
 app/src/main/generated/
 build/
