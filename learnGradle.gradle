@@ -1,11 +1,11 @@
-task copyDoc(type: Copy) {
+tasks.register('copyDoc', Copy) {
     from 'app'
     into 'markdown'
     include '**/*.md'
     includeEmptyDirs = false
 }
 
-task createZip(type: Zip) {
+tasks.register('createZip', Zip) {
     from 'markdown'
     archiveFileName = 'docs.zip'
     destinationDirectory = file('build/test')

@@ -1,7 +1,6 @@
-task helloWorld {
+tasks.register('helloWorld') {
     doLast {
         println('hello world')
     }
 }
-apply from: 'archiving.gradle'
-apply plugin: 'base'
+apply from: 'learnGradle.gradle'
