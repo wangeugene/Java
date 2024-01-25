@@ -15,6 +15,9 @@ public class DuplicatedWordsRemover {
      * \\W+ matches one or more non-word characters
      * \\1 matches the contents of group 1,which is the repeated word
      * \\b matches a word boundary
+     *
+     * @param lines original string
+     * @return cleaned string
      */
     public static String removeDuplicatedWords(List<String> lines) {
         StringBuilder cleaned = new StringBuilder();
