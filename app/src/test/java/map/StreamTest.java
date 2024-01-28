@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 final class StreamTest {
     private List<User> users = new ArrayList<>();
@@ -187,5 +189,38 @@ final class StreamTest {
                 .max()
                 .orElse(0);
         assertEquals(maxRepeatedOne, 5);
+    }
+
+    @Test
+    void testGenerateRangeClosed100() {
+        List<Integer> rangeClosed100 = IntStream.rangeClosed(1, 100)
+                .boxed()
+                .collect(Collectors.toList());
+        assertEquals(rangeClosed100.size(), 100);
+        assertEquals(rangeClosed100.get(0), 1);
+        assertEquals(rangeClosed100.get(99), 100);
+    }
+
+    @Test
+    void testGeneratePythagoreanTriples() {
+        List<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100)
+                .boxed()
+                .flatMap(
+                        a ->
+                                IntStream.rangeClosed(a, 100)
+                                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                                        .mapToObj(
+                                                b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}
+                                        )
+                )
+                .collect(Collectors.toList());
+        assertNotNull(pythagoreanTriples);
+        assertEquals(pythagoreanTriples.get(0).length, 3);
+        assertEquals(pythagoreanTriples.get(0)[0], 3);
+        assertEquals(pythagoreanTriples.get(0)[1], 4);
+        assertEquals(pythagoreanTriples.get(0)[2], 5);
+        assertEquals(pythagoreanTriples.get(1)[0], 5);
+        assertEquals(pythagoreanTriples.get(1)[1], 12);
+        assertEquals(pythagoreanTriples.get(1)[2], 13);
     }
 }
