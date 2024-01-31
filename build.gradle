@@ -1,6 +1,15 @@
+plugins {
+    id 'com.github.ben-manes.versions' version '0.39.0'
+}
+
 tasks.register('helloWorld') {
     doLast {
         println('hello world')
     }
 }
 apply from: 'learnGradle.gradle'
+
+
+dependencyUpdates {
+    outputFormatter = 'json'
+}
