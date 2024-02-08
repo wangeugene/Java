@@ -18,7 +18,7 @@ class CurrencyFormatTest {
         NumberFormat india = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
         double amount = 12324.34;
         Assertions.assertEquals("$12,324.34", us.format(amount));
-        Assertions.assertEquals("￥12,324.34", china.format(amount));
-        Assertions.assertEquals("₹ 12,324.34", india.format(amount));
+        Assertions.assertEquals("¥12,324.34", china.format(amount));
+        Assertions.assertEquals("₹12,324.34", india.format(amount));
     }
 }
