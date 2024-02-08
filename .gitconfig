@@ -1,5 +1,3 @@
 [user]
     email = sail456852@icloud.com
     name = eugene
-[includeIf "gitdir:~/IdeaProjects/Java"]
-    path = .gitconfig
