@@ -3,7 +3,7 @@ package algorithm;
 import java.util.Arrays;
 
 public class BubbleSort {
-    static int[] arr = {8, 7, 0, 2, 4, 3, 5, 6, 1, 9};
+    private final static int[] arr = {8, 7, 0, 2, 4, 3, 5, 6, 1, 9};
 
     public static void main(String[] args) {
         String srt = Arrays.toString(bubbleSort(arr));

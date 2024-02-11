@@ -6,9 +6,9 @@ import java.util.function.Consumer;
 
 public class BigDecimalRounding {
 
-    private static BigDecimal numerator = BigDecimal.TEN;
-    private static BigDecimal denominator = BigDecimal.valueOf(3);
-    private static int scale = 5;
+    private final static BigDecimal numerator = java.math.BigDecimal.TEN;
+    private final static BigDecimal denominator = java.math.BigDecimal.valueOf(3);
+    private final static int scale = 5;
     final static Consumer<BigDecimal> print = x -> System.out.println(x.getClass().getSimpleName() + " = " + x);
 
     public static void main(String[] args) {

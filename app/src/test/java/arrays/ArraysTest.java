@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * expanded elements in the array are initialized with their default values, which are 0.
  */
 final class ArraysTest {
-    private int[] numbers = {1, 2, 3, 4, 5, 6, 7};
+    private final int[] numbers = {1, 2, 3, 4, 5, 6, 7};
 
     @Test
     void testCopyArray() {
