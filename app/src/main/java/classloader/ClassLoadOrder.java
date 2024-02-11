@@ -12,8 +12,8 @@ class SuperClassLoader {
 }
 
 public class ClassLoadOrder extends SuperClassLoader {
-    private static int[] staticInts = {9, 8, 7};
-    private int[] ints = {1, 2, 3};
+    private final static int[] staticInts = {9, 8, 7};
+    private final int[] ints = {1, 2, 3};
 
     {
         System.out.println(ints[1]);

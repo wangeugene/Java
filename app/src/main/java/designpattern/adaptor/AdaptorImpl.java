@@ -1,7 +1,7 @@
 package designpattern.adaptor;
 
 public class AdaptorImpl implements Adaptor {
-    private Adaptee adaptee;
+    private final Adaptee adaptee;
 
     public AdaptorImpl(Adaptee adaptee) {
         this.adaptee = adaptee;
