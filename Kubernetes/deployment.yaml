@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: pod-info-container
-          image: kimschles/pod-info-app:latest
+          image: sail456852/pod-info-app:latest
           ports:
             - containerPort: 3000
           env:
