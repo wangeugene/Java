@@ -51,6 +51,8 @@ kubectl delete -f namespace.yaml
 ```zsh
 # Create deployments
 kubectl apply -f deployment.yaml
+# Delete deployments
+kubectl delete -f deployment.yaml
 # Get namespaces
 kubectl get ns
 # List deployment under namespace development
@@ -84,4 +86,9 @@ wget <pod-ip>:<port>
 cat index.html
 exit
 ```
-
+### Challenge 
+```zsh
+kubectl apply -f quote.yaml
+kubectl get pods
+kubectl delete -f quote.yaml
+```
