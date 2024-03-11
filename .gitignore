@@ -11,4 +11,5 @@ build/
 markdown/
 /ElasticSearch/uploadData/shakespeare.json
 NodeJS/node_file_write.txt
+NodeJS/pod-info-app/node_modules
 /lib
