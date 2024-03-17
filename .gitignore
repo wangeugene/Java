@@ -13,3 +13,7 @@ markdown/
 NodeJS/node_file_write.txt
 NodeJS/pod-info-app/node_modules
 /lib
+/NodeJS/express/node_modules/
+/NodeJS/express/package-lock.json
+/NodeJS/socketio/package-lock.json
+/NodeJS/socketio/node_modules/
