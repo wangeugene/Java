@@ -29,6 +29,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation 'co.elastic.clients:elasticsearch-java:8.12.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 
     testImplementation 'org.apache.httpcomponents.client5:httpclient5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

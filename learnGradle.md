@@ -118,3 +118,11 @@ Make build logic more maintainable
 Provide reusable functionality across projects
 Two types of plugins: script plugin (e.g., archiving.gradle)
 or binary plugin ('base' in root build.gradle file)(more complex)
+
+### Gradle dependency commands
+
+```zsh
+./gradlew -q dependencies --configuration testRuntimeClasspath
+./gradlew -q dependencies --configuration tRC
+./gradlew -q dependencyInsight --dependency snakeyaml
+```
