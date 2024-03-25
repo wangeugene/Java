@@ -126,3 +126,11 @@ or binary plugin ('base' in root build.gradle file)(more complex)
 ./gradlew -q dependencies --configuration tRC
 ./gradlew -q dependencyInsight --dependency snakeyaml
 ```
+
+#### View a single dependency from a war file or a jar file in a Gradle project
+
+execute the following command in unix shell from project root directory
+
+```zsh
+jar -tf build/libs/example.war | grep contrib
+```
