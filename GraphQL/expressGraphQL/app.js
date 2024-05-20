@@ -17,9 +17,6 @@ const schema = buildSchema(`
 `)
 
 const root = {
-    foo() {
-        return 'bar'
-    },
     account: () => {
         return {
             name: "Eugene",
@@ -27,10 +24,13 @@ const root = {
             sex: "Male",
             department: "IT"
         }
+    },
+    foo() {
+        return 'bar'
     }
 }
 
-var app = express();
+const app = express();
 
 app.use('/graphql', graphqlHTTP({
     schema: schema,
