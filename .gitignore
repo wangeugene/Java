@@ -17,3 +17,4 @@ NodeJS/pod-info-app/node_modules
 /NodeJS/express/package-lock.json
 /NodeJS/socketio/package-lock.json
 /NodeJS/socketio/node_modules/
+/GraphQL/expressGraphQL/node_modules/
