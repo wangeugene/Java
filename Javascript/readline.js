@@ -1,6 +1,6 @@
 // https://www.linkedin.com/learning/node-js-essential-training-14888164/using-readline?resume=false&u=106534538
 
-const readline = require('readline')
+const readline = require('./readline')
 const readline_interface = readline.createInterface({
     input: process.stdin,
     output: process.stdout
