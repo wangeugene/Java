@@ -3,8 +3,12 @@ set up and transpile .ts files to .js files
 
 ```zsh
 touch tsconfig.json
-npm install -g typescript
-tsc -w
+npm install -g typescript # or 
+pnpm add -g typescript
+
+# tsc = TypeScript Compiler, -w = Watch changes, will compile the .ts files into .js files instant after save
+tsc -w # no argument
+
 ```
 
 variables declaration:
