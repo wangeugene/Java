@@ -7,14 +7,10 @@ gradle/
 /GraphQL/node_modules/
 app/out
 app/src/main/generated/
-build/
+build
+node_modules
 markdown/
 /ElasticSearch/uploadData/shakespeare.json
 Javascript/node_file_write.txt
-NodeJS/pod-info-app/node_modules
 /lib
-/NodeJS/express/node_modules/
-/NodeJS/express/package-lock.json
-/NodeJS/socketio/package-lock.json
-/NodeJS/socketio/node_modules/
-/GraphQL/expressGraphQL/node_modules/
+package-lock.json
