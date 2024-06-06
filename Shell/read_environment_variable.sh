@@ -1,0 +1,1 @@
+echo $ENV_VAR
