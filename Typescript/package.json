@@ -17,6 +17,6 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "start": "ts-node camelcase_to_snakecase.ts"
+    "start": "ts-node src/camelcase_to_snakecase.ts"
   }
 }
