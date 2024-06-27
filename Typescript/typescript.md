@@ -3,7 +3,6 @@ set up and transpile .ts files to .js files
 
 ```zsh
 touch tsconfig.json
-npm install -g typescript # or 
 pnpm add -g typescript
 
 # tsc = TypeScript Compiler, -w = Watch changes, will compile the .ts files into .js files instant after save
@@ -53,5 +52,10 @@ pnpm add -g ts-node
 ```
 
 ```zsh
-ts-node camelcase_to_snakecase.ts
+ts-node src/camelcase_to_snakecase.ts
+```
+
+You should run the tsc --project command in the directory where your tsconfig.json file is located. In your case, it seems to be the Typescript directory.
+```zsh
+tsc --project .
 ```
