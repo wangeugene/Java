@@ -47,3 +47,11 @@ function getInventoryItem(trackingNumber: string): {
     return null
 }
 ```
+
+```zsh
+pnpm add -g ts-node
+```
+
+```zsh
+ts-node camelcase_to_snakecase.ts
+```
