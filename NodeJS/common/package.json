@@ -2,7 +2,7 @@
   "name": "common",
   "version": "1.0.0",
   "description": "none ES6, legacy nodejs",
-  "main": "common.js",
+  "main": "../requireNoDependencyCommonJS/common.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
