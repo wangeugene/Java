@@ -1,3 +1,4 @@
+# Use this script to push to a git repository using a specific ssh key (my personal github account instead of my work account)
 # check if ssh-agent is running
 if ! pgrep ssh-agent;
 then
