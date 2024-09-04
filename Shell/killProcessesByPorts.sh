@@ -1,3 +1,13 @@
-# kill the process using the localhost port 8080
 # Usage: sh killProcessesByPorts.sh
-kill -9 $(lsof -t -i:8080) 2> /dev/null
+
+PORTS=(8080 9229)
+
+for PORT in "${PORTS[@]}"; do
+    PID=$(lsof -t -i:$PORT)
+    if [ -n "$PID" ]; then
+        kill -9 $PID
+        echo "Killed process $PID on port $PORT"
+    else
+        echo "No process found on port $PORT"
+    fi
+done
