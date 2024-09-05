@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug SnakeCase convertor",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/NodeJS/es6/camel_case_to_snake_case.mjs",
+      "outFiles": ["${workspaceFolder}/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Express App",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/NodeJS/express/app.js",
+      "outFiles": ["${workspaceFolder}//.js"]
+    }
+  ]
+}
