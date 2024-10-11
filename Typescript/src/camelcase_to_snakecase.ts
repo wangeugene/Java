@@ -66,4 +66,5 @@ const convertPersonToSnakeCase = (person: Person): Person => {
 }
 console.log(convertPersonToSnakeCase(person));
 
-// ts-node camelcase_to_snakecase.ts to run
+// cd Java/Typescript
+// ts-node src/camelcase_to_snakecase.ts 
