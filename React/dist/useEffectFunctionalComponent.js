@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 const ExampleComponent = () => {
     const [count, setCount] = useState(0);
     // This useEffect runs after every render

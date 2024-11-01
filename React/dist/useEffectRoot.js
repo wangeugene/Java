@@ -1,5 +1,4 @@
-import React from 'react';
-import ExampleComponent from './useEffectFunctionalComponent';
+import ExampleComponent from './useEffectFunctionalComponent.js';
 const App = () => {
     return (React.createElement("div", null,
         React.createElement("h1", null, "Welcome to My App"),
