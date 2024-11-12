@@ -3,6 +3,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+/**
+ * The main component of the application.
+ * 
+ * This component displays the Vite and React logos with links to their respective websites.
+ * It also includes a button that increments a counter when clicked.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <App />
+ * )
+ */
 function App() {
   const [count, setCount] = useState(0)
 
