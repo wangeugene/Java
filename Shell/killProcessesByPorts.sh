@@ -1,6 +1,14 @@
 # Usage: sh killProcessesByPorts.sh
 
+# take an array of ports to kill processes by arguments from command line
+ARG_PORTS=("$@")
 PORTS=(8080 9229)
+
+# append ARG_PORTS to the PORTS array
+for PORT in "${ARG_PORTS[@]}"; do
+    PORTS+=($PORT)
+done
+echo PORTS: ${PORTS[@]}
 
 for PORT in "${PORTS[@]}"; do
     PID=$(lsof -t -i:$PORT)
