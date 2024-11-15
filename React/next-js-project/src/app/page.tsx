@@ -1,11 +1,11 @@
-function MyButton({ title }: { title: string }) {
-    return <button>{title}</button>;
-}
-export default function Home() {
+"use client";
+
+import UseStatusDemo from "./demos/UseStatusDemo";
+
+export default function App() {
     return (
         <>
-            <h1>Welcome to my app</h1>
-            <MyButton title="I'm a button of the page" />
+            <UseStatusDemo />
         </>
     );
 }

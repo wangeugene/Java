@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "React/next-js-project",
+      "problemMatcher": [],
+      "label": "npm: dev - React/next-js-project",
+      "detail": "next dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

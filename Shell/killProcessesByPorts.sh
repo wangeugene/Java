@@ -2,7 +2,7 @@
 
 # take an array of ports to kill processes by arguments from command line
 ARG_PORTS=("$@")
-PORTS=(8080 9229)
+PORTS=(8080 9229 3000)
 
 # append ARG_PORTS to the PORTS array
 for PORT in "${ARG_PORTS[@]}"; do
