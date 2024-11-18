@@ -1,11 +1,11 @@
 "use client";
 
-import UseRefDemo from "./demos/UseRefDemo";
+import ImperativeHandlerDemo from "./demos/ImperativeHandlerDemo";
 
 export default function App() {
     return (
         <>
-            <UseRefDemo />
+            <ImperativeHandlerDemo />
         </>
     );
 }
