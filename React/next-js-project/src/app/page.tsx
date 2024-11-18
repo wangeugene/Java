@@ -1,11 +1,11 @@
 "use client";
 
-import UseStatusDemo from "./demos/UseStatusDemo";
+import UseRefDemo from "./demos/UseRefDemo";
 
 export default function App() {
     return (
         <>
-            <UseStatusDemo />
+            <UseRefDemo />
         </>
     );
 }

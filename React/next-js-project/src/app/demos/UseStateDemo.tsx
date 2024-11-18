@@ -8,7 +8,7 @@ This helps developers identify unexpected side effects and other issues in their
 
 import { useEffect, useState } from "react";
 
-export default function UseStatusDemo() {
+export default function UseStateDemo() {
     const [count, setCount] = useState(0);
     console.log("Count at the component level : ", count); // This will log the updated value of count
 
@@ -18,6 +18,7 @@ export default function UseStatusDemo() {
             console.log("Count at useEffect unmounted : ", count); // This will log the updated value of count
         };
     }, [count]);
+
     return (
         <>
             <button onClick={() => setCount(count + 1)}>Click me to increment count</button>
