@@ -14,3 +14,5 @@ markdown/
 Javascript/node_file_write.txt
 /lib
 package-lock.json
+WEB-INF/lib/
+target/
