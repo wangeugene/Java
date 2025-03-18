@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Zuche Hitch List",
+  "version": "1.0",
+  "description": "Sends HTTP request to zuche.com API and displays response",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "cookies",
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://m.zuche.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}
