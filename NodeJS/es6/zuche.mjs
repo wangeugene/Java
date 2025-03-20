@@ -1,10 +1,11 @@
 import { writeFile } from 'fs/promises';
 
 // Create an HTTP client function for the Zuche API
+// pickupCityId: "231" = 惠州 (Huizhou) pickupCityId: "15" = 深圳 (Shenzhen)
 async function fetchHitchList(pageNo = 1, pageSize = 10) {
     const url = 'https://m.zuche.com/api/gw.do?uri=/action/carrctapi/order/hitchList/v1';
     const requestBody = {
-        pickupCityId: "15",
+        pickupCityId: "231",
         returnCityId: "",
         useCarTime: "",
         pageNo: pageNo,
@@ -46,13 +47,13 @@ async function testHitchListApi() {
         const result = await fetchHitchList();
 
         // Format the JSON with proper Unicode character representation
-        const formattedResult = JSON.stringify(result, null, 2);
-        console.log('Response received:');
-        console.log(formattedResult);
+        // const formattedResult = JSON.stringify(result, null, 2);
+        // console.log('Response received:');
+        // console.log(formattedResult);
 
         // Save the response to a file for analysis
-        await writeFile('hitchlist_response.json', formattedResult, 'utf8');
-        console.log('Response saved to hitchlist_response.json');
+        // await writeFile('hitchlist_response.json', formattedResult, 'utf8');
+        // console.log('Response saved to hitchlist_response.json');
 
         // Extract and display specific data if the response was successful
         if (result.status === 'SUCCESS' && result.content && result.content.hitchList) {
