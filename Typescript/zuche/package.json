@@ -1,0 +1,19 @@
+{
+  "name": "zuche",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node zuche.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5",
+  "dependencies": {
+    "@types/node": "^22.13.11",
+    "node-cron": "^3.0.3",
+    "ts-node": "^10.9.2"
+  }
+}
