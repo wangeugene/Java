@@ -39,6 +39,7 @@ acp() {
     git add .
     git commit -m "$1"
     git push
+    git log --oneline -n 5
   else
     echo "Aborted."
   fi
