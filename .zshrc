@@ -22,9 +22,12 @@ export EDITOR="emacs"
 
 # git start
 acp() {
+  git fetch origin
+  git merge origin/$(git rev-parse --abbrev-ref HEAD)
   git status
+  
+  echo "current HEAD commit hash: $(git rev-parse HEAD)"
   echo ""
-
    # Show Git user.name and user.email
   echo "Current Git user:"
   echo "  Name : $(git config user.name)"
