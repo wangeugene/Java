@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "dist/zuche.js",
+  "main": "dist/index.js",
   "packageManager": "pnpm@10.6.5",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "node --loader ts-node/esm src/zuche.ts",
+    "dev": "node --loader ts-node/esm src/index.ts",
     "start": "node ."
   },
   "keywords": [],
