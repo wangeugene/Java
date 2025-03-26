@@ -1,8 +1,8 @@
-import { schedule } from 'node-cron';
+import { schedule } from "node-cron";
 
 // Schedule the cron job
-const cronJob = schedule('* * * * * *', () => {
-    console.log('cron job');
+const cronJob = schedule("0 */10 * * * *", () => {
+    console.log("cron job");
 });
 
 // Start the cron job

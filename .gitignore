@@ -16,4 +16,5 @@ Javascript/node_file_write.txt
 package-lock.json
 WEB-INF/lib/
 target/
+dist/
 .json
