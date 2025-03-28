@@ -1,6 +1,7 @@
 gradlew
 .idea/
 gradle/
+bin
 */build/
 /GraphQL/node_modules/
 app/out
