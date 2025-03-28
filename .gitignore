@@ -1,5 +1,3 @@
-.gradle
-.gitattributes
 gradlew
 .idea/
 gradle/
@@ -17,5 +15,10 @@ package-lock.json
 WEB-INF/lib/
 target/
 dist/
+
+.gradle
+.gitattributes
+.class
+.iml
 .json
 .env
