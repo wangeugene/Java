@@ -22,11 +22,11 @@ are set to "NodeNext", if I omit the ".js" extension from the imports of these "
 ## Docker
 
 ```zsh
-docker build -t zuche:1.0 .
+docker build -t zuche:1.0 . //can run multiple times, overwriting the old image, 1.0 is the tag
 docker image ls
 ```
 
 ```zsh
-docker run --name zuche_container zuche:1.0
+docker run --env-file .env --name zuche_container zuche:1.0 // can run multiple times, overwriting the old container, zuche_container is the name of the container, loading .env file for secrets
 docker ps
 ```
