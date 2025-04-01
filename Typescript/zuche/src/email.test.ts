@@ -1,4 +1,4 @@
-import { createEmailService, EmailService } from "./email";
+import { createEmailService, EmailService } from "./email.js";
 import nodemailer from "nodemailer";
 
 // Mock nodemailer to avoid actual email sending

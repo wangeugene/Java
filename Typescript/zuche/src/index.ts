@@ -1,10 +1,10 @@
 import { schedule } from "node-cron";
-import { extractHitchList} from "./zuche";
+import { extractHitchList } from "./zuche.js";
 import dotenv from "dotenv";
 dotenv.config();
-import { createEmailService } from "./email";
+import { createEmailService } from "./email.js";
 
-const emailService =createEmailService(
+const emailService = createEmailService(
     process.env.SMTP_HOST!,
     parseInt(process.env.SMTP_PORT!),
     process.env.EMAIL_USER!,
@@ -36,7 +36,6 @@ const cronJob = schedule("0 */20 9-18 * * *", () => {
             console.log("No hitchs found.");
         }
     });
-
 });
 
 // Start the cron job

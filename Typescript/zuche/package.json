@@ -10,7 +10,7 @@
     "build": "tsc",
     "dev": "node --loader ts-node/esm src/index.ts",
     "zuche": "node --loader ts-node/esm src/zuche.ts",
-    "start": "node ."
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

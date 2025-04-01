@@ -1,31 +1,29 @@
-import {writeFile} from 'fs/promises';
-
 // Create an HTTP client function for the Zuche API
 // pickupCityId: "231" = 惠州 (Huizhou) pickupCityId: "15" = 深圳 (Shenzhen)
 export async function fetchHitchList(pickupCityId: number, returnCityId: number | null) {
-    const url = 'https://m.zuche.com/api/gw.do?uri=/action/carrctapi/order/hitchList/v1';
+    const url = "https://m.zuche.com/api/gw.do?uri=/action/carrctapi/order/hitchList/v1";
     const requestBody = {
         pickupCityId: pickupCityId,
         returnCityId: returnCityId,
         useCarTime: "",
         pageNo: 1,
         pageSize: 10,
-        source: 2
+        source: 2,
     };
 
     const encodedData = `data=${encodeURIComponent(JSON.stringify(requestBody))}`;
 
     try {
         const response = await fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Accept-Language': 'en',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Referer': 'https://m.zuche.com/',
-                'Cookie': 'lctuid=4509213c792233e1c4917b22539515fa; CAR_UID=7ff48ce4-6a13-4bf5-ac0f-62ba846d784e1742208766650; intranet-sessionid=677ccee5-50ab-4696-8f71-58974b7076c8'
+                Accept: "application/json, text/plain, */*",
+                "Accept-Language": "en",
+                "Content-Type": "application/x-www-form-urlencoded",
+                Referer: "https://m.zuche.com/",
+                Cookie: "lctuid=4509213c792233e1c4917b22539515fa; CAR_UID=7ff48ce4-6a13-4bf5-ac0f-62ba846d784e1742208766650; intranet-sessionid=677ccee5-50ab-4696-8f71-58974b7076c8",
             },
-            body: encodedData
+            body: encodedData,
         });
 
         if (!response.ok) {
@@ -35,19 +33,19 @@ export async function fetchHitchList(pickupCityId: number, returnCityId: number 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching hitch list:', error);
+        console.error("Error fetching hitch list:", error);
         throw error;
     }
 }
 
 export async function extractHitchList(pickupCityId: number, returnCityId: number | null) {
     try {
-        console.log('Fetching hitch list data...');
+        console.log("Fetching hitch list data...");
         const result = await fetchHitchList(pickupCityId, returnCityId);
         const hitchListInfo: any[] = [];
 
-        if (result.status === 'SUCCESS' && result.content && result.content.hitchList) {
-            console.log('\nAvailable hitch rides:');
+        if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
+            console.log("\nAvailable hitch rides:");
             result.content.hitchList.forEach((ride: any, index: number) => {
                 const rideInfo = {
                     index: index + 1,
@@ -56,7 +54,7 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
                     returnCityName: ride.returnCityName,
                     beginTime: ride.beginTime,
                     endTime: ride.endTime,
-                    realTotalPrice: ride.realTotalPrice
+                    realTotalPrice: ride.realTotalPrice,
                 };
                 hitchListInfo.push(rideInfo);
                 console.log(`\n[${rideInfo.index}] ${rideInfo.modelName}`);
@@ -67,6 +65,6 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
             });
         }
     } catch (error) {
-        console.error('Test failed:', error);
+        console.error("Test failed:", error);
     }
 }
