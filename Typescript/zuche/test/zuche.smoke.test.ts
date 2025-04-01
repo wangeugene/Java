@@ -1,6 +1,5 @@
-import {extractHitchList, fetchHitchList} from "../src/zuche";
-import dotenv from "dotenv";
-
+import {fetchHitchList} from "../src/zuche";
+import * as dotenv from "dotenv";// import * as dotenv from "dotenv"; // import dotenv from "dotenv"; ERROR: has no default
 dotenv.config();
 
 describe("zuche hitch list smoke test", () => {

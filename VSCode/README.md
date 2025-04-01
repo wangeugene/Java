@@ -15,3 +15,12 @@ This will enable shortcuts like `Option + F` to move forward one word in the ter
 
 e.g., #codebase, #<file_name>, to include the files to ask better questions
 Just type # then the file name, and it will show the file name in the suggestion list.
+
+
+## Test
+
+### ts-jest 
+> ts-jest[ts-compiler] (WARN) Using hybrid module kind (Node16/18/Next) is only supported in "isolatedModules: true". Please set "isolatedModules: true" in your tsconfig.json.
+
+- Adding this in `tsconfig.json` actually brakes the smoke test cases.
+

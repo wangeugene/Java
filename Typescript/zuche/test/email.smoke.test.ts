@@ -1,5 +1,6 @@
 import { createEmailService } from "../src/email";
-import dotenv from "dotenv";
+
+import * as dotenv from "dotenv"; // import dotenv from "dotenv"; ERROR: has no default
 dotenv.config();
 
 describe("EmailService smoke test", () => {
