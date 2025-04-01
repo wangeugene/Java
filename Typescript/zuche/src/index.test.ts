@@ -1,4 +1,4 @@
-import { createEmailService } from "./email";
+import { createEmailService } from "./email.js";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 

@@ -1,5 +1,6 @@
 import { schedule } from "node-cron";
 import { extractHitchList } from "./zuche.js";
+import logger from "./logger.js";
 import dotenv from "dotenv";
 dotenv.config();
 import { createEmailService } from "./email.js";
@@ -15,11 +16,12 @@ const emailService = createEmailService(
 // Schedule the cron job
 const cronJob = schedule("0 */20 9-18 * * *", () => {
     const date = new Date();
-    console.log("cron job assigned at", date.toLocaleString());
+    logger.info("cron job assigned at: ", date.toLocaleString());
+    logger.info("Email recipient: ", process.env.EMAIL_RECIPIENT!);
     // Fetch the hitch list
     extractHitchList(231, null).then((hitchList) => {
         if (Array.isArray(hitchList) && hitchList.length > 0) {
-            console.log("Hitch list fetched successfully:", hitchList);
+            logger.info("Hitch list fetched successfully:", hitchList);
             emailService
                 .sendEmail({
                     to: process.env.EMAIL_RECIPIENT!,
@@ -27,13 +29,13 @@ const cronJob = schedule("0 */20 9-18 * * *", () => {
                     text: `Hitch list: ${JSON.stringify(hitchList)}`,
                 })
                 .then((emailResponse) => {
-                    console.log("Email sent successfully:", emailResponse);
+                    logger.info("Email sent successfully:", emailResponse);
                 })
                 .catch((error) => {
                     console.error("Failed to send email:", error);
                 });
         } else {
-            console.log("No hitchs found.");
+            logger.info("No hitch found.");
         }
     });
 });
