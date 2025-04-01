@@ -21,9 +21,9 @@ const cronJob = schedule("0 */20 9-18 * * *", () => {
     console.log(`docker log <container_name> to view this log: Email recipient: ${process.env.EMAIL_RECIPIENT!}`);
 
     // Fetch the hitch list
-    extractHitchList(231, null).then((hitchList) => {
+    extractHitchList(15, 231).then((hitchList) => {
         if (Array.isArray(hitchList) && hitchList.length > 0) {
-            logger.info("Hitch list fetched successfully:", hitchList);
+            console.log("docker log <container_name> -> Hitch list fetched successfully:", hitchList);
             emailService
                 .sendEmail({
                     to: process.env.EMAIL_RECIPIENT!,
