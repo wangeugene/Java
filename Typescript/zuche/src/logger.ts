@@ -19,7 +19,7 @@ const transport = pino.transport({
 });
 
 // Create the logger instance
-const logger = pino.default(
+const logger = pino(
     {
         level: process.env.LOG_LEVEL || "info",
     },

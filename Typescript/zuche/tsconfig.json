@@ -2,9 +2,9 @@
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,

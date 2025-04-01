@@ -17,7 +17,10 @@ RUN pnpm install
 COPY . .
 
 # Build TypeScript code
-RUN pnpm run build
+RUN  pnpm run build 
+
+# Debugging the output
+RUN ls -la dist
 
 # Expose any necessary ports (if your app has an HTTP server)
 # EXPOSE 3000
