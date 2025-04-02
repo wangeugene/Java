@@ -1,4 +1,4 @@
-docker build  --no-cache -t zuche:1.0 .
+docker build -t zuche:1.0 .
 if [ "$(docker ps -aq -f name=zuche_container)" ]; then
   docker rm -f zuche_container
 fi
