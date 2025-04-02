@@ -1,0 +1,7 @@
+sethandler a:vim
+set clipboard+=ideaput
+set surround
+set ideajoin
+set noimprovedclipboard
+set easymotion
+set visualbell
