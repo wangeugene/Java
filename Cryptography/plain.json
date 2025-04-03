@@ -1,0 +1,9 @@
+{
+  "name": "eugene",
+  "age": 100,
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA"
+  }
+}
