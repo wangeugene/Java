@@ -17,3 +17,16 @@ ID Token: A token that contains user information and is used by the client to au
 OPAQUE Token: A token that is not self-contained and requires the client to make a request to the OAuth server to validate the token.
 ACCESS Token: A token that is used by the client to access protected resources on behalf of the user.
 REFRESH Token: A token that is used by the client to obtain a new access token when the current access token expires.
+
+## Comparison between OAuth 2.0 and OpenID Connect
+
+| Feature             | OAuth 2.0     | OpenID Connect                              |
+| ------------------- | ------------- | ------------------------------------------- |
+| Purpose             | Authorization | Authentication                              |
+| Token Type          | Access Token  | ID Token                                    |
+| Token Format        | Opaque or JWT | JWT                                         |
+| User Info Endpoint  | Not defined   | Defined                                     |
+| Scopes              | Customizable  | Standardized (openid, profile, email, etc.) |
+| User Authentication | Not defined   | Defined                                     |
+| User Info Retrieval | Not defined   | Defined                                     |
+| Client Registration | Not defined   | Defined                                     |
