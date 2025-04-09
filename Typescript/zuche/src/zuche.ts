@@ -68,3 +68,8 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
         console.error("Test failed:", error);
     }
 }
+
+const pickupCityId = parseInt(process.argv[2] || "231");
+const returnCityId = parseInt(process.argv[3] || "15");
+
+extractHitchList(pickupCityId, returnCityId);
