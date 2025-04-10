@@ -11,7 +11,8 @@
     "dev": "node --loader ts-node/esm src/index.ts",
     "zuche": "node --loader ts-node/esm src/zuche.ts",
     "stop": "kill -s INT $(pgrep -f 'node dist/index.js')",
-    "start": "node dist/index.js"
+    "query": "ps -ef | grep node",
+    "start": "pnpm build && node dist/index.js"
   },
   "keywords": [],
   "author": "",

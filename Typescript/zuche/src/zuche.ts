@@ -1,5 +1,15 @@
 // Create an HTTP client function for the Zuche API
 // pickupCityId: "231" = 惠州 (Huizhou) pickupCityId: "15" = 深圳 (Shenzhen)
+export interface RideInfo {
+    index: number;
+    modelName: string;
+    pickupCityName: string;
+    returnCityName: string;
+    beginTime: string;
+    endTime: string;
+    realTotalPrice: number;
+}
+
 export async function fetchHitchList(pickupCityId: number, returnCityId: number | null) {
     const url = "https://m.zuche.com/api/gw.do?uri=/action/carrctapi/order/hitchList/v1";
     const requestBody = {
@@ -42,7 +52,7 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
     try {
         console.log("Fetching hitch list data...");
         const result = await fetchHitchList(pickupCityId, returnCityId);
-        const hitchListInfo: any[] = [];
+        const hitchListInfo: RideInfo[] = [];
 
         if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
             console.log("\nAvailable hitch rides:");
