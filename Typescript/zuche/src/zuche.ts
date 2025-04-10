@@ -1,5 +1,6 @@
 // Create an HTTP client function for the Zuche API
 // pickupCityId: "231" = 惠州 (Huizhou) pickupCityId: "15" = 深圳 (Shenzhen)
+import logger from "./logger.js";
 export interface RideInfo {
     index: number;
     modelName: string;
@@ -43,19 +44,19 @@ export async function fetchHitchList(pickupCityId: number, returnCityId: number 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching hitch list:", error);
+        logger.error("Error fetching hitch list:", error);
         throw error;
     }
 }
 
 export async function extractHitchList(pickupCityId: number, returnCityId: number | null) {
     try {
-        console.log("Fetching hitch list data...");
+        logger.info("Extracting hitch list data...");
         const result = await fetchHitchList(pickupCityId, returnCityId);
         const hitchListInfo: RideInfo[] = [];
 
         if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
-            console.log("\nAvailable hitch rides:");
+            logger.info("\nAvailable hitch rides:");
             result.content.hitchList.forEach((ride: any, index: number) => {
                 const rideInfo = {
                     index: index + 1,
@@ -67,15 +68,16 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
                     realTotalPrice: ride.realTotalPrice,
                 };
                 hitchListInfo.push(rideInfo);
-                console.log(`\n[${rideInfo.index}] ${rideInfo.modelName}`);
-                console.log(`  From: ${rideInfo.pickupCityName} → To: ${rideInfo.returnCityName}`);
-                console.log(`  Date: ${rideInfo.beginTime} - ${rideInfo.endTime}`);
-                console.log(`  Price: ${rideInfo.realTotalPrice}`);
-                return hitchListInfo;
+                logger.info(`\n[${rideInfo.index}] ${rideInfo.modelName}`);
+                logger.info(`  From: ${rideInfo.pickupCityName} → To: ${rideInfo.returnCityName}`);
+                logger.info(`  Date: ${rideInfo.beginTime} - ${rideInfo.endTime}`);
+                logger.info(`  Price: ${rideInfo.realTotalPrice}`);
             });
         }
+        return hitchListInfo;
     } catch (error) {
-        console.error("Test failed:", error);
+        logger.error("Fetching hitch list failed:", error);
+        return [];
     }
 }
 

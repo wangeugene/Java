@@ -20,14 +20,11 @@ const returnCityId = parseInt(process.argv[3] || "15");
 const cronJob = schedule("0 */10 8-22 * * *", () => {
     const date = new Date();
     logger.info(`Cron job assigned at: ${date.toLocaleString()}`);
-    console.log(`docker log <container_name> to view this log: Email recipient: ${process.env.EMAIL_RECIPIENT!}`);
 
     // Fetch the hitch list
     extractHitchList(pickupCityId, returnCityId).then((hitchList) => {
         logger.info(`Querying pickup city ID: ${pickupCityId} and returnCityId: ${returnCityId}`);
-        logger.info(`Hitch list found: ${JSON.stringify(hitchList)}`);
-        console.log(`Array.isArray(hitchList): ${Array.isArray(hitchList)}, histchList: ${hitchList}`);
-        logger.info(`Array.isArray(hitchList): ${Array.isArray(hitchList)}, histchList: ${hitchList}`);
+        logger.info(`Array.isArray(hitchList): ${Array.isArray(hitchList)}, hitchList: ${hitchList}`);
         if (Array.isArray(hitchList)) {
             console.log(`hitchList.length: ${hitchList.length}`);
             emailService
@@ -43,7 +40,7 @@ const cronJob = schedule("0 */10 8-22 * * *", () => {
                     logger.error(`Failed to send email: ${error.message}`, error);
                 });
         } else {
-            logger.info("No hitch found.");
+            logger.error("No hitch found.");
         }
     });
 });
