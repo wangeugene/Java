@@ -24,17 +24,16 @@ const cronJob = schedule("0 */10 8-22 * * *", () => {
     // Fetch the hitch list
     extractHitchList(pickupCityId, returnCityId).then((hitchList) => {
         logger.info(`Querying pickup city ID: ${pickupCityId} and returnCityId: ${returnCityId}`);
-        logger.info(`Array.isArray(hitchList): ${Array.isArray(hitchList)}, hitchList: ${hitchList}`);
-        if (Array.isArray(hitchList)) {
-            console.log(`hitchList.length: ${hitchList.length}`);
+        if (Array.isArray(hitchList) && hitchList.length > 0) {
+            logger.info(`hitchList.length: ${hitchList.length}`);
             emailService
                 .sendEmail({
                     to: process.env.EMAIL_RECIPIENT!,
                     subject: "Hitch List Notification",
-                    text: `Hitch list: ${JSON.stringify(hitchList)}`,
+                    text: `Hitch list: \n ${JSON.stringify(hitchList, null, 2)}`,
                 })
                 .then((emailResponse) => {
-                    logger.info(`Email sent successfully: ${JSON.stringify(emailResponse)}`);
+                    logger.info(`Email sent successfully}`);
                 })
                 .catch((error) => {
                     logger.error(`Failed to send email: ${error.message}`, error);

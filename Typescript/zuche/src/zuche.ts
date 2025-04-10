@@ -51,12 +51,11 @@ export async function fetchHitchList(pickupCityId: number, returnCityId: number 
 
 export async function extractHitchList(pickupCityId: number, returnCityId: number | null) {
     try {
-        logger.info("Extracting hitch list data...");
         const result = await fetchHitchList(pickupCityId, returnCityId);
         const hitchListInfo: RideInfo[] = [];
 
         if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
-            logger.info("\nAvailable hitch rides:");
+            logger.info(`Available hitch rides: ${result.content.hitchList.length}`);
             result.content.hitchList.forEach((ride: any, index: number) => {
                 const rideInfo = {
                     index: index + 1,
@@ -68,10 +67,7 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
                     realTotalPrice: ride.realTotalPrice,
                 };
                 hitchListInfo.push(rideInfo);
-                logger.info(`\n[${rideInfo.index}] ${rideInfo.modelName}`);
-                logger.info(`  From: ${rideInfo.pickupCityName} → To: ${rideInfo.returnCityName}`);
-                logger.info(`  Date: ${rideInfo.beginTime} - ${rideInfo.endTime}`);
-                logger.info(`  Price: ${rideInfo.realTotalPrice}`);
+                logger.info(`rideInfo list: ${JSON.stringify(rideInfo, null, 2)}`);
             });
         }
         return hitchListInfo;

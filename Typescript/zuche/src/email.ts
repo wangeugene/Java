@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import logger from "./logger.js";
 
 // Email configuration interface
 interface EmailConfig {
@@ -58,7 +59,7 @@ export class EmailService {
             const info = await this.transporter.sendMail(mailOptions);
             return info;
         } catch (error) {
-            console.error("Failed to send email:", error);
+            logger.error("Failed to send email:", error);
             throw error;
         }
     }
@@ -72,7 +73,7 @@ export class EmailService {
             await this.transporter.verify();
             return true;
         } catch (error) {
-            console.error("Email connection verification failed:", error);
+            logger.error("Email connection verification failed:", error);
             return false;
         }
     }
