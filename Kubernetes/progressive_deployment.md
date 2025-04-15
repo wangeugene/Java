@@ -23,9 +23,17 @@ Progressive deployment is a broader term that encompasses various deployment str
 -   Baseline - a clone of the primary (current) variant that serves as a baseline for comparison during Progressive Deployment execution.
 -   Canary - the candidate application version, which is compared against the baseline variant during Progressive Deployment execution.
 
+These 3 variants are live application instances.
+
+-   Template - The template is not a live application instance. It is a blueprint for creating the baseline and canary variants. The template is used to create the baseline and canary variants, which are then deployed to the Kubernetes cluster.
+
+0. Template is a clone of the primary variant.
+1. Baseline is created from the template and is a clone of the primary variant. (The same version as Primary)
+2. Canary is created from the template and is a clone of the primary variant. (The newer version than Primary)
+
 ## Judgement types:
 
-Progressive Deployment currently supports the following judgment types:
+Progressive Deployment currently supports the following judgement types:
 
 -   Automated - Progressive Deployment execution pauses whilst the automatic analysis is performed, which compares application metrics and either approves or rejects based on thresholds defined. Rejection results in an instant pre-promotion rollback; approval results in resumed execution.
 -   Manual - Progressive Deployment execution pauses whilst the application owner compares indicators and either approves or rejects via the Spinnaker UI. Rejection results in an instant rollback.

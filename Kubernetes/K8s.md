@@ -1,3 +1,5 @@
+## Minikube Playground
+
 ```zsh
 brew install minikube
 ```
@@ -31,14 +33,26 @@ kubectl get pods
 kubectl get pods -A
 kubectl get pods -n development
 kubectl get pods -n development -o wide
-kubectl get services -A 
+kubectl get services -A
 kubectl logs pod_name
 kubectl version --client --output=yaml
 ```
 
+## AWS Playground
+
 ```zsh
-aws ec2 describe-instances 
-aws eks describe-addon-versions --addon-name vpc-cni 
+aws ec2 describe-instances
+aws eks describe-addon-versions --addon-name vpc-cni
 aws eks describe-cluster --name cluster_name  --query "cluster.version"
 aws sts get-caller-identity
 ```
+
+## Services vs Deployments
+
+| Concept        | **Deployment**                                | **Service**                                       |
+| -------------- | --------------------------------------------- | ------------------------------------------------- |
+| Purpose        | Manages how apps are **deployed and updated** | Provides a **stable endpoint** to access pods     |
+| Controls       | **ReplicaSets → Pods**                        | Routes traffic to **Pods** via selectors          |
+| Concerned with | App lifecycle, scaling, rollouts              | Networking, discovery, load-balancing             |
+| Creates        | **Pods** (indirectly)                         | **ClusterIP / NodePort / LoadBalancer endpoints** |
+| Stateful?      | Typically used for **stateless** apps         | Can front stateless or stateful services          |
