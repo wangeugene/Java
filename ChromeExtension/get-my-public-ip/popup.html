@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Get My Public IP</title>
+        <style>
+            body {
+                width: 400px;
+                padding: 10px;
+                font-family: Arial, sans-serif;
+            }
+            #response {
+                margin-top: 10px;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                max-height: 400px;
+                overflow-y: auto;
+                border: 1px solid #ccc;
+                padding: 10px;
+                background-color: #f5f5f5;
+            }
+            .loading {
+                display: none;
+                color: #666;
+                font-style: italic;
+            }
+            .error {
+                color: red;
+                display: none;
+            }
+            #status {
+                margin-top: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>My Public IP</h2>
+        <button id="sendRequest">Send Request Button</button>
+        <div id="status"></div>
+        <div id="loading" class="loading">Loading...</div>
+        <div id="ipDisplay">Fetching...</div>
+        <div id="error" class="error"></div>
+        <pre id="response"></pre>
+        <script type="module" src="./popup.js"></script>
+    </body>
+</html>

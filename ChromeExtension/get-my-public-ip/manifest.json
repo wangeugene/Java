@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Get my Public IP!",
+  "version": "1.0",
+  "description": "Fetch and display your public IP address.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://ifconfig.info/"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
