@@ -1,1 +1,2 @@
-console.log("popup.js")
+console.log("Popup script loaded!");
+console.log("printing out from the extension's popup.js");

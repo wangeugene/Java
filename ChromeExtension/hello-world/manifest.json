@@ -1,6 +1,6 @@
 {
-  "name": "Hello Extensions of the world!",
-  "description": "Base Level Extension",
+  "name": "Hello Extensions!",
+  "description": "Basic Level Extension",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
