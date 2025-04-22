@@ -2,6 +2,7 @@ gradlew
 .idea/
 gradle/
 secret/
+secrets.json
 bin
 */build/
 /GraphQL/node_modules/
