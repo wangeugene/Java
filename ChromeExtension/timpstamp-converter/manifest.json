@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Timestamp Converter",
+  "version": "1.0",
+  "description": "Convert Unix timestamps to human-readable format in UTC+0 and UTC+8 timezones",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon.svg",
+      "48": "images/icon.svg",
+      "128": "images/icon.svg"
+    }
+  },
+  "icons": {
+    "16": "images/icon.svg",
+    "48": "images/icon.svg",
+    "128": "images/icon.svg"
+  },
+  "permissions": []
+}
