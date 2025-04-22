@@ -1,20 +1,20 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-export default async function addAttendance(Date, ExpectedClockInTime, ClockOutTimeCutOff) {
+export default async function addAttendance(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd, FinalExceptionHours) {
     const payload = {
         maindata: {
-            BreakFrom: `${Date} ${ExpectedClockInTime}`,
-            BreakTo: `${Date} ${ClockOutTimeCutOff}`,
+            BreakFrom: `${Date} ${ClockInTimeCutOffStart}`,
+            BreakTo: `${Date} ${ClockInTimeCutOffEnd}`,
             Reason: "",
             PINCode: 143404,
-            Duration: 1,
+            Duration: `${FinalExceptionHours}`,
             DailyDetail: [
                 {
                     DayTime: `${Date}T00:00:00`,
-                    LeaveHours: 1.0,
-                    StartTime: `${Date}T${ExpectedClockInTime}`,
-                    EndTime: `${Date}T${ClockOutTimeCutOff}`,
+                    LeaveHours: `${FinalExceptionHours}`,
+                    StartTime: `${Date}T${ClockInTimeCutOffStart}`,
+                    EndTime: `${Date}T${ClockInTimeCutOffEnd}`,
                 },
             ],
         },

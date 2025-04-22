@@ -94,11 +94,11 @@ async function queryAttendance() {
     });
 
     console.log(JSON.stringify(timeDifference, null, 2));
-    // for (const item of timeDifference) {
-    //     const { Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd } = item;
-    //     console.log(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd);
-    //     await addAttendance(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd);
-    // }
+    for (const item of timeDifference) {
+        const { Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd, FinalExceptionHours } = item;
+        console.log(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd);
+        await addAttendance(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd, FinalExceptionHours);
+    }
 }
 
 queryAttendance().catch((error) => {
