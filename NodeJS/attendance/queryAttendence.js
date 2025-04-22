@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import addAttendance from "./addAttendance.js";
 
 dotenv.config();
 
@@ -67,20 +68,37 @@ async function queryAttendance() {
         });
 
     const timeDifference = filteredData.map((item) => {
-        const clockIn = new Date(`2025-04-10 ${item.ClockInTime}`);
-        const nineAM = new Date(`2025-04-10 09:00:00`);
+        if (item.ClockInTime === item.ClockOutTime) {
+            return {
+                ...item,
+                ClockInTimeCutOffStart: "09:00",
+                ClockInTimeCutOffEnd: "18:00",
+            };
+        } else {
+            const [hours, minutes] = item.ClockInTime.split(":").map(Number);
+            const totalMinutes = hours * 60 + minutes;
+            const roundedMinutes = Math.ceil(totalMinutes / 30) * 30;
+            const roundedHours = Math.floor(roundedMinutes / 60) % 24;
+            const roundedMinute = roundedMinutes % 60;
 
-        const diffInMilliseconds = clockIn.getTime() - nineAM.getTime();
-        const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
-
-        return {
-            ...item,
-            HoursFromNine: Math.round(diffInHours),
-        };
+            const roundedClockInTime = `${String(roundedHours).padStart(2, "0")}:${String(roundedMinute).padStart(
+                2,
+                "0"
+            )}`;
+            return {
+                ...item,
+                ClockInTimeCutOffStart: "09:00",
+                ClockInTimeCutOffEnd: roundedClockInTime,
+            };
+        }
     });
 
-    console.log("Time Difference from 9AM:");
     console.log(JSON.stringify(timeDifference, null, 2));
+    // for (const item of timeDifference) {
+    //     const { Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd } = item;
+    //     console.log(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd);
+    //     await addAttendance(Date, ClockInTimeCutOffStart, ClockInTimeCutOffEnd);
+    // }
 }
 
 queryAttendance().catch((error) => {

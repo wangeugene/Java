@@ -1,20 +1,20 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-(async () => {
-    const body = {
+export default async function addAttendance(Date, ExpectedClockInTime, ClockOutTimeCutOff) {
+    const payload = {
         maindata: {
-            BreakFrom: "2025-04-07 09:00",
-            BreakTo: "2025-04-07 10:00",
+            BreakFrom: `${Date} ${ExpectedClockInTime}`,
+            BreakTo: `${Date} ${ClockOutTimeCutOff}`,
             Reason: "",
             PINCode: 143404,
             Duration: 1,
             DailyDetail: [
                 {
-                    DayTime: "2025-04-07T00:00:00",
+                    DayTime: `${Date}T00:00:00`,
                     LeaveHours: 1.0,
-                    StartTime: "2025-04-07T09:00:00",
-                    EndTime: "2025-04-07T10:00:00",
+                    StartTime: `${Date}T${ExpectedClockInTime}`,
+                    EndTime: `${Date}T${ClockOutTimeCutOff}`,
                 },
             ],
         },
@@ -25,6 +25,7 @@ dotenv.config();
             },
         ],
     };
+    console.log("Payload:", JSON.stringify(payload, null, 2));
     const response = await fetch(`${process.env.ADD_URL}`, {
         headers: {
             accept: "application/json, text/plain, */*",
@@ -48,11 +49,19 @@ dotenv.config();
         },
         referrer: `${process.env.REFERRER_URL}`,
         referrerPolicy: "strict-origin-when-cross-origin",
-        body: JSON.stringify(body),
+        body: JSON.stringify(payload),
         method: "POST",
         mode: "cors",
         credentials: "include",
     });
     const responseBody = await response.json();
-    console.log("Response:", responseBody);
-})();
+    console.log("Added Exception Response:", responseBody);
+}
+
+// addAttendance("2025-04-02", "09:00:00", "10:00:00")
+//     .then(() => {
+//         console.log("Attendance added successfully");
+//     })
+//     .catch((error) => {
+//         console.error("Error adding attendance:", error);
+//     });
