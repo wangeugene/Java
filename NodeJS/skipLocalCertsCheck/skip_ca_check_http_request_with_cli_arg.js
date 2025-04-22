@@ -7,7 +7,7 @@ const path = require("path");
 // To see above error, run the following command:
 // node skip_ca_check_http_request.js
 // To run this code, copy & paste the following line in your terminal:
-// NODE_TLS_REJECT_UNAUTHORIZED=0 node skip_ca_check_http_request.js
+// NODE_TLS_REJECT_UNAUTHORIZED=0 node skip_ca_check_http_request_with_cli_arg.js
 
 // Read secrets.json file from the same directory
 const secretsPath = path.join(__dirname, "secrets.json");
