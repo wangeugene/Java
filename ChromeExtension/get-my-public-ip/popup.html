@@ -92,11 +92,33 @@
                 margin-top: 0;
                 color: #2c3e50;
             }
+            .input-group {
+                margin-bottom: 10px;
+                position: relative;
+            }
+            .input-group input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-size: 14px;
+            }
+            .input-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #555;
+            }
         </style>
     </head>
     <body>
         <h2>My Public IP Information</h2>
-        <button id="sendRequest">Refresh IP Information</button>
+        <div class="input-group">
+            <label for="ipInput">IP Address:</label>
+            <input type="text" id="ipInput" placeholder="Enter IP Address" />
+        </div>
+        <button id="sendRequest">Lookup IP Information</button>
         <div id="status"></div>
         <div id="error" class="error"></div>
         <div id="response"></div>
