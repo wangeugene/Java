@@ -1,18 +1,24 @@
+import lookupIP from "./lookupIP.js";
+
 export const sendRequest = async function () {
     try {
-        const response = await fetch("https://ifconfig.info", { method: "GET" });
-        const headers = {};
-        for (const [key, value] of response.headers.entries()) {
-            headers[key] = value;
+        // First get the user's IP address
+        const ipResponse = await fetch("https://ifconfig.info", { method: "GET" });
+        if (!ipResponse.ok) {
+            throw new Error(`HTTP error! status: ${ipResponse.status}`);
         }
-        console.log("Response Headers (as object):", headers);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const ipAddress = await ipResponse.text();
+
+        // Then look up detailed information about that IP
+        const ipData = await lookupIP(ipAddress.trim());
+
+        if (!ipData) {
+            throw new Error("Failed to retrieve IP information");
         }
-        const data = await response.text(); // ← Correct way to parse response body
-        console.log("Response Data:", data);
-        return data;
+
+        return ipData;
     } catch (error) {
         console.log("Error fetching data:", error);
+        throw error;
     }
 };

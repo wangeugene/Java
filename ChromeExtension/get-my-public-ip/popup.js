@@ -14,10 +14,27 @@ document.addEventListener("DOMContentLoaded", async function () {
             statusElement.textContent = "Loading...";
             statusElement.style.color = "blue";
 
-            const response = await sendRequest();
+            const ipData = await sendRequest();
 
             // Hide loading and show response
-            responseElement.textContent = `Your IP address is: ${response}`;
+            let ipInfoHTML = `<h3>Your IP: ${ipData.query}</h3>`;
+            ipInfoHTML += `<div class="info-item"><strong>Location:</strong> ${ipData.city}, ${ipData.regionName}, ${ipData.country} (${ipData.countryCode})</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>ISP:</strong> ${ipData.isp}</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>Organization:</strong> ${ipData.org}</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>AS:</strong> ${ipData.as}</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>Coordinates:</strong> ${ipData.lat}, ${ipData.lon}</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>Timezone:</strong> ${ipData.timezone}</div>`;
+            ipInfoHTML += `<div class="info-item"><strong>ZIP:</strong> ${ipData.zip}</div>`;
+
+            // Add the full raw JSON data in a collapsible section
+            ipInfoHTML += `<div class="raw-data">
+                <details>
+                    <summary>Raw JSON Data</summary>
+                    <pre>${JSON.stringify(ipData, null, 2)}</pre>
+                </details>
+            </div>`;
+
+            responseElement.innerHTML = ipInfoHTML;
             statusElement.textContent = "Success";
             statusElement.style.color = "green";
         } catch (error) {
