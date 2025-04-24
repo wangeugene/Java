@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Attendance Auth Header</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Authorization Token</h1>
+            <div id="status-message" class="status-message">Waiting for authorization token...</div>
+            <div class="token-container">
+                <textarea id="auth-token" readonly></textarea>
+                <div class="button-container">
+                    <button id="copy-button">Copy Token</button>
+                    <button id="refresh-button">Refresh</button>
+                </div>
+            </div>
+            <div id="timestamp" class="timestamp"></div>
+
+            <div class="action-container">
+                <h2>Actions</h2>
+                <button id="fill-exceptions-button" class="action-button">Fill Exceptions</button>
+                <div id="action-status" class="action-status"></div>
+            </div>
+        </div>
+        <script type="module" src="popup.js"></script>
+    </body>
+</html>
