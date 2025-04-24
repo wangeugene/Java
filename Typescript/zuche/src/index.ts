@@ -46,12 +46,13 @@ const cronJob = schedule("0 */10 8-22 * * *", async () => {
             logger.info(`Hitch: ${JSON.stringify(hitch)}`);
         });
 
-        hitchList.forEach((hitch) => {
+        if (hitchList.length > 0) {
+            logger.info(`Sending email with hitch list`);
             emailService
                 .sendEmail({
                     to: process.env.EMAIL_RECIPIENT!,
                     subject: "Hitch List Notification",
-                    text: `Hitch list: \n ${JSON.stringify(hitch, null, 2)}`,
+                    text: `Hitch list: \n ${JSON.stringify(hitchList, null, 2)}`,
                 })
                 .then((emailResponse) => {
                     logger.info(`Email sent successfully}`);
@@ -59,7 +60,7 @@ const cronJob = schedule("0 */10 8-22 * * *", async () => {
                 .catch((error) => {
                     logger.error(`Failed to send email: ${error.message}`, error);
                 });
-        });
+        }
     } catch (error) {
         logger.error(`Error in cron job: ${error}`);
     }

@@ -70,7 +70,6 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
             `extractHitchList called with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "null"}`
         );
         const result = await fetchHitchList(pickupCityId, returnCityId);
-        console.log("Result from fetchHitchList:", JSON.stringify(result, null, 2));
         const hitchListInfo: RideInfo[] = [];
 
         if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
@@ -111,7 +110,7 @@ const isMainModule = import.meta.url === `file://${process.argv[1]}`;
 
 if (isMainModule) {
     const pickupCityId = parseInt(process.argv[2] || "15");
-    const returnCityId = parseInt(process.argv[3] || "");
+    const returnCityId = parseInt(process.argv[3] || "231");
 
     console.log(
         `Running zuche.ts directly with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "not specified"}`
