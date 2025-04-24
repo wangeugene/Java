@@ -23,10 +23,13 @@ export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
 
 export EDITOR="emacs"
 alias kp='sh ~/Projects/Java/Shell/killProcessesByPorts.sh'
+alias zsync='cp ~/Projects/Java/.zshrc ~/.zshrc && source ~/.zshrc'
 alias cj='cd ~/Projects/Java'
 alias nd='docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi $(docker images -q)'
 alias dc='open -a "Google Chrome" --args --make-default-browser'
 alias fd='fd --no-ignore'
+alias urldecode='node -e "console.log(decodeURIComponent(process.argv[1]))"'
+alias b64decode='node -e "console.log(Buffer.from(process.argv[1], \"base64\").toString())"'
 
 # git start
 acp() {
@@ -62,5 +65,11 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-alias urldecode='node -e "console.log(decodeURIComponent(process.argv[1]))"'
-alias b64decode='node -e "console.log(Buffer.from(process.argv[1], \"base64\").toString())"'
+
+# Initialize zoxide
+eval "$(zoxide init zsh)"
+
+# Optional but awesome: enable fzf keybindings and fuzzy search
+# (fzf has a post-install step)
+# brew install zoxide fzf
+# $(brew --prefix)/opt/fzf/install

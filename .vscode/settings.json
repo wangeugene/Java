@@ -1,4 +1,4 @@
 {
-  "cSpell.words": ["camelcase"],
+  "cSpell.words": ["camelcase", "zsync"],
   "java.compile.nullAnalysis.mode": "automatic"
 }
