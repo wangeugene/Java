@@ -2,9 +2,9 @@
   "manifest_version": 3,
   "name": "Attendance Auth Header Extractor",
   "version": "1.0",
-  "description": "Extracts authorization header from requests to AT",
+  "description": "Extracts authorization header from requests to attendance.centific.com.cn",
   "permissions": ["webRequest", "storage"],
-  "host_permissions": [""],
+  "host_permissions": ["https://attendance.centific.com.cn/*"],
   "background": {
     "service_worker": "background.js"
   },
@@ -22,11 +22,5 @@
     "32": "images/icon32.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": ["secrets.json"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  }
 }
