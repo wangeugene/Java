@@ -4,6 +4,7 @@ import logger from "./logger.js";
 import dotenv from "dotenv";
 dotenv.config();
 import { createEmailService } from "./email.js";
+import getDetails from "./getDetails.js";
 
 const emailService = createEmailService(
     process.env.SMTP_HOST!,
@@ -13,24 +14,44 @@ const emailService = createEmailService(
     true
 );
 
-const pickupCityId = parseInt(process.argv[2] || "231");
-const returnCityId = parseInt(process.argv[3] || "15");
+const pickupCityId = parseInt(process.argv[2] || "15");
+const returnCityId = parseInt(process.argv[3] || "231");
+console.log(`Starting with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "not specified"}`);
 
 // Schedule the cron job
-const cronJob = schedule("0 */10 8-22 * * *", () => {
-    const date = new Date();
-    logger.info(`Cron job assigned at: ${date.toLocaleString()}`);
+const cronJob = schedule("0 */10 8-22 * * *", async () => {
+    try {
+        const date = new Date();
+        logger.info(`Cron job started at: ${date.toLocaleString()}`);
+        logger.info(
+            `Fetching hitch list with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "not specified"}`
+        );
 
-    // Fetch the hitch list
-    extractHitchList(pickupCityId, returnCityId).then((hitchList) => {
-        logger.info(`Querying pickup city ID: ${pickupCityId} and returnCityId: ${returnCityId}`);
-        if (Array.isArray(hitchList) && hitchList.length > 0) {
-            logger.info(`hitchList.length: ${hitchList.length}`);
+        const hitchList = await extractHitchList(pickupCityId, returnCityId);
+        console.log("Hitch List:", hitchList);
+        logger.info(`Received hitchList with ${hitchList.length} items`);
+
+        if (hitchList.length === 0) {
+            logger.warn("No hitch rides found");
+            return;
+        }
+
+        hitchList.forEach(async (hitch) => {
+            const hitchIdArg = {
+                hitchId: hitch.hitchId,
+            };
+            logger.info(`Fetching details for hitchId: ${hitch.hitchId}`);
+            const hitchDetails = await getDetails(hitchIdArg);
+            hitch.hitchDetails = hitchDetails;
+            logger.info(`Hitch: ${JSON.stringify(hitch)}`);
+        });
+
+        hitchList.forEach((hitch) => {
             emailService
                 .sendEmail({
                     to: process.env.EMAIL_RECIPIENT!,
                     subject: "Hitch List Notification",
-                    text: `Hitch list: \n ${JSON.stringify(hitchList, null, 2)}`,
+                    text: `Hitch list: \n ${JSON.stringify(hitch, null, 2)}`,
                 })
                 .then((emailResponse) => {
                     logger.info(`Email sent successfully}`);
@@ -38,14 +59,45 @@ const cronJob = schedule("0 */10 8-22 * * *", () => {
                 .catch((error) => {
                     logger.error(`Failed to send email: ${error.message}`, error);
                 });
-        } else {
-            logger.error("No hitch found.");
-        }
-    });
+        });
+    } catch (error) {
+        logger.error(`Error in cron job: ${error}`);
+    }
 });
 
-// Immediately run the cron job once when the app starts
+// Run the job immediately when the app starts (regardless of the schedule)
+console.log("Starting immediate job execution...");
 cronJob.start();
+(async () => {
+    try {
+        const date = new Date();
+        logger.info(`Manual job execution at: ${date.toLocaleString()}`);
+        logger.info(
+            `Fetching hitch list with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "not specified"}`
+        );
+
+        const hitchList = await extractHitchList(pickupCityId, returnCityId);
+        console.log("Hitch List from immediate execution:", hitchList);
+        logger.info(`Received hitchList with ${hitchList.length} items`);
+
+        if (hitchList.length === 0) {
+            logger.warn("No hitch rides found in immediate execution");
+            return;
+        }
+
+        for (const hitch of hitchList) {
+            const hitchIdArg = {
+                hitchId: hitch.hitchId,
+            };
+            logger.info(`Fetching details for hitchId: ${hitch.hitchId}`);
+            const hitchDetails = await getDetails(hitchIdArg);
+            hitch.hitchDetails = hitchDetails;
+            logger.info(`Hitch details: ${JSON.stringify(hitch)}`);
+        }
+    } catch (error) {
+        logger.error(`Error in immediate execution: ${error}`);
+    }
+})();
 
 // Function to gracefully stop the cron job
 function stopCronJob() {

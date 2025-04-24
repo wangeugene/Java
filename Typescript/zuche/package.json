@@ -10,6 +10,7 @@
     "build": "rm -rf dist && tsc",
     "dev": "node --loader ts-node/esm src/index.ts",
     "zuche": "node --loader ts-node/esm src/zuche.ts",
+    "getDetails": "node --loader ts-node/esm src/getDetails.ts",
     "stop": "kill -s INT $(pgrep -f 'node dist/index.js')",
     "query": "ps -ef | grep node",
     "start": "pnpm build && node dist/index.js"
