@@ -34,11 +34,9 @@ for GRADLE_PID in $GRADLE_PIDs; do
     echo "Killed Gradle process of pid: $GRADLE_PID"
 done
 
-# Killing the node process on port 443
-# NPID=$(lsof -i:443 | grep node | awk '{print $2}')
-# if [ -n "$NPID" ]; then
-#     kill -9 $NPID
-#     echo "Killed nodejs process $NPID on port 443"
-# else
-#     echo "No nodejs process found on port 443"
-# fi
+# Killing the node process
+NODE_PIDs=$(ps aux | grep node | awk '{print $2}')
+for NODE_PID in $NODE_PIDs; do
+    kill -9 $NODE_PID
+    echo "Killed node process of pid: $NODE_PID"
+done
