@@ -6,7 +6,7 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                width: 300px;
+                width: 350px;
                 padding: 10px;
             }
             .container {
@@ -44,6 +44,22 @@
                 color: red;
                 display: none;
             }
+            .input-group {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .timezone-input {
+                width: 60px;
+            }
+            .flexible-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .custom-timezone {
+                margin-top: 10px;
+            }
         </style>
     </head>
     <body>
@@ -55,6 +71,14 @@
                 <input type="text" id="timestamp" placeholder="e.g., 1619712000" />
             </div>
 
+            <div class="flexible-container">
+                <div class="input-group">
+                    <label for="custom-timezone">Your Timezone (UTC):</label>
+                    <input type="text" id="custom-timezone" class="timezone-input" placeholder="+8" />
+                </div>
+                <button id="save-timezone">Save</button>
+            </div>
+
             <button id="convert">Convert</button>
 
             <div id="error" class="error">Please enter a valid Unix timestamp</div>
@@ -63,8 +87,8 @@
                 <div class="time-display">UTC+0 (GMT):</div>
                 <div id="utc0"></div>
 
-                <div class="time-display">UTC+8 (China):</div>
-                <div id="utc8"></div>
+                <div class="time-display custom-timezone">Your Timezone:</div>
+                <div id="custom-time"></div>
             </div>
         </div>
 
