@@ -51,5 +51,6 @@ public class DynamicTableLooker {
                 System.out.println(table.get(rowIndex).get(colIndex));
             }
         }
+        sc.close();
     }
 }

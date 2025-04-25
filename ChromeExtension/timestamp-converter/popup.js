@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultDiv = document.getElementById("result");
     const utc0Div = document.getElementById("utc0");
     const utc8Div = document.getElementById("utc8");
-    const localDiv = document.getElementById("local");
 
     //format the argument date to be like this 2023-10-01T12:00:00
     function formatDate(date) {
