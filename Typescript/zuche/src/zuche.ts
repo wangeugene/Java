@@ -56,7 +56,6 @@ export async function fetchHitchList(pickupCityId: number, returnCityId: number 
         }
 
         const data = await response.json();
-        console.log("API Response:", JSON.stringify(data, null, 2));
         return data;
     } catch (error) {
         logger.error("Error fetching hitch list:", error);
@@ -88,7 +87,6 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
                     realTotalPrice: ride.realTotalPrice,
                 };
                 hitchListInfo.push(rideInfo);
-                logger.info(`rideInfo list: ${JSON.stringify(rideInfo, null, 2)}`);
             });
         } else {
             console.log("No hitch list available in the API response or status not SUCCESS:", result);
@@ -116,11 +114,5 @@ if (isMainModule) {
         `Running zuche.ts directly with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "not specified"}`
     );
 
-    extractHitchList(pickupCityId, returnCityId)
-        .then((hitchList) => {
-            console.log("Hitch List when run directly:", hitchList);
-        })
-        .catch((error) => {
-            console.error("Error when running zuche.ts directly:", error);
-        });
+    extractHitchList(pickupCityId, returnCityId);
 }
