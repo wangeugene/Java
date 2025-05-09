@@ -34,4 +34,3 @@ else
 fi
 
 # MacOS specific way of adding keys to the agent
-ssh -T git@github.com

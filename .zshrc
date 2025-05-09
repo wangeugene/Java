@@ -77,6 +77,27 @@ acp() {
 
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-       eval "$(ssh-agent -s)"
-       ssh-add ~/.ssh/id_25519  # or your specific key path
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "macOS detected, using Apple Keychain"
+        KEYCHAIN_FLAG="--apple-use-keychain"
+        if ! pgrep -x "ssh-agent" >/dev/null; then
+            eval "$(ssh-agent -s)"
+            ssh-add --apple-use-keychain ~/.ssh/id_ed25519  # or your specific key path
+        else
+            echo "ssh-agent is already running with the following PID(s):"
+            pgrep -x "ssh-agent"
+        fi
+    else
+      # Linux and others
+      echo "Linux detected, using default ssh-agent"
+      KEYCHAIN_FLAG=""
+      if ! pgrep -x "ssh-agent" >/dev/null; then
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_ed25519
+          ssh-add -l
+      else
+          echo "ssh-agent is already running with the following PID(s):"
+          pgrep -x "ssh-agent"
+      fi
+    fi
 fi
