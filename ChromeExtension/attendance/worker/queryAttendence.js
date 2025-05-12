@@ -27,13 +27,16 @@ export async function queryAttendance() {
     const secretsResponse = await fetch(extensionURL);
     const secrets = await secretsResponse.json();
 
+    const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString('en-CA')
+    const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toLocaleDateString('en-CA');
+
     const payload = {
         page: 1,
         rows: 50,
         wheres: [
             { name: "Status", value: "10,30", DisplayType: "selectlist" },
-            { name: "Date", value: "2025-04-01", DisplayType: "thanorequal" },
-            { name: "Date", value: "2025-04-30", DisplayType: "lessorequal" },
+            { name: "Date", value: startOfMonth, DisplayType: "thanorequal" },
+            { name: "Date", value: endOfMonth, DisplayType: "lessorequal" },
         ],
         value: 1,
         sort: "Date",
