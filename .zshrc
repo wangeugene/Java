@@ -48,6 +48,12 @@ alias fd='fd --no-ignore'
 alias urldecode='node -e "console.log(decodeURIComponent(process.argv[1]))"'
 alias b64decode='node -e "console.log(Buffer.from(process.argv[1], \"base64\").toString())"'
 
+# First unalias zc if it exists, then define as function to accept command line arguments
+unalias zc 2>/dev/null || true
+function zc() {
+  cd ~/Projects/Java/Typescript/zuche/ && pnpm zuche "$@"
+}
+
 # git start
 acp() {
   git fetch origin
