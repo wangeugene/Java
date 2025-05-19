@@ -60,3 +60,11 @@ if [[ " ${ARG_PROCESSES[@]} " =~ " node " ]]; then
         echo "Killed node process of pid: $NODE_PID"
     done
 fi
+
+if [[ " ${ARG_PROCESSES[@]} " =~ " sshagent " ]]; then
+    SSHAGENTs=$(ps aux | grep ssh-agent | awk '{print $2}')
+    for SSHAGENT in $SSHAGENTs; do
+        kill -9 $SSHAGENT
+        echo "Killed ssh-agent process of pid: $SSHAGENT"
+    done
+fi

@@ -86,6 +86,7 @@ function sshagent(){
         if ! pgrep -x "ssh-agent" >/dev/null; then
             eval "$(ssh-agent -s)"
             ssh-add --apple-use-keychain ~/.ssh/id_ed25519  # or your specific key path
+            ssh-add --apple-use-keychain ~/.ssh/id_rsa  # or your specific key path
         else
             echo "ssh-agent is already running with the following PID(s):"
             pgrep -x "ssh-agent"
