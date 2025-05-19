@@ -1,5 +1,6 @@
 // Create an HTTP client function for the Zuche API
 // pickupCityId: "231" = 惠州 (Huizhou) pickupCityId: "15" = 深圳 (Shenzhen)
+import getDetails from "./getDetails.js";
 import logger from "./logger.js";
 export interface RideInfo {
     hitchDetails?:
@@ -69,7 +70,7 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
             `extractHitchList called with pickupCityId: ${pickupCityId}, returnCityId: ${returnCityId || "null"}`
         );
         const result = await fetchHitchList(pickupCityId, returnCityId);
-        const hitchListInfo: RideInfo[] = [];
+        const hitchList: RideInfo[] = [];
 
         if (result.status === "SUCCESS" && result.content && result.content.hitchList) {
             logger.info(`Available hitch rides: ${result.content.hitchList.length}`);
@@ -86,15 +87,25 @@ export async function extractHitchList(pickupCityId: number, returnCityId: numbe
                     endTime: ride.endTime,
                     realTotalPrice: ride.realTotalPrice,
                 };
-                hitchListInfo.push(rideInfo);
+                hitchList.push(rideInfo);
             });
         } else {
             console.log("No hitch list available in the API response or status not SUCCESS:", result);
             logger.warn("No hitch list available in the API response or status not SUCCESS");
         }
 
-        console.log("Final hitchListInfo array:", JSON.stringify(hitchListInfo, null, 2));
-        return hitchListInfo;
+        // The problem is that forEach does not wait for async operations to complete. This means that the hitchList array is not guaranteed to have all hitchDetails populated when you use it later (for example, when sending an email or logging).
+        for (const hitch of hitchList) {
+            const hitchIdArg = {
+                hitchId: hitch.hitchId,
+            };
+            logger.info(`Fetching details for hitchId: ${hitch.hitchId}`);
+            const hitchDetails = await getDetails(hitchIdArg);
+            hitch.hitchDetails = hitchDetails;
+        }
+
+        logger.info(`HitchList: ${JSON.stringify(hitchList, null, 2)}`);
+        return hitchList;
     } catch (error) {
         console.error("Error in extractHitchList:", error);
         logger.error("Fetching hitch list failed:", error);

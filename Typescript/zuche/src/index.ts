@@ -36,17 +36,6 @@ const cronJob = schedule("0 */10 8-22 * * *", async () => {
             return;
         }
 
-        // The problem is that forEach does not wait for async operations to complete. This means that the hitchList array is not guaranteed to have all hitchDetails populated when you use it later (for example, when sending an email or logging).
-        for (const hitch of hitchList) {
-            const hitchIdArg = {
-                hitchId: hitch.hitchId,
-            };
-            logger.info(`Fetching details for hitchId: ${hitch.hitchId}`);
-            const hitchDetails = await getDetails(hitchIdArg);
-            hitch.hitchDetails = hitchDetails;
-            logger.info(`Hitch: ${JSON.stringify(hitch)}`);
-        }
-
         if (hitchList.length > 0) {
             logger.info(`Sending email with hitch list`);
             emailService
