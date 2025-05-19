@@ -32,5 +32,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.colorTheme": "Linux Terminal Flat Dark AI",
   "keyboard.dispatch": "keyCode",
-  "terminal.integrated.macOptionIsMeta": true
+  "terminal.integrated.macOptionIsMeta": true,
+  "java.compile.nullAnalysis.mode": "automatic"
 }
