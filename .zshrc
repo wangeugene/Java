@@ -79,11 +79,8 @@ acp() {
 }
 # git end
 
-
-
-
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+function sshagent(){
+      if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "macOS detected, using Apple Keychain"
         KEYCHAIN_FLAG="--apple-use-keychain"
         if ! pgrep -x "ssh-agent" >/dev/null; then
@@ -111,4 +108,8 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
           ssh-add -l
       fi
     fi
+}
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    sshagent
 fi
