@@ -40,7 +40,7 @@ else
 fi
 
 export EDITOR="emacs"
-alias kp='sh ~/Projects/Java/Shell/killProcessesByPorts.sh'
+alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
 alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
 alias cj='cd ~/Projects/Java'
 alias nd='docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi $(docker images -q)'
