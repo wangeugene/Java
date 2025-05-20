@@ -55,6 +55,16 @@ function zc() {
   cd ~/Projects/Java/Typescript/zuche/ && pnpm zuche "$@"
 }
 
+ac(){
+  git fetch origin
+  git status
+  git add .
+  git commit -m "test: quick commit & push"
+  git push
+  git status
+  git log -1
+}
+
 # git start
 acp() {
   git fetch origin
