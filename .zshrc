@@ -124,6 +124,16 @@ function sshagent(){
     fi
 }
 
+# function az_open_latest_run()
+function azolr() {
+  local url=$(az pipelines runs list \
+    --branch "$(git rev-parse --abbrev-ref HEAD)" \
+    --top 1 \
+    --query '[0].url' \
+    --output tsv | sed 's|_apis/build/Builds|/_build/results?buildId|')
+  open "$url"
+}
+
 if [ -z "$SSH_AUTH_SOCK" ]; then
     sshagent
 fi
