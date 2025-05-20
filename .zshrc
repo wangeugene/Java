@@ -94,6 +94,8 @@ function sshagent(){
       if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "macOS detected, using Apple Keychain"
         KEYCHAIN_FLAG="--apple-use-keychain"
+        echo "Killing existing ssh-agent and starting a new one to force reload the key"
+        kp ssh-agent
         if ! pgrep -x "ssh-agent" >/dev/null; then
             eval "$(ssh-agent -s)"
             ssh-add --apple-use-keychain ~/.ssh/id_ed25519  # or your specific key path
