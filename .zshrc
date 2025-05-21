@@ -65,6 +65,16 @@ ac(){
   git log -1
 }
 
+acm(){
+  git fetch origin
+  git status
+  git add .
+  git commit -m "$1"
+  git push
+  git status
+  git log -1
+}
+
 # git start
 acp() {
   git fetch origin
