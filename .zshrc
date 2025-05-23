@@ -12,15 +12,18 @@ esac
 # pnpm end
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "macOS detected"
     source ~/.private.zshrc
-    export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.26/libexec/openjdk.jdk/Contents/Home"
+    # JAVA_HOME environment variable is managed by jenv
+    # export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.26/libexec/openjdk.jdk/Contents/Home"
     export GROOVY_HOME="/opt/homebrew/opt/groovy/libexec"
     export MAVE_HOME="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"
+    # This `IDEA_HOME` fixed CLI `idea` failed to start issue
+    export IDEA_HOME="/Applications/IntelliJ IDEA.app/Contents/MacOS"
     export NPM_CONFIG_USERCONFIG=~/.npmrc
+    export PATH="$IDEA_HOME:$PATH"
     export PATH="$HOME/.jenv/bin:$PATH"
-    export PATH="/opt/homebrew/opt/teleport@15.4/bin:$PATH"
-    export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
+    # export PATH="/opt/homebrew/opt/teleport@15.4/bin:$PATH"
+    # export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
     alias dc='open -a "Google Chrome" --args --make-default-browser'
     alias chrome='open -a "Google Chrome"'
     eval "$(gh copilot alias -- zsh)"
