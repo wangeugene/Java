@@ -14,11 +14,15 @@ echo "Static Server started with PID: $SERVER_PID"
 # Let the server start up before opening the browser
 sleep 2
 
-echo "Starting the mock server at the port 3000..."
-node server.mjs &
+# echo "Starting the mock server using server.mjs at the port 3000..."
+# node server.mjs &
+# SERVER_PID2=$!
+# echo "Mock Server started with PID: $SERVER_PID2"
+
+echo "Starting the mock server using Fastify (mock-srv) at the port 3000..."
+cd mock-srv && npm run dev &
 SERVER_PID2=$!
 echo "Mock Server started with PID: $SERVER_PID2"
-
 
 # Open the URL
 echo "Opening browser at the port 5050..."

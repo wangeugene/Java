@@ -1,9 +1,9 @@
-## Set up
+# SetUp
 
-```zsh
-# in the project root folder
-cd ~/Projects/Java/NodeJS/LF/
-# npm install serve # only needed once
-npx serve -p 5050 static
-open http://localhost:5050
-```
+## Follow the Linux Foundation Link:
+
+https://trainingportal.linuxfoundation.org/learn/course/introduction-to-nodejs-lfw111x/service-mocking/
+
+## After installing the required dependencies
+
+Just run `start.sh` to run this demo app locally
