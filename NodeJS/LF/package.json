@@ -14,5 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "serve": "^14.2.4"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3"
   }
 }

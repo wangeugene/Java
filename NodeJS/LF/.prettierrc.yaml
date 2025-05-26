@@ -1,0 +1,11 @@
+# .prettierrc or .prettierrc.yaml
+#  Add the following commented settings to your VS Code settings.json (ofc you need the `Prettier - Code formatter` extension installed):
+#   "editor.formatOnSave": true,
+# "editor.defaultFormatter": "esbenp.prettier-vscode",
+# "[javascript]": {
+#   "editor.defaultFormatter": "esbenp.prettier-vscode"
+# },
+trailingComma: 'es5'
+tabWidth: 2
+semi: false
+singleQuote: true
