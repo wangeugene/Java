@@ -8,8 +8,8 @@ else
 fi
 
 cd ~/Projects/Java
-git config user.email "yuzhen23@icloud.com" --local
-git config user.name "Eugene Wang" --local
+git config --global --replace-all user.email "yuzhen23@icloud.com"
+git config --global --replace-all user.name "Eugene Wang"
 
 # add the key to the agent first, or else the git push will fail with a permission denied error
 # first execute the following command to add the key to the agent interactively ( cause you need to enter the passphrase)
