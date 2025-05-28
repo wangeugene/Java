@@ -7,7 +7,7 @@ else
   echo "ssh-agent is already running"
 fi
 
-cd ~/Projects/Java
+cd ~/Projects/Java || exit
 echo "Checking the Project root directory .git/config file for user.email and user.name"
 cat .git/config
 git config --local --replace-all user.email "yuzhen23@icloud.com"
