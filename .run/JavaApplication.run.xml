@@ -5,6 +5,8 @@
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.eugene.Java.JavaApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_kp 8080" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:8080" />
     </method>
   </configuration>
 </component>
