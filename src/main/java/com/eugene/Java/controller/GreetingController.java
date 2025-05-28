@@ -1,10 +1,10 @@
-package springboot.controller;
+package com.eugene.Java.controller;
 
+import com.eugene.Java.model.Greeting;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import springboot.model.Greeting;
 
 import java.util.concurrent.atomic.AtomicLong;
 

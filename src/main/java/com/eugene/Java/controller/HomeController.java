@@ -1,4 +1,4 @@
-package springboot.controller;
+package com.eugene.Java.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
