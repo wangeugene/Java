@@ -1,14 +1,7 @@
 # Start locally
 
-Run springboot.Starter from your IDE
-
-# Access endpoints locally
-
-- http://localhost:8080
-- http://localhost:8080/home
-- http://localhost:8080/greeting
-- http://localhost:8080/greeting?name=eugene
-- http://localhost:9000/greeting?name=eugene
+- Run the script `./start.sh` to start the application locally using Gradle.
+- Alternatively, you can run the application using the IDEA run configuration `JavaApplication`.
 
 ## Enabling Cross Origin Requests for a RESTful Web Service
 
