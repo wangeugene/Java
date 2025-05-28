@@ -1,15 +1,32 @@
 plugins {
-    id 'com.github.ben-manes.versions' version '0.39.0'
+	id 'java'
+	id 'org.springframework.boot' version '3.5.0'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-tasks.register('helloWorld') {
-    doLast {
-        println('hello world')
-    }
+group = 'com.eugene'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
-apply from: 'learnGradle.gradle'
 
+repositories {
+	mavenCentral()
+}
 
-dependencyUpdates {
-    outputFormatter = 'json'
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
 }
