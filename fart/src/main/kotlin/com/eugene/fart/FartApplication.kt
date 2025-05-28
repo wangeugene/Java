@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class FartApplication
 
 fun main(args: Array<String>) {
-	runApplication<FartApplication>(*args)
+    runApplication<FartApplication>(*args)
 }
