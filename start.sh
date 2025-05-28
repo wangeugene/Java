@@ -3,6 +3,7 @@
 source ~/.zshrc
 jenv versions
 jenv local 21.0.7
+./gradlew spotlessApply
 ./gradlew clean build
 kp 8080
 ./gradlew bootRun
