@@ -1,4 +1,4 @@
-package com.eugene.Java.controller;
+package com.eugene.java.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

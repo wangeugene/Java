@@ -1,4 +1,4 @@
-package com.eugene.Java.controller;
+package com.eugene.java.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

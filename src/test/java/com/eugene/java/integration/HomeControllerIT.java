@@ -1,4 +1,4 @@
-package com.eugene.Java.integration;
+package com.eugene.java.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

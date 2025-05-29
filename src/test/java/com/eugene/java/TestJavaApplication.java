@@ -1,4 +1,4 @@
-package com.eugene.Java;
+package com.eugene.java;
 
 import org.springframework.boot.SpringApplication;
 
