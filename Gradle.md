@@ -1,4 +1,11 @@
-Gradle DSL (domain-specific language)
+# Gradle Tips
+
+## Best Practices
+
+- Use `gradle init` to create a new Gradle project, which sets up the basic structure and files.
+- Use `./gradlew` instead of `gradle` to ensure the correct Gradle version is used.
+- Prefer `build.gradle.kts` for Kotlin DSL over `build.gradle` for Groovy DSL. because it provides better type safety and IDE support.
+- To convert a Maven project to Gradle, use `gradle init --type pom` to generate a Gradle build file from an existing Maven `pom.xml`.
 
 ### Terminologies
 
@@ -6,43 +13,6 @@ Build script: contains automation instructions for a project
 Task: defines executable automation instructions
 
 #### Setting the Main Class
-
-~~~groovy
-jar {
-    manifest {
-        attributes 'Main-Class': 'path_to_class_which_contains_the_main'
-    }
-}
-~~~
-
-#### Kotlin Support
-
-~~~groovy
-plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.9.22"
-}
-dependencies {
-    implementation(kotlin("stdlib"))
-}
-~~~
-
-#### Define A Task
-
-defined in the root directory: project root/build.gradle
-
-~~~groovy  
-task "helloWorld" {
-    doLast {
-        println("hello world")
-    }
-}
-~~~
-
-~~~shell
-gradle helloWorld
-gradle wrapper 
-gradlew helloWorld
-~~~
 
 #### Gradle Wrapper
 
@@ -62,10 +32,6 @@ Resides in a root directory of project hierarchy
 Declares participating projects
 Can change defaults(e.g. project name)
 Following command to print out the settings.build
-
-~~~shell
-gradle projects
-~~~
 
 #### gradle.properties
 
@@ -92,11 +58,11 @@ Task is represented as node
 Task dependency is represented as graph-edge
 Gradle forbids circular dependencies
 
-#### common Gradle tasks
+#### List of tasks & Run a single task
 
 ~~~shell
-gradle tasks --all
-gradle hello --dry-run
+./gradlew tasks --all
+./gradlew hello --dry-run
 ~~~
 
 #### build execution under the hood
@@ -119,7 +85,7 @@ Provide reusable functionality across projects
 Two types of plugins: script plugin (e.g., archiving.gradle)
 or binary plugin ('base' in root build.gradle file)(more complex)
 
-### Gradle dependency commands
+### View dependencies
 
 ```zsh
 ./gradlew -q dependencies --configuration testRuntimeClasspath
