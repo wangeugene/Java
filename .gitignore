@@ -1,5 +1,6 @@
 gradlew
 .idea/
+.private.zshrc
 gradle/
 secret/
 secrets.json

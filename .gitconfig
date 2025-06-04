@@ -1,0 +1,19 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[includeIf "gitdir:/Users/euwang/Projects/misc*/"]
+    path = ~/.gitconfig-company
+
+[user]
+	name = Eugene Wang
+
+[pull]
+	ff = only
+	rebase = false
+[status]
+	showUntrackedFiles = all
+[push]
+	autoSetupRemote = true
