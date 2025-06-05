@@ -4,11 +4,13 @@
 	process = git-lfs filter-process
 	required = true
 
-[includeIf "gitdir:/Users/euwang/Projects/misc*/"]
-    path = ~/.gitconfig-company
 
 [user]
 	name = Eugene Wang
+	email = yuzhen23@icloud.com
+
+[includeIf "gitdir:/Users/euwang/Projects/misc*/"]
+    path = ~/.gitconfig-company
 
 [pull]
 	ff = only
