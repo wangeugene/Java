@@ -131,11 +131,6 @@ function sshagent(){
       else
           echo "ssh-agent is already running with the following PID(s):"
           pgrep -x "ssh-agent"
-          echo "killing existing ssh-agent and starting a new one to force reload the key"
-          pkill ssh-agent
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_ed25519
-          ssh-add -l
       fi
     fi
 }
