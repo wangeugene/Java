@@ -6,16 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
-  @GetMapping("/")
-  public String home() {
-    return "Hello, Home!";
-  }
-
   /**
-   * request URL: http://localhost:8080/url-encoded/wang%20eugene response: Hello, wang eugene!
-   *
-   * @param name
-   * @return
+   * request URL: <a href="http://localhost:8080/url-encoded/wang%20eugene">...</a> response: Hello,
+   * wang eugene!
    */
   @GetMapping("/url-encoded/{name}")
   public String urlEncoded(@PathVariable String name) {

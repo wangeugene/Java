@@ -1,11 +1,14 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="JavaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="GITHUB_CLIENT_SECRET" value="bdcf8ec25968761331f8e18f90f8a6ee675a6df5" />
+    </envs>
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <module name="java.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.eugene.java.JavaApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_kp 9000" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_kp 8080" />
     </method>
   </configuration>
 </component>

@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: Java
+    security:
+        oauth2:
+            client:
+                registration:
+                    github:
+                        clientId: Ov23livXtBUU6f8aAOGV
+                        clientSecret: ${GITHUB_CLIENT_SECRET}
