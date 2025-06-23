@@ -47,20 +47,20 @@ public class JwtGenerator {
           new SignedJWT(
               new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JWT).build(),
               claimsSet);
-      signedJWT.sign(new RSASSASigner(getPrivateKey()));
+      signedJWT.sign(new RSASSASigner(getCompleteRSAKey()));
       return new String(signedJWT.serialize().getBytes(), StandardCharsets.UTF_8);
     } catch (Exception e) {
       throw new JwtException("Error generating JWT");
     }
   }
 
-  public RSAKey getPrivateKey() {
+  public RSAKey getCompleteRSAKey() {
     return new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .privateKey(keyPair.getPrivate())
         .build();
   }
 
   public RSAKey getPublicKey() {
-    return getPrivateKey().toPublicJWK();
+    return getCompleteRSAKey().toPublicJWK();
   }
 }

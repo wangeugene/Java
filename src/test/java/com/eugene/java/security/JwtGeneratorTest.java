@@ -44,7 +44,6 @@ class JwtGeneratorTest {
 
             jwtGenerator = new JwtGenerator(keyPair);
         } catch (Exception e) {
-            e.printStackTrace(); // Print the stack trace to see the actual error
             fail("Failed to set up test: " + e.getMessage());
         }
     }
@@ -97,7 +96,7 @@ class JwtGeneratorTest {
     void getPrivateKey() {
         try {
             // Get private key
-            RSAKey privateKey = jwtGenerator.getPrivateKey();
+            RSAKey privateKey = jwtGenerator.getCompleteRSAKey();
 
             // Verify it's not null
             assertNotNull(privateKey, "Private key should not be null");
@@ -141,7 +140,7 @@ class JwtGeneratorTest {
                     "Public key modulus should match");
 
             // Verify it matches the public part from getPrivateKey()
-            RSAKey privateKey = jwtGenerator.getPrivateKey();
+            RSAKey privateKey = jwtGenerator.getCompleteRSAKey();
             assertEquals(
                     privateKey.toRSAPublicKey().getModulus(),
                     rsaPublicKey.getModulus(),

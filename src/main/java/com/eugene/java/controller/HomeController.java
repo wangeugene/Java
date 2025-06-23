@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
+
   /**
    * request URL: <a href="http://localhost:8080/url-encoded/wang%20eugene">...</a> response: Hello,
    * wang eugene!
