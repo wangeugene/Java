@@ -4,6 +4,7 @@ import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.SignedJWT;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.encrypt.KeyStoreKeyFactory;
@@ -93,7 +94,8 @@ class JwtGeneratorTest {
     }
 
     @Test
-    void getPrivateKey() {
+    @DisplayName("getCompleteRSAKey should return a valid RSA key with both private and public parts")
+    void getCompleteRSAKey() {
         try {
             // Get private key
             RSAKey privateKey = jwtGenerator.getCompleteRSAKey();
@@ -119,6 +121,7 @@ class JwtGeneratorTest {
     }
 
     @Test
+    @DisplayName("getPublicKey should return a valid RSA public key")
     void getPublicKey() {
         try {
             // Get public key
