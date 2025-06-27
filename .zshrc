@@ -60,6 +60,15 @@ function zc() {
   cd ~/Projects/Java/Typescript/zuche/ && pnpm zuche "$@"
 }
 
+a(){
+  git fetch origin
+  git status
+  git add .
+  git commit -m "$1"
+  git status
+  git log -1
+}
+
 ac(){
   git fetch origin
   git status
