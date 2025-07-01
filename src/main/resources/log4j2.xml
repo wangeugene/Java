@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+    <Properties>
+        <property name="LOG_PATH" value="log" />
+        <property name="FILE_NAME" value="misc-wechat-driver-logs" />
+        <property name="LOG_CHARSET">UTF-8</property>
+        <property name="EVERY_FILE_SIZE">20MB</property>
+        <property name="LOG_PATTERN"
+                  value="${hostName}-%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8} %-5level [%thread] %logger{36}-[%M]-[%L] - %msg%n" />
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}" >
+                <replace regex="&quot;(Number|ContactName|Name|EmailAddress|City|FaxNumber)&quot;:&quot;.*?&quot;" replacement="&quot;****:&quot;:&quot;****&quot;" />
+            </PatternLayout>
+        </Console>
+
+        <RollingRandomAccessFile name="ERROR" fileName="${LOG_PATH}/error.log"
+                                 filePattern="${LOG_PATH}/%d{yyyy-MM-dd}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+            </Policies>
+            <DefaultRolloverStrategy max="999"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="rollingFile" fileName="${LOG_PATH}/${FILE_NAME}.log"
+                                 filePattern="${LOG_PATH}/%d{yyyy-MM-dd}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+            </Policies>
+            <DefaultRolloverStrategy max="999"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <root level="info">
+            <appender-ref ref="Console" />
+            <appender-ref ref="ERROR" />
+            <appender-ref ref="rollingFile" />
+        </root>
+    </Loggers>
+</Configuration>

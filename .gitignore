@@ -3,6 +3,7 @@ gradlew
 .private.zshrc
 gradle/
 secret/
+log/
 secrets.json
 bin
 */build/
