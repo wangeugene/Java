@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+echo "This script is for macOS users only with M4 Pro apple silicon chip."
 echo "Setting up environment variables from .env file..."
 set -a
 source .env
@@ -32,24 +33,14 @@ echo "Using changelog file: $FULL_CHANGELOG_PATH"
 echo "Using classpath: $FULL_CLASSPATH_PATH"
 echo "The JDBC USER: ${JBDC_USERNAME}"
 
-# Run Liquibase
-# Check if we need to initialize the changelog table first
-if [ "$1" = "--init" ]; then
-    echo "Initializing changelog table..."
-    # Initialize the changelog table
-    liquibase \
-        --classpath="$FULL_CLASSPATH_PATH" \
-        --changeLogFile="$CHANGELOG_FILE" \
-        --url="${JDBC_URL}" \
-        --username="${JBDC_USERNAME}" \
-        --password="${JBDC_PASSWORD}" \
-        changelog-sync-sql
 
-    echo "To mark the database as up-to-date with the changelog, run this SQL against your database."
-    echo "Then run this script again without the --init parameter."
-    exit 0
-fi
 
+echo "The experiences sharing:"
+echo "1. Azure SQL server user is bind to a default schema, by default it is dbo."
+echo "2. You have to create a database schema manually, liquibase configuration in yaml file didn't work."
+echo "3. If the database user you are using is bind to the default schema, liquibase will always check the default schema's DATABASECHANGELOG table."
+echo "4. Even if you manually deleted default schema's DATABASECHANGELOG tables, two tables, it still shows the Tables managed by liquibase exists."
+echo "5. Use Spring Boot Liquibase to automatically create the database tables, and make sure the schema is created first manually."
 # Normal update
 liquibase \
     --classpath="$FULL_CLASSPATH_PATH" \
