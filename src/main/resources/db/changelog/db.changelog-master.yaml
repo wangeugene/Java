@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Eugene Wang
+      context: test
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/001-create-user-tables.sql
+            relativeToChangelogFile: true
