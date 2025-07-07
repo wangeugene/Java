@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Azure AD PKCE SPA Login</title>
+        <!-- MSAL.js v2 (OIDC-compliant, PKCE by default) -->
+        <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+                padding: 2rem;
+                line-height: 1.6;
+            }
+            button {
+                margin-right: 1rem;
+                padding: 0.5rem 1rem;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+            pre {
+                background: #f7f7f9;
+                padding: 1rem;
+                border-radius: 6px;
+                overflow-x: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Azure AD PKCE Login SPA</h1>
+
+        <!-- UI controls -->
+        <button id="signin">Sign in</button>
+        <button id="signout" style="display: none">Sign out</button>
+
+        <!-- Logged-in account details (for demo) -->
+        <pre id="content"></pre>
+
+        <script>
+            /* --------------------------------------------------------------------------
+             * ⚙️ 1. MSAL configuration (replace placeholders with your AAD values)
+             * ------------------------------------------------------------------------*/
+            const msalConfig = {
+                auth: {
+                    clientId: "<APP_ID>", // e.g. 2a3b4c5d-... (Application ID)
+                    authority: "https://login.microsoftonline.com/<TENANT_ID>", // or "common"/"organizations"
+                    redirectUri: "<REDIRECT_URL>", // must match SPA redirect URI in portal
+                },
+                cache: {
+                    cacheLocation: "sessionStorage", // or "localStorage" if you prefer
+                    storeAuthStateInCookie: false, // set true for IE 11/Edge Legacy support
+                },
+            };
+
+            /* --------------------------------------------------------------------------
+             * 🚀 2. Create PublicClientApplication instance – uses PKCE & OIDC under the hood
+             * ------------------------------------------------------------------------*/
+            const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+            /* --------------------------------------------------------------------------
+             * 📜 3. Login request: OIDC scopes openid + profile (+ optional API scopes)
+             * ------------------------------------------------------------------------*/
+            const loginRequest = {
+                scopes: ["openid", "profile", "email"],
+            };
+
+            /* --------------------------------------------------------------------------
+             * 🔐 4. Sign-in / Sign-out helpers
+             * ------------------------------------------------------------------------*/
+            async function signIn() {
+                try {
+                    const response = await msalInstance.loginPopup(loginRequest);
+                    msalInstance.setActiveAccount(response.account);
+                    updateUI(response.account);
+                } catch (err) {
+                    console.error("Login error:", err);
+                }
+            }
+
+            function signOut() {
+                const logoutRequest = {
+                    account: msalInstance.getActiveAccount(),
+                    postLogoutRedirectUri: window.location.origin,
+                };
+                msalInstance.logoutPopup(logoutRequest);
+            }
+
+            /* --------------------------------------------------------------------------
+             * 🖥️ 5. Update UI based on auth state
+             * ------------------------------------------------------------------------*/
+            function updateUI(account) {
+                if (account) {
+                    document.getElementById("signin").style.display = "none";
+                    document.getElementById("signout").style.display = "inline-block";
+                    document.getElementById("content").textContent = JSON.stringify(account, null, 2);
+                } else {
+                    document.getElementById("signin").style.display = "inline-block";
+                    document.getElementById("signout").style.display = "none";
+                    document.getElementById("content").textContent = "";
+                }
+            }
+
+            /* --------------------------------------------------------------------------
+             * ⚡ 6. Restore session if previously logged in
+             * ------------------------------------------------------------------------*/
+            const accounts = msalInstance.getAllAccounts();
+            if (accounts.length > 0) {
+                msalInstance.setActiveAccount(accounts[0]);
+            }
+            updateUI(msalInstance.getActiveAccount());
+
+            /* --------------------------------------------------------------------------
+             * 🔗 7. Wire up buttons
+             * ------------------------------------------------------------------------*/
+            document.getElementById("signin").addEventListener("click", signIn);
+            document.getElementById("signout").addEventListener("click", signOut);
+        </script>
+    </body>
+</html>
