@@ -45,4 +45,5 @@ fi
 
 echo "FRONTEND Server started. To stop: kill $SERVER_PID  # or: lsof -ti tcp:$FRONTEND_PORT | xargs kill -9"
 echo "This demonstrates frontend and backend separation, the backend serves at port 3000, and the frontend serves at port 5050"
+echo "The zero-dependency means the data required by the FrontEnd is offered by the BackEnd at another service endpoint 3000."
 echo "Script finished and returning to shell."
