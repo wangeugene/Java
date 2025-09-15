@@ -1,22 +1,21 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import AutoLoad from '@fastify/autoload'
-import cors from '@fastify/cors'
+'use strict'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const path = require('node:path')
+const AutoLoad = require('@fastify/autoload')
+const cors = require('@fastify/cors')
 
 // Pass --options via CLI arguments in command to enable these options.
-export const options = {}
+const options = {}
 
-export default async function (fastify, opts) {
-  // This will ensure that the same Access-Control-Allow-Origin HTTP header that we manually set in the last section will be added for every route we create.
-  fastify.register(cors)
+module.exports = async function (fastify, opts) {
+  // Place here your custom code!
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
+  fastify.register(cors) // to enable CORS support
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'plugins'),
     options: Object.assign({}, opts),
@@ -29,3 +28,5 @@ export default async function (fastify, opts) {
     options: Object.assign({}, opts),
   })
 }
+
+module.exports.options = options
