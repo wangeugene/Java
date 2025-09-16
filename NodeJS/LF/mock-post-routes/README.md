@@ -1,15 +1,10 @@
-# SetUp
+# Mock HTTP GET services with Fastify as the backend & `serve` static content as the frontend
 
-## Follow the Linux Foundation Link:
+This LinuxFoundation tutorial demonstrates how to:
 
-https://trainingportal.linuxfoundation.org/learn/course/introduction-to-nodejs-lfw111x/service-mocking/
+- Mock HTTP GET services at the port 3000 under `mock-srv` folder with Fastify scaffolding framework
+- Serve HTML static content at the port 5050 with `static` folder using NodeJS built-in package `serve`
+- The `setup.sh` script install the required dependencies
+- The `start.sh` script run the frontend & backend services in one shot and kill the dangling processes using the port 5050 & 3000
 
-## After installing the required dependencies
-
-Just run `start.sh` to run this demo app locally
-
-## Different types of implementations
-
-- GET-ROUTES-ONLY : only supports GET method
-- NODE-BUILT-IN-SERVER: this project doesn't use any third-party library
-- Default one: in the LF root folder, which uses mocked server to do
+![backend service at the port 3000](image.png)
