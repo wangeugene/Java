@@ -1,4 +1,4 @@
-# Mock HTTP GET & POST services with Fastify as the backend & `serve` static content as the frontend
+# Mock HTTP GET & POST services & WebSocket services with Fastify as the backend & `serve` static content as the frontend
 
 This LinuxFoundation tutorial demonstrates how to:
 
