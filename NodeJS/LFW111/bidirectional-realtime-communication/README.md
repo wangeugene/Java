@@ -1,5 +1,8 @@
 # Mock HTTP GET & POST services & WebSocket services with Fastify as the backend & `serve` static content as the frontend
 
+- This `bidirectional-realtime-communication` project features the pretty much the same as the `enhance-with-websockets` project
+  except optimized client code `app.js` from the `static` folder to reduce WebSocket connection generation during the flow.
+
 This LinuxFoundation tutorial demonstrates how to:
 
 - Mock HTTP GET services at the port 3000 under `mock-srv` folder with Fastify scaffolding framework

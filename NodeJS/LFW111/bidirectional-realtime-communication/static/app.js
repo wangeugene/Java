@@ -34,52 +34,24 @@ window.addEventListener('unhandledrejection', (e) => console.error('Unhandled re
 
 // ...existing code...
 let socket = null
-// npx wscat -c ws://localhost:3000/orders/electronics
 const realtimeOrders = (category) => {
-  // close previous socket to avoid multiple handlers
-  if (socket && socket.readyState === WebSocket.OPEN) {
-    console.log('Closing previous socket')
-    socket.close()
+  if (socket === null) {
+    socket = new WebSocket(`${WS_API}/orders/${category}`)
+  } else {
+    socket.send(JSON.stringify({ cmd: 'update-category', payload: { category } }))
   }
-  socket = new WebSocket(`${WS_API}/orders/${category}`)
-  socket.addEventListener('open', () => console.log('WS open', category))
-  socket.addEventListener('close', () => console.log('WS closed', category))
-  socket.addEventListener('error', (e) => console.error('WS error', e))
-
-  socket.addEventListener('message', (evt) => {
-    console.log('WS raw message', evt.data)
-    let payload
+  socket.addEventListener('message', ({ data }) => {
     try {
-      payload = JSON.parse(evt.data)
-    } catch (err) {
-      console.error('Invalid JSON from WS', err, evt.data)
-      return
-    }
-    console.log('Received order update', payload)
-    const { id, total } = payload
-    console.log('Order update', id, total)
-    const item = document.querySelector(`[data-id="${id}"]`)
-    if (!item) {
-      console.warn('No product element for order id', id)
-      return
-    }
-    // update light DOM slot or shadow DOM safely
-    try {
+      const { id, total } = JSON.parse(data)
+      console.log('WebSocket Orders Message received:', { id, total })
+      const item = document.querySelector(`[data-id="${id}"]`)
+      if (item === null) return
       const span = item.querySelector('[slot="orders"]') || document.createElement('span')
       span.slot = 'orders'
       span.textContent = total
       item.appendChild(span)
-    } catch (e) {
-      console.debug('Failed to update light DOM', e)
-    }
-    try {
-      const root = item.shadowRoot
-      if (root) {
-        const totalEl = root.querySelector('.order-total') || root.querySelector('[data-order-total]')
-        if (totalEl) totalEl.textContent = String(total)
-      }
-    } catch (e) {
-      console.debug('Failed to update shadow DOM', e)
+    } catch (err) {
+      console.error(err)
     }
   })
 }

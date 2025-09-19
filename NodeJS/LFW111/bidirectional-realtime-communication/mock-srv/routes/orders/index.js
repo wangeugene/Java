@@ -1,21 +1,29 @@
 'use strict'
-
-// npx wscat -c ws://localhost:3000/orders/electronics to troubleshoot the WS endpoint
-// now tested fine with wscat
 module.exports = async function (fastify, opts) {
-  fastify.get('/:category', { websocket: true }, async (connection, request) => {
-    // Normalize to the actual WebSocket instance (works for both shapes)
-    const socket = connection && connection.socket ? connection.socket : connection
-
-    for (const order of fastify.currentOrders(request.params.category)) {
-      console.log('Sending current order', order)
+  function monitorMessages(socket) {
+    socket.on('message', (data) => {
       try {
-        socket.send(order)
+        const { cmd, payload } = JSON.parse(data)
+        console.log('WebSocket Orders Message received from the frontend:', { cmd, payload })
+        if (cmd === 'update-category') {
+          sendCurrentOrders(payload.category, socket)
+        }
       } catch (err) {
-        console.error('Failed to send current order', err, order)
+        fastify.log.warn('WebSocket Message (data: %o) Error: %s', data, err.message)
       }
-    }
+    })
+  }
 
+  function sendCurrentOrders(category, socket) {
+    for (const order of fastify.currentOrders(category)) {
+      socket.send(order)
+    }
+  }
+
+  fastify.get('/:category', { websocket: true }, async (connection, request) => {
+    const socket = connection
+    monitorMessages(socket)
+    sendCurrentOrders(request.params.category, socket)
     for await (const order of fastify.realtimeOrders()) {
       if (socket.readyState >= socket.CLOSING) break
       socket.send(order)
