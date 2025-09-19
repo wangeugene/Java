@@ -28,27 +28,69 @@ const populateProducts = async (category, method = 'GET', payload) => {
 const category = document.querySelector('#category')
 const add = document.querySelector('#add')
 
+console.log('static/app.js loaded', { API, WS_API })
+window.addEventListener('error', (e) => console.error('Window error', e.error || e.message))
+window.addEventListener('unhandledrejection', (e) => console.error('Unhandled rejection', e.reason))
+
+// ...existing code...
 let socket = null
+// npx wscat -c ws://localhost:3000/orders/electronics
 const realtimeOrders = (category) => {
-  if (socket) socket.close()
+  // close previous socket to avoid multiple handlers
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    console.log('Closing previous socket')
+    socket.close()
+  }
   socket = new WebSocket(`${WS_API}/orders/${category}`)
-  socket.addEventListener('message', ({ data }) => {
+  socket.addEventListener('open', () => console.log('WS open', category))
+  socket.addEventListener('close', () => console.log('WS closed', category))
+  socket.addEventListener('error', (e) => console.error('WS error', e))
+
+  socket.addEventListener('message', (evt) => {
+    console.log('WS raw message', evt.data)
+    let payload
     try {
-      const { id, total } = JSON.parse(data)
-      const item = document.querySelector(`[data-id="${id}"]`)
-      if (item === null) return
+      payload = JSON.parse(evt.data)
+    } catch (err) {
+      console.error('Invalid JSON from WS', err, evt.data)
+      return
+    }
+    console.log('Received order update', payload)
+    const { id, total } = payload
+    console.log('Order update', id, total)
+    const item = document.querySelector(`[data-id="${id}"]`)
+    if (!item) {
+      console.warn('No product element for order id', id)
+      return
+    }
+    // update light DOM slot or shadow DOM safely
+    try {
       const span = item.querySelector('[slot="orders"]') || document.createElement('span')
       span.slot = 'orders'
       span.textContent = total
       item.appendChild(span)
-    } catch (err) {
-      console.error(err)
+    } catch (e) {
+      console.debug('Failed to update light DOM', e)
+    }
+    try {
+      const root = item.shadowRoot
+      if (root) {
+        const totalEl = root.querySelector('.order-total') || root.querySelector('[data-order-total]')
+        if (totalEl) totalEl.textContent = String(total)
+      }
+    } catch (e) {
+      console.debug('Failed to update shadow DOM', e)
     }
   })
 }
+
 category.addEventListener('input', async ({ target }) => {
   add.style.display = 'block'
   await populateProducts(target.value)
+  console.log(
+    'populated products ids:',
+    Array.from(document.querySelectorAll('#products [data-id]')).map((n) => n.dataset.id)
+  )
   realtimeOrders(target.value)
 })
 

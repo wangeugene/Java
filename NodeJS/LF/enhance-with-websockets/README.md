@@ -6,7 +6,11 @@ This LinuxFoundation tutorial demonstrates how to:
 - Serve HTML static content at the port 5050 with `static` folder using NodeJS built-in package `serve`
 - The `setup.sh` script install the required dependencies
 - The `start.sh` script run the frontend & backend services in one shot and kill the dangling processes using the port 5050 & 3000
+- Backend WebSocket service periodically send random generated order counts to the client code, this demonstrates the live updating feature of the DOM object (order counts) here without the need to refreshing the webpage,like a stock dashboard flicker! ## Troubleshooting
+  The `start.sh` can hide `npm run dev` failure, if it fails to behavior correctly, do it manually.
 
-## troubleshooting
+## Bug Fix history
 
-The `start.sh` can hide `npm run dev` failure, if it fails to behavior correctly, do it manually.
+- Fix POST not supported: 404 when I checked the Google Chrome Network panel for the POST requests
+- Fix WebSocket connection not updated to the client side code: Backend WebSocket randomly generated some order data sent back to the front end code
+  1. Because {} spread operator can't correctly parse the object which is stringified here: `socket.send(JSON.stringify(object))`,removed the `JSON.stringify` call fix this issue.
