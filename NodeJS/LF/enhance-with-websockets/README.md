@@ -9,6 +9,12 @@ This LinuxFoundation tutorial demonstrates how to:
 - Backend WebSocket service periodically send random generated order counts to the client code, this demonstrates the live updating feature of the DOM object (order counts) here without the need to refreshing the webpage,like a stock dashboard flicker! ## Troubleshooting
   The `start.sh` can hide `npm run dev` failure, if it fails to behavior correctly, do it manually.
 
+```html
+Chocolate Bar - 22.40 [Orders: 108]
+```
+
+- The `Orders` can increment every 1500 ms, artificially generated order counts
+
 ## Bug Fix history
 
 - Fix POST not supported: 404 when I checked the Google Chrome Network panel for the POST requests
