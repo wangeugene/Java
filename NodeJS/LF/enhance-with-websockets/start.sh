@@ -40,13 +40,11 @@ done
 	# run the dev script in the mock-srv folder in the background, log output and save PID
 	LOG_FILE=".mock-srv.log"
 	if command -v npm >/dev/null 2>&1; then
-		echo "Launching backend (npm --prefix mock-srv run dev) in background, logging to $LOG_FILE"
 		# Use nohup so the process keeps running if the terminal/session closes.
 		# If you prefer not to use nohup you can drop it and just append '&' to run in background.
-		nohup npm --prefix mock-srv run dev >"$LOG_FILE" 2>&1 &
+		npm --prefix mock-srv run dev&
 		BACKEND_PID=$!
 		echo "The backend server is running with PID '$BACKEND_PID'"
-		echo "You can check the log file '$LOG_FILE' for details."
 	else
 		echo "npm not found; cannot start backend"
 	fi
