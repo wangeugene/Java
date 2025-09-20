@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import got from 'got'
-import minimist from 'minimist' // my-cli A1 -n 5
+import minimist from 'minimist'
+// my-cli A1 -n 5
+// my-cli --amount 15 A2
 
 const API = 'http://localhost:3000'
 
