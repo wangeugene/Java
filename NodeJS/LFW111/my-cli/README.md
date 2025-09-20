@@ -1,0 +1,3 @@
+- To make this CLI command tool globally available, you should use `npm link` command to link the current project folder globally.
+- any change you made to the project `my-cli` `cmd.js` file will reflect on the global command `my-cli` without you need to do anything.
+- This demonstrates how to use NodeJS to build a CLI tool that serves as a HTTP client.
