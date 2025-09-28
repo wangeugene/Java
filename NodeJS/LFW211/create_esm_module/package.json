@@ -1,0 +1,21 @@
+{
+  "name": "create_esm_module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pino": "^9.12.0"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
+}
