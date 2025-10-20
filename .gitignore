@@ -29,3 +29,7 @@ dist/
 .env
 *.log
 .DS_Store
+.wcworkspacedata
+.xcuserdatad/
+project.xcworkspace/
+xcschememanagement.plist

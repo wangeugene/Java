@@ -26,6 +26,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
     alias dc='open -a "Google Chrome" --args --make-default-browser'
     alias chrome='open -a "Google Chrome"'
+    alias ct='cd ~/tmp'
     eval "$(gh copilot alias -- zsh)"
     eval "$(jenv init -)"
 
