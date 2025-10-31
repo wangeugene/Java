@@ -27,6 +27,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias dc='open -a "Google Chrome" --args --make-default-browser'
     alias chrome='open -a "Google Chrome"'
     alias ct='cd ~/tmp'
+    alias sync='cd /Users/euwang/Projects/Java/app & rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'certbot'  /Users/euwang/Projects/Java/app/ aws:/app'
     eval "$(gh copilot alias -- zsh)"
     eval "$(jenv init -)"
 

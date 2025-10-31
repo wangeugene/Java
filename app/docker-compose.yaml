@@ -1,0 +1,46 @@
+services:
+    nginx:
+        image: nginx:1.27-alpine
+        container_name: nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            # Nginx virtual host configs
+            - /app/nginx/conf.d:/etc/nginx/conf.d:ro
+
+            # ACME challenge webroot (HTTP-01 validation)
+            - /app/www:/var/www/certbot:ro
+
+            # Your config file (downloaded by fetcher)
+            - /app/config:/var/www/config:ro
+
+            # SSL certificates (certbot writes, nginx reads)
+            - /app/certbot:/etc/letsencrypt:ro
+
+    certbot:
+        image: certbot/certbot:v2.11.0
+        container_name: certbot
+        volumes:
+            # ACME challenge directory
+            - /app/www:/var/www/certbot
+            # SSL certs directory
+            - /app/certbot:/etc/letsencrypt
+        entrypoint: /bin/sh
+        # You will run certbot manually like:
+        # docker compose run --rm --entrypoint certbot certbot certonly ...
+
+    fetcher:
+        image: node:22-alpine
+        container_name: fetcher
+        restart: unless-stopped
+        working_dir: /app/fetcher
+        environment:
+            - NODE_ENV=production
+        volumes:
+            # Your fetcher code
+            - /app/fetcher:/app/fetcher
+            # Directory where fetcher writes updated config
+            - /app/config:/app/config
+        command: ["node", "index.js"]
