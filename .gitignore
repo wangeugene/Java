@@ -33,3 +33,5 @@ dist/
 .xcuserdatad/
 project.xcworkspace/
 xcschememanagement.plist
+shadowrocket.conf
+surge.conf

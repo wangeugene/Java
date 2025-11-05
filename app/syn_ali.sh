@@ -5,7 +5,7 @@
 
 # aws defined in ~/.ssh/config on your machine
 # this syncs your local project folder to ~/app on the aws EC2 instance, the home directory of ec2-user
-rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'certbot'  /Users/euwang/Projects/Java/app/ aws:/app
+rsync -avz --delete --exclude '.git' --exclude 'node_modules'  /Users/euwang/Projects/Java/app/ ali:/app
 
 
 # docker compose to start nginx only

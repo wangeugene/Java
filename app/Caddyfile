@@ -1,0 +1,21 @@
+{$DOMAIN} {
+    root * /usr/share/caddy
+    file_server
+
+    # Health Check
+    handle_path /health {
+        respond "ok"
+    }
+
+    # Pretty URL for Shadowrocket (no extension)
+    @sr path /config/shadowrocket
+    header @sr Content-Type "text/plain; charset=utf-8"
+    header @sr Cache-Control "no-cache, must-revalidate"
+    rewrite @sr /config/shadowrocket.conf
+
+    # Pretty URL for Surge (no extension)
+    @surge path /config/surge
+    header @surge Content-Type "text/plain; charset=utf-8"
+    header @surge Cache-Control "no-cache, must-revalidate"
+    rewrite @surge /config/surge.conf
+}
