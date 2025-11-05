@@ -4,8 +4,10 @@ curl -X POST 'http://127.0.0.1:3000/edit/shadowrocket?domainName=eugene.com&rule
 */
 import { promises as fs } from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const FILE_PATH = "../../../www/config/shadowrocket.conf";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const FILE_PATH = path.join(__dirname, "../../../../www/config/shadowrocket.conf");
 
 function insertAfterLastDomainSuffix(originalText, newLine) {
     const hasCRLF = /\r\n/.test(originalText);
@@ -48,6 +50,7 @@ export default async function routes(fastify) {
         let original = "";
         try {
             original = await fs.readFile(FILE_PATH, "utf-8");
+            console.log(`Read existing file1: ${original}`);
         } catch {}
 
         const updated = insertAfterLastDomainSuffix(original, newLine);

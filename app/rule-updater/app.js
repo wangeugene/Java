@@ -6,7 +6,7 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const app = Fastify({ logger: false }); // “dead simple”: no logging
+const app = Fastify({ logger: true }); // “dead simple”: no logging
 
 // Accept any body as string if needed later
 app.addContentTypeParser("*", { parseAs: "string" }, async (_req, payload) => payload);
