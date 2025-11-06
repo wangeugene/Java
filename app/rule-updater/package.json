@@ -5,7 +5,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node --watch --watch-path ./routes ./app.js"
+    "dev": "pnpm stop && node --watch --watch-path ./routes ./app.js",
+    "start": "NODE_ENV=production node ./app.js",
+    "stop": "lsof -ti tcp:3000 | xargs -n1 kill || true",
+    "open": "open http://localhost:3000/shadowrocket"
   },
   "main": "index.js",
   "keywords": [],
