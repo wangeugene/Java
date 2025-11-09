@@ -34,4 +34,5 @@ dist/
 project.xcworkspace/
 xcschememanagement.plist
 shadowrocket.conf
+shadowrocket.conf.bak
 surge.conf

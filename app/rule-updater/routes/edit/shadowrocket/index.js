@@ -5,32 +5,10 @@ curl -X POST 'http://127.0.0.1:3000/edit/shadowrocket?domainName=eugene.com&rule
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { removeDuplicateLines } from "./modifyShadowrocket.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FILE_PATH = path.join(__dirname, "../../../../www/config/shadowrocket.conf");
-
-function insertAfterLastDomainSuffix(originalText, newLine) {
-    const hasCRLF = /\r\n/.test(originalText);
-    const EOL = hasCRLF ? "\r\n" : "\n";
-    const lines = originalText.split(/\r?\n/);
-
-    let lastIdx = -1;
-    for (let i = 0; i < lines.length; i++) {
-        if (lines[i].trimStart().startsWith("DOMAIN-SUFFIX")) lastIdx = i;
-    }
-
-    if (lastIdx === -1) {
-        const needsNL = originalText.length > 0 && !/\r?\n$/.test(originalText);
-        const prefix = needsNL ? originalText + EOL : originalText;
-        return prefix + newLine + EOL;
-    }
-
-    const before = lines.slice(0, lastIdx + 1).join(EOL);
-    const after = lines.slice(lastIdx + 1).join(EOL);
-    const joiner1 = before.length ? EOL : "";
-    const joiner2 = EOL + (after.length ? "" : "");
-    return before + joiner1 + newLine + joiner2 + after;
-}
 
 export default async function routes(fastify) {
     fastify.post("/", async (req, reply) => {
@@ -45,18 +23,14 @@ export default async function routes(fastify) {
             return;
         }
 
-        const newLine = `DOMAIN-SUFFIX,${domainName},${rule}`;
-
         let original = "";
         try {
             original = await fs.readFile(FILE_PATH, "utf-8");
             console.log(`Read existing file1: ${original}`);
         } catch {}
 
-        const updated = insertAfterLastDomainSuffix(original, newLine);
-
-        await fs.mkdir(path.dirname(FILE_PATH), { recursive: true });
-        await fs.writeFile(FILE_PATH, updated, "utf-8");
+        const withoutDuplicates = removeDuplicateLines(original, domainName);
+        await fs.writeFile(FILE_PATH, withoutDuplicates, "utf-8");
 
         reply.type("text/plain").send("ok");
     });

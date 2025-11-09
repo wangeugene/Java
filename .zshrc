@@ -156,6 +156,15 @@ function azolr() {
   open "$url"
 }
 
+pnpm-up() {
+  local ver="${1:-latest}"
+  corepack enable
+  corepack prepare "pnpm@${ver}" --activate
+  echo "✅ pnpm updated to: $(pnpm -v)"
+}
+
 if [ -z "$SSH_AUTH_SOCK" ]; then
     sshagent
 fi
+echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
+
