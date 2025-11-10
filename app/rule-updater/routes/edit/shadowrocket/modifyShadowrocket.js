@@ -8,20 +8,24 @@ export function createBackup(configFile, backupFile) {
 
 // Function 2: Remove duplicate lines with "eugene.com"
 export function removeDuplicateLines(configFile, domainName) {
-    let fileContent = fs.readFileSync(configFile, "utf-8");
-    let lines = fileContent.split("\n");
-    let uniqueLines = new Set();
+    const fileContent = fs.readFileSync(configFile, "utf-8");
+    const lines = fileContent.split("\n");
 
-    lines.forEach((line) => {
+    const result = [];
+    let seen = false;
+    for (const line of lines) {
         if (line.includes(domainName)) {
-            uniqueLines.add(domainName);
+            if (!seen) {
+                result.push(line); // keep the first occurrence as-is
+                seen = true;
+            }
+            // skip subsequent occurrences
         } else {
-            uniqueLines.add(line);
+            result.push(line);
         }
-    });
+    }
 
-    fs.writeFileSync(configFile, Array.from(uniqueLines).join("\n"), "utf-8");
-    console.log('Removed duplicate "eugene.com" entries');
+    fs.writeFileSync(configFile, result.join("\n"), "utf-8");
 }
 
 // Function 3: Replace line containing "eugene.com" with the specific rule
@@ -31,7 +35,7 @@ export function replaceDuplicateLines(configFile, domainName) {
 
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].includes(domainName)) {
-            lines[i] = "DOMAIN-SUFFIX, eugene.com, PROXY";
+            lines[i] = `DOMAIN-SUFFIX, ${domainName}, PROXY`;
             break; // Ensure we only replace the first occurrence
         }
     }

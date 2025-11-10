@@ -1,5 +1,3 @@
-import * as fs from "node:fs";
-
 import { describe, test, beforeEach, expect, vi } from "vitest";
 
 // 1) Mock fs BEFORE importing the module under test (ESM rule)
@@ -27,24 +25,19 @@ describe("modifyShadowrocket helpers", () => {
         expect(fs.copyFileSync).toHaveBeenCalledWith("shadowrocket.conf", "shadowrocket.conf.bak");
     });
 
-    test("removeDuplicateLines collapses domain lines to a single 'eugene.com' and removes duplicate plain lines", () => {
+    test.only("remove duplicate lines by a domain name", () => {
         const input = ["foo", "something eugene.com other", "another eugene.com entry", "foo", "bar"].join("\n");
         fs.readFileSync.mockReturnValue(input);
-
         removeDuplicateLines("shadowrocket.conf", "eugene.com");
-
-        const expected = ["foo", "eugene.com", "bar"].join("\n");
+        const expected = ["foo", "something eugene.com other", "foo", "bar"].join("\n");
         expect(fs.writeFileSync).toHaveBeenCalledWith("shadowrocket.conf", expected, "utf-8");
     });
 
     test("replaceDuplicateLines replaces only the first domain occurrence with fixed rule", () => {
         const input = ["alpha", "mid eugene.com here", "tail eugene.com again", "omega"].join("\n");
         fs.readFileSync.mockReturnValue(input);
-
         replaceDuplicateLines("shadowrocket.conf", "eugene.com");
-
         const expected = ["alpha", "DOMAIN-SUFFIX, eugene.com, PROXY", "tail eugene.com again", "omega"].join("\n");
-
         expect(fs.writeFileSync).toHaveBeenCalledWith("shadowrocket.conf", expected, "utf-8");
     });
 

@@ -47,6 +47,7 @@ fi
 export EDITOR="emacs"
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
 alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
+alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'
 alias cj='cd ~/Projects/Java'
 alias cw='cd ~/Projects/misc-wechat-driver/'
 alias p='cd ~/Projects/'
@@ -167,4 +168,4 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     sshagent
 fi
 echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
-
+precmd() { stty sane 2>/dev/null }
