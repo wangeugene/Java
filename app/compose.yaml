@@ -1,0 +1,44 @@
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy   # installs wget
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: "309906615.xyz"
+      EMAIL: "yuzhen23@icloud.com"
+    volumes:
+      # Use relative paths for portability (works on EC2 and locally)
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./www:/usr/share/caddy:rw
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:80/health || exit 1"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  rule-updater:
+    build:
+      context: ./rule-updater
+    working_dir: /app
+    command: ["pnpm", "start"]
+    restart: unless-stopped
+    environment:
+      NODE_ENV: "production"
+    volumes:
+      # If you do not need live local code sync in production, remove this line:
+      - ./rule-updater:/app
+      - ./www:/www          # <— add this compatibility mount
+      # Keep node_modules inside the container so compose doesn't clobber it
+      - /app/node_modules
+      # Share generated configs with Caddy
+      - ./www:/app/www  
+
+volumes:
+  caddy-data:
+  caddy-config:

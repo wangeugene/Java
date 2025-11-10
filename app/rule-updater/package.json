@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "pnpm stop && node --watch --watch-path ./routes ./app.js",
-    "start": "pnpm stop && NODE_ENV=production node ./app.js",
+    "start": "NODE_ENV=production node ./app.js",
     "stop": "kill -9 $(lsof -t -i:3000) || echo 'No process running on port 3000'",
     "open": "open http://localhost:3000/shadowrocket",
     "test": "vitest run",

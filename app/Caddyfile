@@ -18,4 +18,23 @@
     header @surge Content-Type "text/plain; charset=utf-8"
     header @surge Cache-Control "no-cache, must-revalidate"
     rewrite @surge /config/surge.conf
+
+    # --- API: rule-updater (Fastify) ---
+    # POST /edit/shadowrocket -> reverse proxy to rule-updater:3000
+    @editShadowrocket {
+        path /edit/shadowrocket
+        method POST
+    }
+    reverse_proxy @editShadowrocket http://rule-updater:3000
+
+    # Optional: enable simple CORS for browser clients
+    header @editShadowrocket Access-Control-Allow-Origin "*"
+    @preflightEditShadowrocket {
+    path /edit/shadowrocket
+    method OPTIONS
+    }
+    header @preflightEditShadowrocket Access-Control-Allow-Origin "*"
+    header @preflightEditShadowrocket Access-Control-Allow-Methods "POST, OPTIONS"
+    header @preflightEditShadowrocket Access-Control-Allow-Headers "*"
+    respond @preflightEditShadowrocket 204
 }
