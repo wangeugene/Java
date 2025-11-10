@@ -2,13 +2,20 @@
 /* 
 curl -X POST 'http://127.0.0.1:3000/edit/shadowrocket?domainName=eugene.com&rule=DIRECT'
 */
-import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { removeDuplicateLines } from "./modifyShadowrocket.js";
+import {
+    removeDuplicateLinesByDomainName,
+    updateConfigWithDomainNameAndRule,
+    overwriteConfigWithBackup,
+    isDomainExists,
+    insertAfterLastDomainSuffix,
+} from "./modifyShadowrocket.js";
+import { assertValidRule } from "./ruleEnum.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const FILE_PATH = path.join(__dirname, "../../../../www/config/shadowrocket.conf");
+const BACKUP_FILE = path.join(__dirname, "../../../../www/config/shadowrocket.conf.bak");
+const CONFIG_FILE = path.join(__dirname, "../../../../www/config/shadowrocket.conf");
 
 export default async function routes(fastify) {
     fastify.post("/", async (req, reply) => {
@@ -23,14 +30,20 @@ export default async function routes(fastify) {
             return;
         }
 
-        let original = "";
         try {
-            original = await fs.readFile(FILE_PATH, "utf-8");
-            console.log(`Read existing file1: ${original}`);
-        } catch {}
+            assertValidRule(rule);
+        } catch (err) {
+            return reply.code(400).send(`Invalid rule. Allowed: ${Object.values().join(", ")}`);
+        }
 
-        const withoutDuplicates = removeDuplicateLines(original, domainName);
-        await fs.writeFile(FILE_PATH, withoutDuplicates, "utf-8");
+        removeDuplicateLinesByDomainName(BACKUP_FILE, domainName);
+        if (isDomainExists(BACKUP_FILE, domainName)) {
+            updateConfigWithDomainNameAndRule(BACKUP_FILE, domainName, rule);
+            overwriteConfigWithBackup(BACKUP_FILE, CONFIG_FILE);
+        } else {
+            insertAfterLastDomainSuffix(BACKUP_FILE, `DOMAIN-SUFFIX,${domainName},${rule}`);
+            overwriteConfigWithBackup(BACKUP_FILE, CONFIG_FILE);
+        }
 
         reply.type("text/plain").send("ok");
     });
