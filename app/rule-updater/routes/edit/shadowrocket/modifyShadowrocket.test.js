@@ -1,48 +1,42 @@
 import { describe, test, beforeEach, expect, vi } from "vitest";
+import * as fs from "node:fs";
+const { createBackup, removeDuplicateLinesByDomainName, updateConfigWithDomainNameAndRule, overwriteConfigWithBackup } =
+    await import("./modifyShadowrocket.js");
 
-// 1) Mock fs BEFORE importing the module under test (ESM rule)
 vi.mock("node:fs", () => ({
     copyFileSync: vi.fn(),
     readFileSync: vi.fn(),
     writeFileSync: vi.fn(),
 }));
 
-// 2) Import the mocked module namespace for assertions
-import * as fs from "node:fs";
-
-// 3) Import the module under test AFTER the mock
-const { createBackup, removeDuplicateLines, replaceDuplicateLines, overwriteConfigWithBackup } = await import(
-    "./modifyShadowrocket.js"
-);
-
 beforeEach(() => {
     vi.clearAllMocks();
 });
 
 describe("modifyShadowrocket helpers", () => {
-    test("createBackup calls fs.copyFileSync correctly", () => {
+    test("create a backup copy of the config file", () => {
         createBackup("shadowrocket.conf", "shadowrocket.conf.bak");
         expect(fs.copyFileSync).toHaveBeenCalledWith("shadowrocket.conf", "shadowrocket.conf.bak");
     });
 
-    test.only("remove duplicate lines by a domain name", () => {
+    test("remove duplicate lines by a domain name", () => {
         const input = ["foo", "something eugene.com other", "another eugene.com entry", "foo", "bar"].join("\n");
         fs.readFileSync.mockReturnValue(input);
-        removeDuplicateLines("shadowrocket.conf", "eugene.com");
+        removeDuplicateLinesByDomainName("shadowrocket.conf", "eugene.com");
         const expected = ["foo", "something eugene.com other", "foo", "bar"].join("\n");
         expect(fs.writeFileSync).toHaveBeenCalledWith("shadowrocket.conf", expected, "utf-8");
     });
 
-    test("replaceDuplicateLines replaces only the first domain occurrence with fixed rule", () => {
-        const input = ["alpha", "mid eugene.com here", "tail eugene.com again", "omega"].join("\n");
+    test("update config with domain name and rule", () => {
+        const input = ["alpha", "DOMAIN-SUFFIX,eugene.com,PROXY", "omega"].join("\n");
         fs.readFileSync.mockReturnValue(input);
-        replaceDuplicateLines("shadowrocket.conf", "eugene.com");
-        const expected = ["alpha", "DOMAIN-SUFFIX, eugene.com, PROXY", "tail eugene.com again", "omega"].join("\n");
-        expect(fs.writeFileSync).toHaveBeenCalledWith("shadowrocket.conf", expected, "utf-8");
+        updateConfigWithDomainNameAndRule("shadowrocket.conf.bak", "eugene.com", "DIRECT");
+        const expected = ["alpha", "DOMAIN-SUFFIX,eugene.com,DIRECT", "omega"].join("\n");
+        expect(fs.writeFileSync).toHaveBeenCalledWith("shadowrocket.conf.bak", expected, "utf-8");
     });
 
-    test("overwriteConfigWithBackup copies backup to config", () => {
-        overwriteConfigWithBackup("shadowrocket.conf", "shadowrocket.conf.bak");
+    test("overwrite the config with its backup", () => {
+        overwriteConfigWithBackup("shadowrocket.conf.bak", "shadowrocket.conf");
         expect(fs.copyFileSync).toHaveBeenCalledWith("shadowrocket.conf.bak", "shadowrocket.conf");
     });
 });
