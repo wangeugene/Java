@@ -1,17 +1,15 @@
-import { promises as fs } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const CONFIG_FILE = resolve(__dirname, "../../../www/config/shadowrocket.conf");
+import { CONFIG_FILE } from "../../config/paths.js";
+import { promises as fs } from "node:fs";
 
 export default async function (fastify, opts) {
     fastify.get("/", async function (request, reply) {
         try {
+            console.log("Reading shadowrocket config file:", CONFIG_FILE);
             const content = await fs.readFile(CONFIG_FILE, "utf-8");
+            console.log(`content length: ${content.length}`);
             reply.type("text/plain").send(content);
-        } catch {
+        } catch (err) {
+            console.error("Failed to read config:", err);
             reply.code(404).type("text/plain").send("not found");
         }
     });

@@ -1,6 +1,9 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+// All these functions are deprecated: Use upsertDomainRule in routes/edit/shadowrocket/index.js instead
+// They are kept here as bad examples of using synchronous file operations inside a request handler.
+
 export function createBackup(configFile, backupFile) {
     fs.copyFileSync(configFile, backupFile);
     console.log(`Backup created at ${path.basename(backupFile)}`);

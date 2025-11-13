@@ -31,12 +31,9 @@ services:
     environment:
       NODE_ENV: "production"
     volumes:
-      # If you do not need live local code sync in production, remove this line:
+      # This will mount the rule-updater code and www directory into the container
       - ./rule-updater:/app
-      - ./www:/www          # <— add this compatibility mount
-      # Keep node_modules inside the container so compose doesn't clobber it
-      - /app/node_modules
-      # Share generated configs with Caddy
+      #  Mount the www directory to allow updates, the www folder is the same level as compose.yaml and rule-updater folder
       - ./www:/app/www  
 
 volumes:
