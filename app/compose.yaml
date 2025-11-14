@@ -31,8 +31,6 @@ services:
     environment:
       NODE_ENV: "production"
     volumes:
-      # This will mount the rule-updater code and www directory into the container
-      - ./rule-updater:/app
       #  Mount the www directory to allow updates, the www folder is the same level as compose.yaml and rule-updater folder
       - ./www:/app/www  
 
