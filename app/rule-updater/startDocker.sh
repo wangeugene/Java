@@ -1,6 +1,12 @@
-# !/bin/zsh
+#!/usr/bin/env zsh
 
-# Bind the parent directory's www folder to /app/www in the container
+set -euo pipefail
+
+echo "🔨 Rebuilding Docker image (no cache)..."
+echo "Skip this step because network issues can cause long delays."
+# docker build --no-cache -t rule-updater:local .
+
+echo "🚀 Starting container with live code mount..."
 docker run --rm -it \
   -p 3000:3000 \
   -e WWW_DIR="/app/www" \
