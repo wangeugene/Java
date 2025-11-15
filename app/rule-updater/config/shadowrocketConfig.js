@@ -21,6 +21,10 @@ export function removeDuplicatesByDomain(lines, domainName) {
     return result;
 }
 
+export function removeDomainRule(lines, domainName) {
+    return lines.filter((line) => !line.includes(domainName));
+}
+
 /**
  * Update the rule for an existing domain line:
  * DOMAIN-SUFFIX,domainName,RULE

@@ -4,6 +4,7 @@ import {
     updateDomainRule,
     hasDomain,
     insertAfterLastDomainSuffix,
+    removeDomainRule,
 } from "./shadowrocketConfig.js";
 
 describe("removeDuplicatesByDomain", () => {
@@ -15,6 +16,16 @@ describe("removeDuplicatesByDomain", () => {
         ];
         const result = removeDuplicatesByDomain(lines, "example.com");
         expect(result).toEqual(["DOMAIN-SUFFIX,example.com,DIRECT", "DOMAIN-SUFFIX,other.com,DIRECT"]);
+    });
+
+    it("returns identical list when domain is not present", () => {
+        const lines = ["DOMAIN-SUFFIX,aaa.com,DIRECT", "DOMAIN-SUFFIX,bbb.com,PROXY"];
+        const result = removeDuplicatesByDomain(lines, "ccc.com");
+        expect(result).toEqual(lines);
+    });
+
+    it("returns empty list when given an empty list", () => {
+        expect(removeDuplicatesByDomain([], "example.com")).toEqual([]);
     });
 });
 
@@ -123,5 +134,27 @@ describe("insertAfterLastDomainSuffix", () => {
                 "\r\n"
             ) + "\r\n"
         );
+    });
+    it("removes all lines containing the domain", () => {
+        const lines = [
+            "DOMAIN-SUFFIX,example.com,DIRECT",
+            "DOMAIN-SUFFIX,example.com,PROXY",
+            "DOMAIN-SUFFIX,other.com,DIRECT",
+            "IP-CIDR,1.2.3.4/32,REJECT",
+        ];
+        const result = removeDomainRule(lines, "example.com");
+        expect(result).toEqual(["DOMAIN-SUFFIX,other.com,DIRECT", "IP-CIDR,1.2.3.4/32,REJECT"]);
+    });
+
+    it("returns original list when domain is not present", () => {
+        const lines = ["DOMAIN-SUFFIX,aaa.com,DIRECT", "IP-CIDR,1.2.3.4/32,REJECT"];
+        const result = removeDomainRule(lines, "bbb.com");
+        expect(result).toEqual(lines);
+    });
+
+    it("returns empty list when all lines contain the domain", () => {
+        const lines = ["DOMAIN-SUFFIX,aaa.com,DIRECT", "DOMAIN-SUFFIX,aaa.com,PROXY"];
+        const result = removeDomainRule(lines, "aaa.com");
+        expect(result).toEqual([]);
     });
 });
