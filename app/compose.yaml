@@ -30,6 +30,8 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: "production"
+      WWW_DIR: "/app/www"
+      # WWW_DIR/config dir contains the config files inside the docker container
     volumes:
       #  Mount the www directory to allow updates, the www folder is the same level as compose.yaml and rule-updater folder
       - ./www:/app/www  
