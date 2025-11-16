@@ -26,7 +26,6 @@
         method POST
     }
     reverse_proxy @editShadowrocket http://rule-updater:3000
-
     # Optional: enable simple CORS for browser clients
     header @editShadowrocket Access-Control-Allow-Origin "*"
     @preflightEditShadowrocket {
@@ -37,4 +36,11 @@
     header @preflightEditShadowrocket Access-Control-Allow-Methods "POST, OPTIONS"
     header @preflightEditShadowrocket Access-Control-Allow-Headers "*"
     respond @preflightEditShadowrocket 204
+
+    @deleteShadowrocket {
+        path /delete/shadowrocket
+        method DELETE
+    }
+    reverse_proxy @deleteShadowrocket http://rule-updater:3000
+    header @deleteShadowrocket Access-Control-Allow-Origin "*"
 }
