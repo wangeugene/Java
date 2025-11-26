@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Shadowrocket Rule Helper",
+  "version": "1.0.0",
+  "description": "Quickly add or remove Shadowrocket rules for the current domain.",
+  "permissions": ["tabs", "activeTab"],
+  "host_permissions": ["https://309906615.xyz/*"],
+  "action": {
+    "default_title": "Shadowrocket Rule Helper",
+    "default_popup": "popup.html"
+  }
+}
