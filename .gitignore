@@ -36,3 +36,6 @@ xcschememanagement.plist
 shadowrocket.conf
 shadowrocket.conf.bak
 surge.conf
+gfw.list
+gfw.list.bak
+ai.list
