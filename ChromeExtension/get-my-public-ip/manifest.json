@@ -3,7 +3,7 @@
   "name": "Get my Public IP!",
   "version": "1.0",
   "description": "Fetch and display your public IP address.",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": [],
   "host_permissions": ["https://ifconfig.info/"],
   "action": {
     "default_popup": "popup.html",
