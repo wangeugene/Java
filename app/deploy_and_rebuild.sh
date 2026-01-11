@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Local and remote settings
 LOCAL_DIR="$HOME/Projects/Java/app"
-REMOTE_HOST="ali"     # defined in your ~/.ssh/config
+REMOTE_HOST="aws"     # defined in your ~/.ssh/config
 REMOTE_DIR="/app"
 
 REMOTE_CMD="cd ${REMOTE_DIR} && ./rebuild_docker_compose.sh"

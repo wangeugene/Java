@@ -1,10 +1,19 @@
 {$DOMAIN} {
-    root * /usr/share/caddy
-    file_server
-
     # Health Check
     handle_path /health {
         respond "ok"
+    }
+
+    # --- VSCode server (8080) ---
+    @vscode {
+    path /vscode
+    path /vscode/*
+    }
+    handle @vscode {
+        uri strip_prefix /vscode
+        # On Linux hosts, `host.docker.internal` often does not resolve inside containers.
+        # Use the host's private IP (reachable from the Caddy container) instead.
+        reverse_proxy http://172.31.41.144:8080
     }
 
     # Pretty URL for Shadowrocket (no extension)
@@ -19,6 +28,16 @@
     header @surge Cache-Control "no-cache, must-revalidate"
     rewrite @surge /config/surge.conf
 
+    @gfw path /config/gfw.list
+    header @gfw Content-Type "text/plain; charset=utf-8"
+    header @gfw Cache-Control "no-cache, must-revalidate"
+    rewrite @gfw /config/gfw.list
+
+    @ai path /config/ai.list
+    header @ai Content-Type "text/plain; charset=utf-8"
+    header @ai Cache-Control "no-cache, must-revalidate"
+    rewrite @ai /config/ai.list
+
     # --- API: rule-updater (Fastify) ---
     # POST /edit/shadowrocket -> reverse proxy to rule-updater:3000
     @editShadowrocket {
@@ -29,8 +48,8 @@
     # Optional: enable simple CORS for browser clients
     header @editShadowrocket Access-Control-Allow-Origin "*"
     @preflightEditShadowrocket {
-    path /edit/shadowrocket
-    method OPTIONS
+        path /edit/shadowrocket
+        method OPTIONS
     }
     header @preflightEditShadowrocket Access-Control-Allow-Origin "*"
     header @preflightEditShadowrocket Access-Control-Allow-Methods "POST, OPTIONS"
@@ -43,4 +62,14 @@
     }
     reverse_proxy @deleteShadowrocket http://rule-updater:3000
     header @deleteShadowrocket Access-Control-Allow-Origin "*"
+
+    handle {
+        root * /usr/share/caddy
+        file_server
+    }
+}
+
+code.{$DOMAIN} {
+    # Route the VSCode web UI via subdomain
+    reverse_proxy http://172.31.41.144:8080
 }

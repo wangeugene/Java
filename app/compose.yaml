@@ -7,7 +7,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      DOMAIN: "wangeugene.cc"
+      DOMAIN: "309906615.xyz"
       EMAIL: "yuzhen23@icloud.com"
     volumes:
       # Use relative paths for portability (works on EC2 and locally)
