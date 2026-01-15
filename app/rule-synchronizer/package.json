@@ -9,8 +9,8 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "pnpm stop && WWW_DIR=\"$(pwd)/../www\" && node ./src/index.js",
-    "start": "NODE_ENV=production node ./src/index.js",
+    "dev": "WWW_DIR=\"$(pwd)/../www\" node ./src/index.js",
+    "start": "NODE_ENV=production WWW_DIR=\"$(pwd)/../www\" node ./src/index.js",
     "stop": "kill -9 $(lsof -t -i:3000) || echo 'No process running on port 3000'",
     "open": "open http://localhost:3000/shadowrocket",
     "test": "vitest run",
@@ -24,6 +24,7 @@
   "dependencies": {
     "@fastify/autoload": "^6.3.1",
     "@fastify/cors": "^11.1.0",
+    "dotenv": "^17.2.3",
     "fastify": "^5.6.1"
   },
   "devDependencies": {
