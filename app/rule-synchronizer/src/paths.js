@@ -21,6 +21,5 @@ console.log("[paths.js] process.env.WWW_DIR:", process.env.WWW_DIR);
 console.log("[paths.js] WWW_DIR:", WWW_DIR);
 
 export const CONFIG_DIR = join(WWW_DIR, "config");
-export const CONFIG_FILE = join(CONFIG_DIR, "shadowrocket.conf");
+export const SHADOWROCKET_CONFIG_FILE = join(CONFIG_DIR, "shadowrocket.conf");
 export const SURGE_CONFIG_FILE = join(CONFIG_DIR, "surge.conf");
-export const BACKUP_FILE = join(CONFIG_DIR, "shadowrocket.conf.bak");
