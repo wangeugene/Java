@@ -18,6 +18,7 @@ rsync -avz \
   --exclude '.git' \
   --exclude 'node_modules' \
   --exclude 'certbot' \
+  --exclude '*.list' \
   "${LOCAL_DIR}/" \
   "${REMOTE_HOST}:${REMOTE_DIR}"
 
