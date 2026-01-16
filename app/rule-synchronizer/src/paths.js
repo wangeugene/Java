@@ -10,14 +10,13 @@ const __dirname = dirname(__filename);
 // The www and rule-updater folders are siblings.
 // The www shares the config files with Shadowrocket app via mounted volume with Caddy server.
 // The fallback www dir and node_modules dir are siblings to each other.
-const FALLBACK_WWW_DIR = resolve(__dirname, "../www");
+const FALLBACK_WWW_DIR = resolve(__dirname, "../../www");
 
 export const WWW_DIR =
     process.env.WWW_DIR && process.env.WWW_DIR.trim() !== "" ? process.env.WWW_DIR : FALLBACK_WWW_DIR;
 
 console.log("[paths.js] __dirname:", __dirname);
 console.log("[paths.js] FALLBACK_WWW_DIR:", FALLBACK_WWW_DIR);
-console.log("[paths.js] process.env.WWW_DIR:", process.env.WWW_DIR);
 console.log("[paths.js] WWW_DIR:", WWW_DIR);
 
 export const CONFIG_DIR = join(WWW_DIR, "config");

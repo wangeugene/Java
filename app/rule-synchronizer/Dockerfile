@@ -1,7 +1,8 @@
 FROM node:24-alpine
 
 # Minimal tooling; Corepack provides pnpm
-RUN apk add --no-cache curl \
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN apk add curl \
   && corepack enable
 
 WORKDIR /app
@@ -11,7 +12,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml* .npmrc* ./
 
 RUN corepack prepare pnpm@10.20.0 --activate \
-  && pnpm install --prod --frozen-lockfile --no-optional
+  && pnpm install --prod --no-optional
 
 # App code
 COPY . .
