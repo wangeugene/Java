@@ -1,11 +1,16 @@
-// config/shadowrocketService.js
 import {
     removeDuplicatesByDomain,
     updateDomainRule,
     hasDomain,
     insertAfterLastDomainSuffix,
-} from "./shadowrocketConfig.js";
-import { readBackupText, writeBackupText, syncBackupToConfig, ensureBackupExists } from "./store.js";
+} from "../../domain/shadowrocketRuleEditor.js";
+
+import {
+    readBackupText,
+    writeBackupText,
+    syncBackupToConfig,
+    ensureBackupExists,
+} from "../../infra/configFileService.js";
 
 export async function upsertDomainRule(domainName, rule) {
     await ensureBackupExists();

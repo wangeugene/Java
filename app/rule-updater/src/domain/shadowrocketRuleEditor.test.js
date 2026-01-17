@@ -5,7 +5,7 @@ import {
     hasDomain,
     insertAfterLastDomainSuffix,
     removeDomainRule,
-} from "./shadowrocketConfig.js";
+} from "./shadowrocketRuleEditor.js";
 
 describe("removeDuplicatesByDomain", () => {
     it("removes duplicate lines for the same domain", () => {
@@ -91,7 +91,7 @@ describe("insertAfterLastDomainSuffix", () => {
                 "DOMAIN-SUFFIX,bbb.com,PROXY",
                 "DOMAIN-SUFFIX,ccc.com,DIRECT",
                 "IP-CIDR,1.2.3.4/32,REJECT",
-            ].join("\n")
+            ].join("\n"),
         );
     });
 
@@ -131,8 +131,8 @@ describe("insertAfterLastDomainSuffix", () => {
 
         expect(updated).toBe(
             ["DOMAIN-SUFFIX,aaa.com,DIRECT", "DOMAIN-SUFFIX,bbb.com,PROXY", "DOMAIN-SUFFIX,ccc.com,DIRECT"].join(
-                "\r\n"
-            ) + "\r\n"
+                "\r\n",
+            ) + "\r\n",
         );
     });
     it("removes all lines containing the domain", () => {

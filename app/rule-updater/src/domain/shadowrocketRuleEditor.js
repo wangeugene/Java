@@ -1,5 +1,3 @@
-// config/shadowrocketConfig.js
-
 /**
  * Remove duplicate lines containing the domainName,
  * keeping only the first occurrence.

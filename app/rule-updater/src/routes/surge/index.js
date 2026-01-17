@@ -1,4 +1,4 @@
-import { SURGE_CONFIG_FILE } from "../../config/paths.js";
+import { SURGE_CONFIG_FILE } from "../../infra/paths.js";
 import { promises as fs } from "node:fs";
 
 export default async function (fastify, opts) {

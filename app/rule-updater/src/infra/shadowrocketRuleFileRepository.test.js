@@ -1,13 +1,13 @@
 import { describe, test, beforeEach, expect, vi } from "vitest";
-import * as fs from "node:fs";
-const { createBackup, removeDuplicateLinesByDomainName, updateConfigWithDomainNameAndRule, overwriteConfigWithBackup } =
-    await import("./modifyShadowrocket.js");
-
 vi.mock("node:fs", () => ({
     copyFileSync: vi.fn(),
     readFileSync: vi.fn(),
     writeFileSync: vi.fn(),
 }));
+
+import * as fs from "node:fs";
+const { createBackup, overwriteConfigWithBackup, removeDuplicateLinesByDomainName, updateConfigWithDomainNameAndRule } =
+    await import("./shadowrocketRuleFileRepository.js");
 
 beforeEach(() => {
     vi.clearAllMocks();

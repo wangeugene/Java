@@ -3,7 +3,7 @@
 curl -X POST 'http://127.0.0.1:3000/edit/shadowrocket?domainName=eugene.com&rule=DIRECT'
 */
 import { assertValidRule } from "../../../domain/ruleEnum.js";
-import { upsertDomainRule } from "../../../config/shadowrocketService.js";
+import { upsertDomainRule } from "../../../service/shadowrocket/shadowrocketAPIService.js";
 
 export default async function routes(fastify) {
     fastify.post("/", async (req, reply) => {

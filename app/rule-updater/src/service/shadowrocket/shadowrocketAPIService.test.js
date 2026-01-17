@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // Mock store.js BEFORE importing the service
-vi.mock("./store.js", () => {
+vi.mock("../../infra/configFileService.js", () => {
     return {
         ensureBackupExists: vi.fn(),
         readBackupText: vi.fn(),
@@ -11,9 +11,14 @@ vi.mock("./store.js", () => {
     };
 });
 
-import { ensureBackupExists, readBackupText, writeBackupText, syncBackupToConfig } from "./store.js";
+import {
+    ensureBackupExists,
+    readBackupText,
+    writeBackupText,
+    syncBackupToConfig,
+} from "../../infra/configFileService.js";
 
-import { upsertDomainRule } from "./shadowrocketService.js";
+import { upsertDomainRule } from "../../service/shadowrocket/shadowrocketAPIService.js";
 
 beforeEach(() => {
     vi.clearAllMocks();
@@ -41,7 +46,7 @@ describe("upsertDomainRule", () => {
             [
                 "DOMAIN-SUFFIX,example.com,PROXY", // updated
                 "DOMAIN-SUFFIX,other.com,PROXY",
-            ].join("\n")
+            ].join("\n"),
         );
     });
 
