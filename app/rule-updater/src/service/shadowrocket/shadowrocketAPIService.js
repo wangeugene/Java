@@ -10,7 +10,7 @@ import {
     writeBackupText,
     syncBackupToConfig,
     ensureBackupExists,
-} from "../../infra/configFileService.js";
+} from "../../infra/shadowrocketConfigFileBackupService.js";
 
 export async function upsertDomainRule(domainName, rule) {
     await ensureBackupExists();

@@ -16,7 +16,7 @@ import {
     readBackupText,
     writeBackupText,
     syncBackupToConfig,
-} from "../../infra/configFileService.js";
+} from "../../infra/shadowrocketConfigFileBackupService.js";
 
 import { upsertDomainRule } from "../../service/shadowrocket/shadowrocketAPIService.js";
 

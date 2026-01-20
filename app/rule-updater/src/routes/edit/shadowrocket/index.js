@@ -3,7 +3,6 @@
 curl -X POST 'http://127.0.0.1:3000/edit/shadowrocket?domainName=eugene.com&rule=DIRECT'
 */
 import { assertValidRule } from "../../../domain/ruleEnum.js";
-import { upsertDomainRule } from "../../../service/shadowrocket/shadowrocketAPIService.js";
 
 export default async function routes(fastify) {
     fastify.post("/", async (req, reply) => {
@@ -11,17 +10,10 @@ export default async function routes(fastify) {
         const b = req.body && typeof req.body === "object" ? req.body : {};
 
         const domainName = (b.domainName ?? q.domainName ?? "").trim();
-        const rule = (b.rule ?? q.rule ?? "").trim().toUpperCase();
 
-        if (!domainName || !rule) {
-            reply.code(400).type("text/plain").send("domainName and rule are required");
+        if (!domainName) {
+            reply.code(400).type("text/plain").send("domainName is required");
             return;
-        }
-
-        try {
-            assertValidRule(rule);
-        } catch (err) {
-            return reply.code(400).send(`Invalid rule. Allowed: ${Object.values().join(", ")}`);
         }
 
         try {

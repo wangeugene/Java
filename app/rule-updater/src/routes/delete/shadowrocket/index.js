@@ -6,7 +6,7 @@ import {
     writeBackupText,
     syncBackupToConfig,
     ensureBackupExists,
-} from "../../../infra/configFileService.js";
+} from "../../../infra/shadowrocketConfigFileBackupService.js";
 
 export default async function (fastify) {
     fastify.delete("/", async (request, reply) => {

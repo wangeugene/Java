@@ -1,0 +1,9 @@
+{
+  "_comment": "This file enables VSCode's JavaScript language service so that file renames update import paths correctly in this ESM Node.js project.",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "checkJs": true
+  },
+  "include": ["src"]
+}
