@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Surge rule updater</title>
+        <style>
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                margin: 8px;
+                min-width: 260px;
+            }
+            #domain {
+                font-weight: bold;
+            }
+            button {
+                width: 100%;
+                margin: 4px 0;
+                padding: 6px;
+                cursor: pointer;
+            }
+            #status {
+                margin-top: 6px;
+                font-size: 12px;
+            }
+            .small {
+                font-size: 11px;
+                color: #666;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            Current domain:
+            <span id="domain">Loading...</span>
+        </div>
+        <div class="small">(From the active tab's address bar)</div>
+
+        <hr />
+
+        <button id="btn-proxy">Proxy this domain</button>
+        <button id="btn-delete">Undo proxy this domain</button>
+
+        <hr />
+
+        <button id="btn-open-config">Open config in new tab</button>
+
+        <div id="status"></div>
+
+        <script src="popup.js"></script>
+    </body>
+</html>
