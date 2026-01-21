@@ -1,4 +1,4 @@
-const BASE_URL = "https://309906615.xyz";
+const BASE_URL = "https://wangeugene.cc";
 
 let currentDomain = null;
 
