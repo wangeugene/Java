@@ -62,30 +62,28 @@
     }
     reverse_proxy @deleteShadowrocket http://rule-updater:3000
     header @deleteShadowrocket Access-Control-Allow-Origin "*"
-    
-    # POST /edit/gfw -> reverse proxy to rule-updater:3000
-    @editGFW {
-        path /edit/gfw
-        method POST
+
+    handle /edit/gfw* {
+        @preflight method OPTIONS
+        handle @preflight {
+            header Access-Control-Allow-Origin "*"
+            header Access-Control-Allow-Methods "POST, DELETE, OPTIONS"
+            header Access-Control-Allow-Headers "*"
+            respond 204
+        }
+
+        @post method POST
+        handle @post {
+            header Access-Control-Allow-Origin "*"
+            reverse_proxy http://rule-updater:3000
+        }
+
+        @delete method DELETE
+        handle @delete {
+            header Access-Control-Allow-Origin "*"
+            reverse_proxy http://rule-updater:3000
+        } 
     }
-    reverse_proxy @editGFW http://rule-updater:3000
-    header @editGFW Access-Control-Allow-Origin "*"
-    @preflightEditGFW {
-        path /edit/gfw
-        method OPTIONS
-    }
-    header @preflightEditGFW Access-Control-Allow-Origin "*"
-    header @preflightEditGFW Access-Control-Allow-Methods "POST, OPTIONS"
-    header @preflightEditGFW Access-Control-Allow-Headers "*"
-    respond @preflightEditGFW 204 
-    
-    # DELETE /edit/gfw -> reverse proxy to rule-updater:3000
-    @deleteGFW {
-        path /delete/gfw
-        method DELETE
-    }
-    reverse_proxy @deleteGFW http://rule-updater:3000
-    header @deleteGFW Access-Control-Allow-Origin "*"
 
     handle {
         root * /usr/share/caddy

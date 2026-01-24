@@ -1,5 +1,6 @@
 FROM node:24-alpine
-RUN apk add --no-cache curl \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+ && apk add --no-cache curl \ 
  && corepack enable
 WORKDIR /app
 

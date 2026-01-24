@@ -2,8 +2,9 @@ FROM node:24-alpine
 
 # Minimal tooling; Corepack provides pnpm
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-RUN apk add curl \
-  && corepack enable
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+ && apk add --no-cache curl \ 
+ && corepack enable
 
 WORKDIR /app
 
