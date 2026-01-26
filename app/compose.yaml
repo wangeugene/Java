@@ -9,6 +9,9 @@ services:
         environment:
             DOMAIN: "${DOMAIN}"
             EMAIL: "${EMAIL}"
+            VSCODE_HOST: "${VSCODE_HOST}"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         volumes:
             # Use relative paths for portability (works on EC2 and locally)
             - ./Caddyfile:/etc/caddy/Caddyfile:ro
