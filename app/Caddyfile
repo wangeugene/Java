@@ -13,7 +13,7 @@
         uri strip_prefix /vscode
         # On Linux hosts, `host.docker.internal` often does not resolve inside containers.
         # Use the host's private IP (reachable from the Caddy container) instead.
-        reverse_proxy http://172.31.41.144:8080
+        reverse_proxy http://{$VSCODE_HOST}:8080
     }
 
     # Pretty URL for Shadowrocket (no extension)
@@ -93,5 +93,5 @@
 
 code.{$DOMAIN} {
     # Route the VSCode web UI via subdomain
-    reverse_proxy http://172.31.41.144:8080
+    reverse_proxy http://{$VSCODE_HOST}:8080
 }
