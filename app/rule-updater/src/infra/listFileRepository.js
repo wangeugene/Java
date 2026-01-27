@@ -2,6 +2,20 @@ import fs from "fs/promises";
 import { CONFIG_DIR } from "./paths.js";
 import { join } from "node:path";
 
+export async function getListFileContent(fileName) {
+    try {
+        fileName = join(CONFIG_DIR, fileName);
+        const fileContent = await fs.readFile(fileName, "utf-8");
+        return fileContent;
+    } catch (error) {
+        if (error.code === "ENOENT") {
+            return ""; // File does not exist, return empty content
+        }
+        console.error(`Error reading list file: ${error}`);
+        throw error;
+    }
+}
+
 export async function upsertDomainName(domainName, fileName) {
     try {
         let fileContent = "";
