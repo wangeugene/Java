@@ -8,6 +8,33 @@ function setStatus(message, isError = false) {
     el.style.color = isError ? "red" : "green";
 }
 
+async function initToggleStatus(currentDomain) {
+    const toggle = document.getElementById("toggle-proxy");
+    try {
+        const url =
+            `${BASE_URL}/gfw/exists?` +
+            new URLSearchParams({
+                domainName: currentDomain,
+            });
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            setStatus(`Error: ${res.status} ${text}`, true);
+            toggle.checked = false;
+        } else {
+            const json = await res.json();
+            toggle.checked = json["exists"] === true;
+            setStatus(`Success: this ${currentDomain} is ` + (json["exists"] ? "proxied" : "not proxied"));
+        }
+    } catch (err) {
+        setStatus(`Request failed: ${err.message}`, true);
+    }
+}
+
 // Get active tab URL and extract hostname
 function initDomain() {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -29,6 +56,7 @@ function initDomain() {
             currentDomain = hostname;
             document.getElementById("domain").textContent = currentDomain;
             setStatus("");
+            initToggleStatus(currentDomain);
         } catch (err) {
             setStatus("Invalid URL.", true);
         }
@@ -37,34 +65,6 @@ function initDomain() {
 
 function storageKeyForDomain(domain) {
     return `proxy_enabled:${domain}`;
-}
-
-async function getProxyEnabled(domain) {
-    return new Promise((resolve) => {
-        chrome.storage.local.get([storageKeyForDomain(domain)], (result) => {
-            resolve(Boolean(result[storageKeyForDomain(domain)]));
-        });
-    });
-}
-
-async function setProxyEnabled(domain, enabled) {
-    return new Promise((resolve) => {
-        chrome.storage.local.set({ [storageKeyForDomain(domain)]: Boolean(enabled) }, () => resolve());
-    });
-}
-
-async function syncToggleFromStorage() {
-    if (!currentDomain) return;
-    const toggle = document.getElementById("toggle-proxy");
-    if (!toggle) return;
-
-    toggle.disabled = true;
-    try {
-        const enabled = await getProxyEnabled(currentDomain);
-        toggle.checked = enabled;
-    } finally {
-        toggle.disabled = false;
-    }
 }
 
 async function addDomainName(fileName) {
@@ -145,14 +145,6 @@ function openConfig() {
 document.addEventListener("DOMContentLoaded", () => {
     initDomain();
 
-    // Once the domain is loaded, sync the switch state from local storage.
-    // (initDomain uses a callback-based API, so we poll briefly for currentDomain.)
-    const syncTimer = setInterval(async () => {
-        if (!currentDomain) return;
-        clearInterval(syncTimer);
-        await syncToggleFromStorage();
-    }, 50);
-
     const toggle = document.getElementById("toggle-proxy");
     toggle.addEventListener("change", async () => {
         // Guard: if we don't have a domain yet, revert.
@@ -171,19 +163,23 @@ document.addEventListener("DOMContentLoaded", () => {
         let ok = false;
         if (desiredState) {
             ok = await addDomainName("gfw.list");
+            if (ok) {
+                toggle.checked = true;
+                setStatus("Success to enable proxy for domain.", true);
+            } else {
+                toggle.checked = false;
+                setStatus("Failed to enable proxy for domain.", true);
+            }
         } else {
             ok = await deleteDomainName();
+            if (ok) {
+                toggle.checked = false;
+                setStatus("Success to disable proxy for domain.", true);
+            } else {
+                toggle.checked = true;
+                setStatus("Failed to disable proxy for domain.", true);
+            }
         }
-
-        if (ok) {
-            await setProxyEnabled(currentDomain, desiredState);
-        } else {
-            // Revert toggle to the last known good state
-            const last = await getProxyEnabled(currentDomain);
-            toggle.checked = last;
-        }
-
-        toggle.disabled = false;
     });
 
     document.getElementById("btn-open-config").addEventListener("click", openConfig);
