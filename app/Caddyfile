@@ -63,13 +63,25 @@
     reverse_proxy @deleteShadowrocket http://rule-updater:3000
     header @deleteShadowrocket Access-Control-Allow-Origin "*"
 
-    handle /edit/gfw* {
+    handle /gfw* {
         @preflight method OPTIONS
         handle @preflight {
             header Access-Control-Allow-Origin "*"
             header Access-Control-Allow-Methods "POST, DELETE, OPTIONS"
             header Access-Control-Allow-Headers "*"
             respond 204
+        }
+        
+        @exists path /gfw/exists
+        handle @exists {
+            header Access-Control-Allow-Origin "*"
+            reverse_proxy http://rule-updater:3000
+        }
+
+        @get method GET
+        handle @get {
+            header Access-Control-Allow-Origin "*"
+            reverse_proxy http://rule-updater:3000
         }
 
         @post method POST

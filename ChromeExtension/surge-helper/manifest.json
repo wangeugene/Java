@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Quickly add or remove the current domain from the Surge rule file.",
   "permissions": ["tabs", "activeTab"],
-  "host_permissions": ["https://309906615.xyz/*"],
+  "host_permissions": ["https://wangeugene.cc/*"],
   "action": {
     "default_title": "Surge Rule Updater",
     "default_popup": "popup.html"
