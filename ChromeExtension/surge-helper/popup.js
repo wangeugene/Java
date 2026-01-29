@@ -141,44 +141,33 @@ function openConfig() {
     });
 }
 
-// Wire up event listeners
 document.addEventListener("DOMContentLoaded", () => {
     initDomain();
 
     const toggle = document.getElementById("toggle-proxy");
     toggle.addEventListener("change", async () => {
-        // Guard: if we don't have a domain yet, revert.
         if (!currentDomain) {
             toggle.checked = false;
             setStatus("No domain detected.", true);
             return;
         }
 
-        const desiredState = toggle.checked;
-
-        // Disable while the request is in flight
         toggle.disabled = true;
 
-        // Optimistic UI is fine, but revert on failure.
-        let ok = false;
-        if (desiredState) {
-            ok = await addDomainName("gfw.list");
-            if (ok) {
-                toggle.checked = true;
-                setStatus("Success to enable proxy for domain.", true);
-            } else {
-                toggle.checked = false;
-                setStatus("Failed to enable proxy for domain.", true);
+        try {
+            const userWantsEnabled = toggle.checked;
+
+            // Step 1) Send mutation request
+            const ok = userWantsEnabled ? await addDomainName("gfw.list") : await deleteDomainName();
+
+            if (!ok) {
+                setStatus("Update failed; syncing from server...", true);
             }
-        } else {
-            ok = await deleteDomainName();
-            if (ok) {
-                toggle.checked = false;
-                setStatus("Success to disable proxy for domain.", true);
-            } else {
-                toggle.checked = true;
-                setStatus("Failed to disable proxy for domain.", true);
-            }
+
+            // Step 2) Always query server and set the toggle based on /gfw/exists
+            await initToggleStatus(currentDomain);
+        } finally {
+            toggle.disabled = false;
         }
     });
 
