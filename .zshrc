@@ -24,10 +24,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="$HOME/.jenv/bin:$PATH"
     # export PATH="/opt/homebrew/opt/teleport@15.4/bin:$PATH"
     # export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
-    alias dc='open -a "Google Chrome" --args --make-default-browser'
-    alias chrome='open -a "Google Chrome"'
-    alias ct='cd ~/tmp'
-    alias sync='cd /Users/euwang/Projects/Java/app & rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'certbot'  /Users/euwang/Projects/Java/app/ aws:/app'
     eval "$(gh copilot alias -- zsh)"
     eval "$(jenv init -)"
 
@@ -48,8 +44,13 @@ export EDITOR="emacs"
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
 alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
 alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'
+alias ca='cd /Users/euwang/Projects/Java/app'
 alias cj='cd ~/Projects/Java'
-alias cw='cd ~/Projects/misc-wechat-driver/'
+alias ct='cd ~/tmp'
+alias dc='open -a "Google Chrome" --args --make-default-browser'
+alias oz='code ~/Projects/Java/.zshrc'
+alias chrome='open -a "Google Chrome"'
+alias sync='cd /Users/euwang/Projects/Java/app & rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'certbot'  /Users/euwang/Projects/Java/app/ aws:/app'
 alias p='cd ~/Projects/'
 alias setupgit="sh ~/Projects/Java/Shell/setupgit.sh"
 alias nd='docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi $(docker images -q)'

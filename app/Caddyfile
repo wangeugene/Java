@@ -100,9 +100,7 @@
 
     handle {
         root * /usr/share/caddy
-        file_server {
-            etag
-        }
+        file_server
     }
 }
 
