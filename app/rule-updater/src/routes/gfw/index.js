@@ -3,6 +3,11 @@
 /* curl -X DELETE 'http://127.0.0.1:3000/gfw?domainName=eugene.com&fileName=gfw.list'
  */
 import { deleteDomainName, upsertDomainName, getListFileContent } from "../../infra/listFileRepository.js";
+import crypto from "node:crypto";
+
+function sha1(text) {
+    return crypto.createHash("sha1").update(text).digest("hex");
+}
 
 export default async function routes(fastify) {
     fastify.get("/exists", async (req, reply) => {
@@ -37,7 +42,14 @@ export default async function routes(fastify) {
             return reply.code(500).type("text/plain").send("Internal Server Error");
         }
         if (listFileContent !== null) {
-            return reply.code(200).type("text/plain").send(listFileContent);
+            const etag = `"${sha1(listFileContent)}"`;
+            reply
+                .header("Content-Type", "text/plain; charset=utf-8")
+                .header("Cache-Control", "no-cache, must-revalidate")
+                .header("ETag", etag)
+                .code(200)
+                .type("text/plain")
+                .send(listFileContent);
         }
     });
 

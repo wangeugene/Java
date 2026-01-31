@@ -64,6 +64,7 @@
     header @deleteShadowrocket Access-Control-Allow-Origin "*"
 
     handle /gfw* {
+        header Cache-Control "no-cache, must-revalidate"
         @preflight method OPTIONS
         handle @preflight {
             header Access-Control-Allow-Origin "*"
@@ -99,7 +100,9 @@
 
     handle {
         root * /usr/share/caddy
-        file_server
+        file_server {
+            etag
+        }
     }
 }
 
