@@ -1,4 +1,5 @@
 const BASE_URL = "https://wangeugene.cc";
+const SURGE_LOCAL_URL = "https://localhost:9000";
 
 let currentDomain = null;
 
@@ -6,6 +7,28 @@ function setStatus(message, isError = false) {
     const el = document.getElementById("status");
     el.textContent = message;
     el.style.color = isError ? "red" : "green";
+}
+
+async function surgeProfileReload() {
+    try {
+        const url = `${SURGE_LOCAL_URL}/v1/profiles/reload`;
+
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "X-Key": "euwang",
+            },
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            setStatus(`Error reloading Surge profile: ${res.status} ${text}`, true);
+        } else {
+            setStatus("Surge profile reloaded successfully.");
+        }
+    } catch (err) {
+        setStatus(`Request failed: ${err.message}`, true);
+    }
 }
 
 async function initToggleStatus(currentDomain) {
@@ -169,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             toggle.disabled = false;
         }
+        await surgeProfileReload();
     });
 
     document.getElementById("btn-open-config").addEventListener("click", openConfig);
