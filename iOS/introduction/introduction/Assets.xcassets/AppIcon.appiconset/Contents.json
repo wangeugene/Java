@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "IP_ICON.001.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

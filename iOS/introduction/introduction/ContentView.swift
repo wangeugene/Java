@@ -63,6 +63,56 @@ func fetchGeolocation(for ip: String) async -> IPGeolocation? {
     }
 }
 
+#if canImport(UIKit)
+import UIKit
+#endif
+#if canImport(AppKit)
+import AppKit
+#endif
+
+func copyToPasteboard(_ text: String) {
+    #if canImport(UIKit)
+    UIPasteboard.general.string = text
+    #elseif canImport(AppKit)
+    NSPasteboard.general.clearContents()
+    NSPasteboard.general.setString(text, forType: .string)
+    #endif
+}
+
+struct InfoRow: View {
+    let title: String
+    let value: String
+
+    @State private var copied = false
+
+    private var isCopyable: Bool {
+        !value.isEmpty && value != "Unavailable"
+    }
+
+    var body: some View {
+        HStack {
+            Text("\(title): \(value)")
+            Spacer()
+            Button {
+                copyToPasteboard(value)
+                withAnimation { copied = true }
+                // Revert the icon after a short delay
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 1_000_000_000) // ~1s
+                    withAnimation { copied = false }
+                }
+            } label: {
+                Image(systemName: copied ? "checkmark" : "doc.on.doc")
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Copy \(title)")
+            .disabled(!isCopyable)
+            .opacity(isCopyable ? 1 : 0.4)
+        }
+    }
+}
+
+
 struct ContentView: View {
     @State private var ipAddress: String = "Loading..."
     @State private var publicIP: String = "Loading..."
@@ -70,16 +120,16 @@ struct ContentView: View {
     @State private var city: String = "Loading..."
     
     var body: some View {
-        VStack {
-            // ... your other UI code ...
-            Text("LAN IP: \(ipAddress)")
-            Text("Public IP: \(publicIP)")
-            Text("Country: \(country)")
-            Text("City: \(city)")
+        VStack(alignment: .leading, spacing: 12) {
+            InfoRow(title: "LAN IP", value: ipAddress)
+            InfoRow(title: "Public IP", value: publicIP)
+            InfoRow(title: "Country", value: country)
+            InfoRow(title: "City", value: city)
             Button("Refresh") {
                 refreshInfo()
             }
         }
+        .padding()
         .onAppear {
             refreshInfo()
         }

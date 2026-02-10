@@ -9,6 +9,12 @@ function setStatus(message, isError = false) {
     el.style.color = isError ? "red" : "green";
 }
 
+async function openShortcutSurgeRuleUpdateTab() {
+    chrome.tabs.create({
+        url: "shortcuts://run-shortcut?name=Update%20Surge%20Rules",
+    });
+}
+
 async function surgeProfileReload() {
     try {
         const url = `${SURGE_LOCAL_URL}/v1/profiles/reload`;
@@ -192,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             toggle.disabled = false;
         }
-        await surgeProfileReload();
+        await openShortcutSurgeRuleUpdateTab();
     });
 
     document.getElementById("btn-open-config").addEventListener("click", openConfig);
