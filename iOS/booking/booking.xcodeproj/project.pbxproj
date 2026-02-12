@@ -10,22 +10,9 @@
 		028EE1962E9F3F4800CD6729 /* booking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = booking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		028EE1A82E9F3F4900CD6729 /* Exceptions for "booking" folder in "booking" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 028EE1952E9F3F4800CD6729 /* booking */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		028EE1982E9F3F4800CD6729 /* booking */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				028EE1A82E9F3F4900CD6729 /* Exceptions for "booking" folder in "booking" target */,
-			);
 			path = booking;
 			sourceTree = "<group>";
 		};
