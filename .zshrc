@@ -1,46 +1,12 @@
 export HOMEBREW_CURLRC=1 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export EDITOR="emacs"
 
-# pnpm start
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    source ~/.private.zshrc
-    # JAVA_HOME environment variable is managed by jenv
-    # export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.26/libexec/openjdk.jdk/Contents/Home"
-    export GROOVY_HOME="/opt/homebrew/opt/groovy/libexec"
-    export MAVE_HOME="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"
-    # This `IDEA_HOME` fixed CLI `idea` failed to start issue
-    export IDEA_HOME="/Applications/IntelliJ IDEA.app/Contents/MacOS"
-    export NPM_CONFIG_USERCONFIG=~/.npmrc
-    export PATH="$IDEA_HOME:$PATH"
-    export PATH="$HOME/.jenv/bin:$PATH"
-    # export PATH="/opt/homebrew/opt/teleport@15.4/bin:$PATH"
-    # export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
-    eval "$(gh copilot alias -- zsh)"
-    eval "$(jenv init -)"
-
-    fpath=(/Users/euwang/.docker/completions $fpath)
-    autoload -Uz compinit
-    compinit
-    eval "$(zoxide init zsh)"
-    # Optional but awesome: enable fzf keybindings and fuzzy search
-    # (fzf has a post-install step)
-    # brew install zoxide fzf
-    # $(brew --prefix)/opt/fzf/install
-
-else
-    echo "Linux detected"
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    sshagent
 fi
 
-export EDITOR="emacs"
+# ============================ Aliases ============================
+
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
 alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
 alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'
@@ -57,6 +23,53 @@ alias nd='docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker r
 alias fd='fd --no-ignore'
 alias urldecode='node -e "console.log(decodeURIComponent(process.argv[1]))"'
 alias b64decode='node -e "console.log(Buffer.from(process.argv[1], \"base64\").toString())"'
+
+# ============================ End of Aliases ============================
+
+
+# ============================ Functions ============================
+load-dev-env(){
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
+  # pnpm start
+  export PNPM_HOME="$HOME/Library/pnpm"
+  case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+  esac
+  # pnpm end
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+      source ~/.private.zshrc
+      # JAVA_HOME environment variable is managed by jenv
+      # export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.26/libexec/openjdk.jdk/Contents/Home"
+      export GROOVY_HOME="/opt/homebrew/opt/groovy/libexec"
+      export MAVE_HOME="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"
+      # This `IDEA_HOME` fixed CLI `idea` failed to start issue
+      export IDEA_HOME="/Applications/IntelliJ IDEA.app/Contents/MacOS"
+      export NPM_CONFIG_USERCONFIG=~/.npmrc
+      export PATH="$IDEA_HOME:$PATH"
+      export PATH="$HOME/.jenv/bin:$PATH"
+      # export PATH="/opt/homebrew/opt/teleport@15.4/bin:$PATH"
+      # export PATH="/opt/homebrew/Cellar/ruby/3.4.2/bin:$PATH"
+      eval "$(gh copilot alias -- zsh)"
+      eval "$(jenv init -)"
+
+      fpath=(/Users/euwang/.docker/completions $fpath)
+      autoload -Uz compinit
+      compinit
+      eval "$(zoxide init zsh)"
+      # Optional but awesome: enable fzf keybindings and fuzzy search
+      # (fzf has a post-install step)
+      # brew install zoxide fzf
+      # $(brew --prefix)/opt/fzf/install
+
+  else
+      echo "Linux detected"
+  fi
+}
 
 # First unalias zc if it exists, then define as function to accept command line arguments
 unalias zc 2>/dev/null || true
@@ -165,8 +178,6 @@ pnpm-up() {
   echo "✅ pnpm updated to: $(pnpm -v)"
 }
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    sshagent
-fi
-echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
 precmd() { stty sane 2>/dev/null }
+
+# ============================ End of Functions ===========================
