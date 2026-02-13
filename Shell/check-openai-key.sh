@@ -24,3 +24,7 @@ set +a
 curl -sS https://api.openai.com/v1/models \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -w "\n\nHTTP %{http_code}\n"
+
+#  -s hides everything (including errors)
+#  -sS hides progress BUT still shows errors
+#  -w This tells curl to print extra information after the response body. print out `HTTP 200` in this case after the response body, so we can easily check the status code without parsing the JSON.
