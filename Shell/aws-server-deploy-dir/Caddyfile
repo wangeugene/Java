@@ -1,0 +1,22 @@
+{$DOMAIN} {
+    # Health Check
+    handle_path /health {
+        respond "ok"
+    }
+    handle {
+        root * /usr/share/caddy
+        file_server
+    }
+}
+
+code.{$DOMAIN} {
+    # Route the VSCode web UI via subdomain
+    # The VSCode web was installed on the host machine and is running on port 8080
+    reverse_proxy http://{$VSCODE_HOST}:8080
+}
+
+gpt.{$DOMAIN} {
+    # Route the VSCode web UI via subdomain
+    # The GPT web UI was installed as a Docker container and is running on port 3000
+    reverse_proxy http://{$VSCODE_HOST}:3000
+}

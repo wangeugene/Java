@@ -1,0 +1,30 @@
+services:
+    caddy:
+        build:
+            context: .
+            dockerfile: Dockerfile.caddy # installs wget
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            DOMAIN: "${DOMAIN}"
+            EMAIL: "${EMAIL}"
+            VSCODE_HOST: "${VSCODE_HOST}"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            # Use relative paths for portability (works on EC2 and locally)
+            - ./Caddyfile:/etc/caddy/Caddyfile:ro
+            - ./www:/usr/share/caddy:rw
+            - caddy-data:/data
+            - caddy-config:/config
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "wget -qO- http://localhost:80/health || exit 1"]
+            interval: 30s
+            timeout: 3s
+            retries: 3
+
+volumes:
+    caddy-data:
+    caddy-config:

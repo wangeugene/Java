@@ -7,6 +7,7 @@ fi
 
 # ============================ Aliases ============================
 
+alias ur='sh ~/Projects/Java/Shell/upload-files-to-remote-server-dir.sh'
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
 alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
 alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'

@@ -3,7 +3,7 @@ set -euo pipefail
 # Using bash to make it compatible with macOS / Linux / remote AWS EC2 instance / alibaba cloud server
 
 # Local and remote settings
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(pwd)"
 LOCAL_DIR="$SCRIPT_DIR"
 REMOTE_DIR="/app"
 
@@ -49,7 +49,9 @@ RSYNC_EXCLUDES=(
 if (( ${#SCRIPT_ARGUMENTS[@]} > 0 )); then
   echo "Uploading only specified paths: ${SCRIPT_ARGUMENTS[*]}"
   # Use --relative to preserve paths when uploading multiple files/dirs
+  # Use --delete to remove files on remote that are deleted locally (be careful!)
   rsync -avz --relative "${RSYNC_EXCLUDES[@]}" \
+    --delete \
     "${SCRIPT_ARGUMENTS[@]}" \
     "${REMOTE_HOST}:${REMOTE_DIR}/"
 else
