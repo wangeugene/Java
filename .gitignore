@@ -40,3 +40,13 @@ gfw.list
 gfw.list.bak
 ai.list
 .csv
+
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+
+# Playgrounds user state
+playground.xcworkspace/xcuserdata/
+
+# macOS junk
+.DS_Store
