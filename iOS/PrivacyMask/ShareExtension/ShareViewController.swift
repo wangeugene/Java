@@ -2,29 +2,71 @@
 //  ShareViewController.swift
 //  ShareExtension
 //
-//  Created by euwang on 3/4/26.
+//  Refactored to use SwiftUI via UIHostingController
 //
 
 import UIKit
-import Social
+import SwiftUI
+import UniformTypeIdentifiers
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
 
-    override func isContentValid() -> Bool {
-        // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .systemBackground
+        loadSharedImage()
     }
 
-    override func didSelectPost() {
-        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-    
-        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+    private func loadSharedImage() {
+
+        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
+              let attachments = extensionItem.attachments else {
+            showSwiftUIView(image: nil)
+            return
+        }
+
+        for provider in attachments {
+
+            if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+
+                provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { [weak self] item, error in
+
+                    guard let self = self else { return }
+
+                    var image: UIImage?
+
+                    if let img = item as? UIImage {
+                        image = img
+                    }
+
+                    if let url = item as? URL,
+                       let data = try? Data(contentsOf: url) {
+                        image = UIImage(data: data)
+                    }
+
+                    DispatchQueue.main.async {
+                        self.showSwiftUIView(image: image)
+                    }
+                }
+
+                return
+            }
+        }
+
+        showSwiftUIView(image: nil)
     }
 
-    override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return []
-    }
+    private func showSwiftUIView(image: UIImage?) {
 
+        let rootView = SharedImageView(image: image)
+        let hosting = UIHostingController(rootView: rootView)
+
+        addChild(hosting)
+        hosting.view.frame = view.bounds
+        hosting.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        view.addSubview(hosting.view)
+        hosting.didMove(toParent: self)
+    }
 }
