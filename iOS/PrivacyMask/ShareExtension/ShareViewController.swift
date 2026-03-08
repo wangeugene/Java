@@ -8,6 +8,8 @@
 import UIKit
 import SwiftUI
 import UniformTypeIdentifiers
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 class ShareViewController: UIViewController {
 
@@ -41,8 +43,17 @@ class ShareViewController: UIViewController {
                     }
 
                     if let url = item as? URL,
-                       let data = try? Data(contentsOf: url) {
-                        image = UIImage(data: data)
+                       let data = try? Data(contentsOf: url),
+                       let loadedImage = UIImage(data: data) {
+
+                        image = loadedImage
+
+                        if let pixelated = ImageProcessor.pixelate(
+                            image: loadedImage,
+                            scale: 25
+                        ) {
+                            image = pixelated
+                        }
                     }
 
                     DispatchQueue.main.async {
@@ -58,14 +69,13 @@ class ShareViewController: UIViewController {
     }
 
     private func showSwiftUIView(image: UIImage?) {
-
-        let rootView = SharedImageView(image: image)
+        let rootView = SharedImageView(image: image) { [weak self] in
+            self?.extensionContext?.completeRequest(returningItems: nil)
+        }
         let hosting = UIHostingController(rootView: rootView)
-
         addChild(hosting)
         hosting.view.frame = view.bounds
         hosting.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         view.addSubview(hosting.view)
         hosting.didMove(toParent: self)
     }

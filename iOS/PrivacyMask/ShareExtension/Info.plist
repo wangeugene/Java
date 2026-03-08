@@ -23,6 +23,8 @@
   <string>$(CURRENT_PROJECT_VERSION)</string>
 
   <!-- Extension configuration -->
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>This extension saves processed images to your Photo Library.</string>
   <key>NSExtension</key>
   <dict>
     <key>NSExtensionAttributes</key>

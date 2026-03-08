@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		020219F12F58690F0080E6CA /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 020219E72F58690F0080E6CA /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		02C5DED02F59CA6D0051D7DE /* SharedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */; };
+		02C5DED92F5A979B0051D7DE /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DED82F59D0250051D7DE /* ImageProcessor.swift */; };
+		02C5DEDA2F5A979B0051D7DE /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DED82F59D0250051D7DE /* ImageProcessor.swift */; };
+		02C5DEDB2F5A98950051D7DE /* SharedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */; };
+		02C5DEDD2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */; };
+		02C5DEDE2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,16 +43,12 @@
 /* Begin PBXFileReference section */
 		020219E72F58690F0080E6CA /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0212DBE52F57EBED00F63882 /* PrivacyMask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivacyMask.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedImageView.swift; sourceTree = "<group>"; };
+		02C5DED82F59D0250051D7DE /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrarySaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		020219F52F58690F0080E6CA /* Exceptions for "ShareExtension" folder in "ShareExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 020219E62F58690F0080E6CA /* ShareExtension */;
-		};
 		02B3C88B2F594CB400544CE7 /* Exceptions for "PrivacyMask" folder in "PrivacyMask" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -54,13 +56,20 @@
 			);
 			target = 0212DBE42F57EBED00F63882 /* PrivacyMask */;
 		};
+		02C5DED62F59CFB30051D7DE /* Exceptions for "ShareExtension" folder in "ShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 020219E62F58690F0080E6CA /* ShareExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		020219E82F58690F0080E6CA /* ShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				020219F52F58690F0080E6CA /* Exceptions for "ShareExtension" folder in "ShareExtension" target */,
+				02C5DED62F59CFB30051D7DE /* Exceptions for "ShareExtension" folder in "ShareExtension" target */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -96,6 +105,7 @@
 		0212DBDC2F57EBED00F63882 = {
 			isa = PBXGroup;
 			children = (
+				02C5DED72F59D0150051D7DE /* Shared */,
 				0212DBE72F57EBED00F63882 /* PrivacyMask */,
 				020219E82F58690F0080E6CA /* ShareExtension */,
 				0212DBE62F57EBED00F63882 /* Products */,
@@ -109,6 +119,16 @@
 				020219E72F58690F0080E6CA /* ShareExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		02C5DED72F59D0150051D7DE /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */,
+				02C5DED82F59D0250051D7DE /* ImageProcessor.swift */,
+				02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +240,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02C5DED02F59CA6D0051D7DE /* SharedImageView.swift in Sources */,
+				02C5DEDA2F5A979B0051D7DE /* ImageProcessor.swift in Sources */,
+				02C5DEDE2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +250,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02C5DEDD2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */,
+				02C5DEDB2F5A98950051D7DE /* SharedImageView.swift in Sources */,
+				02C5DED92F5A979B0051D7DE /* ImageProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
