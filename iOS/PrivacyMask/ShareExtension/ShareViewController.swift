@@ -48,10 +48,7 @@ class ShareViewController: UIViewController {
 
                         image = loadedImage
 
-                        if let pixelated = ImageProcessor.pixelate(
-                            image: loadedImage,
-                            scale: 25
-                        ) {
+                        if let pixelated = ImageProcessor.pixelateWeChatRegions(in: image!) {
                             image = pixelated
                         }
                     }
