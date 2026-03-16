@@ -59,7 +59,7 @@ class ShareViewController: UIViewController {
                     }
 
                     if let sourceImage = image {
-                        let downscaledImage = self.downscaledForProcessing(sourceImage, maxDimension: 1600)
+                        let downscaledImage = ImageProcessor.downscale(sourceImage, maxDimension: 1600)
                         if let pixelated = ImageProcessor.pixelateWeChatRegions(in: downscaledImage) {
                             image = pixelated
                         } else {
@@ -78,29 +78,6 @@ class ShareViewController: UIViewController {
 
         showSwiftUIView(image: nil)
     }
-    private func downscaledForProcessing(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
-        let originalSize = image.size
-        let longestSide = max(originalSize.width, originalSize.height)
-
-        guard longestSide > maxDimension, longestSide > 0 else {
-            return image
-        }
-
-        let scaleRatio = maxDimension / longestSide
-        let targetSize = CGSize(
-            width: originalSize.width * scaleRatio,
-            height: originalSize.height * scaleRatio
-        )
-
-        let format = UIGraphicsImageRendererFormat.default()
-        format.scale = 1
-        format.opaque = false
-
-        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
-        return renderer.image { _ in
-            image.draw(in: CGRect(origin: .zero, size: targetSize))
-        }
-    }
 
     private func showSwiftUIView(image: UIImage?) {
         let rootView = SharedImageView(image: image) { [weak self] in
@@ -114,3 +91,4 @@ class ShareViewController: UIViewController {
         hosting.didMove(toParent: self)
     }
 }
+

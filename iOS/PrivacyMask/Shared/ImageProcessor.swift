@@ -45,7 +45,6 @@ enum ImageProcessor {
         let width = size.width
         let height = size.height
 
-        let headerHeight = height * layout.headerHeightRatio
         let contentTopInset = height * layout.contentTopInsetRatio
         let sideTop = contentTopInset
         let sideHeight = max(height - contentTopInset, 0)
@@ -139,6 +138,30 @@ enum ImageProcessor {
         )
     }
 
+    static func downscale(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let originalSize = image.size
+        let longestSide = max(originalSize.width, originalSize.height)
+
+        guard longestSide > maxDimension, longestSide > 0 else {
+            return image
+        }
+
+        let scaleRatio = maxDimension / longestSide
+        let targetSize = CGSize(
+            width: originalSize.width * scaleRatio,
+            height: originalSize.height * scaleRatio
+        )
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        format.opaque = false
+
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+
     static func pixelate(
         image: UIImage,
         scale: Float = 20
@@ -162,3 +185,4 @@ enum ImageProcessor {
         return UIImage(cgImage: cgImage)
     }
 }
+
