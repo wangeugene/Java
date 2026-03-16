@@ -27,7 +27,7 @@ struct WeChatPixelationLayout {
         headerHeightRatio: 0.093,
         leftColumnWidthRatio: 0.14,
         rightColumnWidthRatio: 0.14,
-        contentTopInsetRatio: 0.4,
+        contentTopInsetRatio: 0.1,
         horizontalPaddingRatio: 0.02
     )
 }
@@ -53,11 +53,9 @@ enum ImageProcessor {
         let leftWidth = width * layout.leftColumnWidthRatio
         let rightWidth = width * layout.rightColumnWidthRatio
         
-        print("all the constants: size: \(size), headerHeight: \(headerHeight), contentTopInset: \(contentTopInset), sideTop: \(sideTop), sideHeight: \(sideHeight), horizontalPadding: \(horizontalPadding), leftWidth: \(leftWidth), rightWidth: \(rightWidth)")
-
         let regions = [
             PixelationRegion(
-                rect: CGRect(x: 0, y: 0, width: width, height: headerHeight),
+                rect: weChatConversationTitleRect(in: image),
                 scale: headerScale
             ),
             PixelationRegion(
@@ -130,7 +128,16 @@ enum ImageProcessor {
         let croppedImage = UIImage(cgImage: croppedCGImage, scale: image.scale, orientation: .up)
         return pixelate(image: croppedImage, scale: scale)
     }
-
+    
+    static func weChatConversationTitleRect(in image: UIImage) -> CGRect {
+        let size = image.size
+        return CGRect(
+            x: size.width * 0.303,
+            y: size.height * 0.064,
+            width: size.width * 0.424,
+            height: size.height * 0.046
+        )
+    }
 
     static func pixelate(
         image: UIImage,

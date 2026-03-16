@@ -30,26 +30,40 @@ class ShareViewController: UIViewController {
 
         for provider in attachments {
 
+            print("Provider registered type identifiers:", provider.registeredTypeIdentifiers)
+
             if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
-
                 provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { [weak self] item, error in
-
                     guard let self = self else { return }
+
+                    if let error = error {
+                        print("loadItem error:", error)
+                    }
+
+                    if let item = item {
+                        print("Loaded item type:", type(of: item))
+                        print("Loaded item value:", item)
+                    } else {
+                        print("Loaded item is nil")
+                    }
 
                     var image: UIImage?
 
                     if let img = item as? UIImage {
                         image = img
+                    } else if let url = item as? URL,
+                              let data = try? Data(contentsOf: url) {
+                        image = UIImage(data: data)
+                    } else if let data = item as? Data {
+                        image = UIImage(data: data)
                     }
 
-                    if let url = item as? URL,
-                       let data = try? Data(contentsOf: url),
-                       let loadedImage = UIImage(data: data) {
-
-                        image = loadedImage
-
-                        if let pixelated = ImageProcessor.pixelateWeChatRegions(in: image!) {
+                    if let sourceImage = image {
+                        let downscaledImage = self.downscaledForProcessing(sourceImage, maxDimension: 1600)
+                        if let pixelated = ImageProcessor.pixelateWeChatRegions(in: downscaledImage) {
                             image = pixelated
+                        } else {
+                            image = downscaledImage
                         }
                     }
 
@@ -63,6 +77,29 @@ class ShareViewController: UIViewController {
         }
 
         showSwiftUIView(image: nil)
+    }
+    private func downscaledForProcessing(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let originalSize = image.size
+        let longestSide = max(originalSize.width, originalSize.height)
+
+        guard longestSide > maxDimension, longestSide > 0 else {
+            return image
+        }
+
+        let scaleRatio = maxDimension / longestSide
+        let targetSize = CGSize(
+            width: originalSize.width * scaleRatio,
+            height: originalSize.height * scaleRatio
+        )
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        format.opaque = false
+
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
     }
 
     private func showSwiftUIView(image: UIImage?) {
