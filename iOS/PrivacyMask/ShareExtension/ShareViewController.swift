@@ -15,6 +15,7 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("✅ EXTENSION APP GROUP PATH:", AppGroupStorage.containerURL.path)
 
         view.backgroundColor = .systemBackground
         loadSharedImage()
@@ -64,6 +65,13 @@ class ShareViewController: UIViewController {
                             image = pixelated
                         } else {
                             image = downscaledImage
+                        }
+                        if let finalImage = image {
+                            do {
+                                try AppGroupStorage.saveProcessedImage(finalImage)
+                            } catch {
+                                print("Failed to save processed image:", error)
+                            }
                         }
                     }
 

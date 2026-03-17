@@ -14,6 +14,8 @@
 		02C5DEDB2F5A98950051D7DE /* SharedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */; };
 		02C5DEDD2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */; };
 		02C5DEDE2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */; };
+		02CDA0BA2F6805C900D529C2 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CDA0B92F6805C900D529C2 /* AppGroupStorage.swift */; };
+		02CDA0BB2F6805C900D529C2 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CDA0B92F6805C900D529C2 /* AppGroupStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 		02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedImageView.swift; sourceTree = "<group>"; };
 		02C5DED82F59D0250051D7DE /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrarySaver.swift; sourceTree = "<group>"; };
+		02CDA0B92F6805C900D529C2 /* AppGroupStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -124,6 +127,7 @@
 		02C5DED72F59D0150051D7DE /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				02CDA0B92F6805C900D529C2 /* AppGroupStorage.swift */,
 				02C5DEDC2F5BF31E0051D7DE /* PhotoLibrarySaver.swift */,
 				02C5DED82F59D0250051D7DE /* ImageProcessor.swift */,
 				02C5DECD2F59CA6D0051D7DE /* SharedImageView.swift */,
@@ -242,6 +246,7 @@
 			files = (
 				02C5DED02F59CA6D0051D7DE /* SharedImageView.swift in Sources */,
 				02C5DEDA2F5A979B0051D7DE /* ImageProcessor.swift in Sources */,
+				02CDA0BA2F6805C900D529C2 /* AppGroupStorage.swift in Sources */,
 				02C5DEDE2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +258,7 @@
 				02C5DEDD2F5BF31E0051D7DE /* PhotoLibrarySaver.swift in Sources */,
 				02C5DEDB2F5A98950051D7DE /* SharedImageView.swift in Sources */,
 				02C5DED92F5A979B0051D7DE /* ImageProcessor.swift in Sources */,
+				02CDA0BB2F6805C900D529C2 /* AppGroupStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

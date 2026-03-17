@@ -1,24 +1,38 @@
-//
-//  ContentView.swift
-//  PrivacyMask
-//
-//  Created by euwang on 3/4/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var sharedImage: UIImage?
+    @State private var showingShareSheet = false
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+            if let sharedImage {
+                Image(uiImage: sharedImage)
+                    .resizable()
+                    .scaledToFit()
 
-#Preview {
-    ContentView()
+                Button("Share to WeChat") {
+                    showingShareSheet = true
+                }
+            } else {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, eugene!")
+            }
+
+            Button("Close") {
+                dismiss()
+            }
+        }
+        .onAppear {
+            sharedImage = AppGroupStorage.loadProcessedImage()
+        }
+        .sheet(isPresented: $showingShareSheet) {
+            if let sharedImage {
+                ActivityView(activityItems: [sharedImage])
+            }
+        }
+    }
 }
