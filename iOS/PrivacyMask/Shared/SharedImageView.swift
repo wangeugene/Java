@@ -41,7 +41,7 @@ struct SharedImageView: View {
                 }
                 .disabled(saving)
                 
-                Button("Test Dismiss") { onSaved?() }
+                Button("Dismiss") { onSaved?() }
                 
             } else {
                 ProgressView("Loading image...")

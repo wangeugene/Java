@@ -3,7 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var sharedImage: UIImage?
     @State private var showingShareSheet = false
-    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
@@ -19,11 +18,7 @@ struct ContentView: View {
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
-                Text("Hello, eugene!")
-            }
-
-            Button("Close") {
-                dismiss()
+                Text("Hello, No screenshot has been shared to the PrivacyMask share extension!")
             }
         }
         .onAppear {
