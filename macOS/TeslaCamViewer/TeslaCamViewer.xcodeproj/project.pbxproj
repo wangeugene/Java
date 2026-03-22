@@ -12,6 +12,7 @@
 		029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */; };
 		02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB06F2F6F785800CEC127 /* FilePicker.swift */; };
 		02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */; };
+		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		02AFB0672F6F6FD300CEC127 /* TeslaCamViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeslaCamViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AFB06F2F6F785800CEC127 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		02AFB0732F702EF300CEC127 /* TimestampBurner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampBurner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		02AFB06A2F6F711200CEC127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				02AFB0732F702EF300CEC127 /* TimestampBurner.swift */,
 				02AFB06F2F6F785800CEC127 /* FilePicker.swift */,
 			);
 			path = Services;
@@ -178,6 +181,7 @@
 				029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */,
 				029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */,
 				02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */,
+				02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
