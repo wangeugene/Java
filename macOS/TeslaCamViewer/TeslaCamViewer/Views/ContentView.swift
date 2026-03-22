@@ -261,33 +261,6 @@ enum TimestampBurner {
         return nil
     }
     
-    private static func formattedStartTimestamp(from sourceURL: URL) -> String {
-        let baseName = sourceURL.deletingPathExtension().lastPathComponent
-        print("baseName: \(baseName)")
-        let timestampPrefix: String?
-        if let range = baseName.range(of: #"^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}"#, options: .regularExpression) {
-            timestampPrefix = String(baseName[range])
-        } else {
-            timestampPrefix = nil
-        }
-
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
-        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-
-        print("timestampPrefix: \(String(describing: timestampPrefix))")
-        if let timestampPrefix, let date = formatter.date(from: timestampPrefix) {
-            let outputFormatter = DateFormatter()
-            outputFormatter.locale = Locale(identifier: "en_US_POSIX")
-            outputFormatter.timeZone = .current
-            outputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            return outputFormatter.string(from: date)
-        }
-
-        return baseName
-    }
-
     private static func makeOutputURL(for sourceURL: URL) -> URL {
         let documentsURL = FileManager.default.homeDirectoryForCurrentUser
               .appendingPathComponent("Documents", isDirectory: true)
