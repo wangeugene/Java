@@ -4,18 +4,6 @@
         respond "ok"
     }
 
-    # --- VSCode server (8080) ---
-    @vscode {
-    path /vscode
-    path /vscode/*
-    }
-    handle @vscode {
-        uri strip_prefix /vscode
-        # On Linux hosts, `host.docker.internal` often does not resolve inside containers.
-        # Use the host's private IP (reachable from the Caddy container) instead.
-        reverse_proxy http://{$VSCODE_HOST}:8080
-    }
-
     # Pretty URL for Shadowrocket (no extension)
     @sr path /config/shadowrocket
     header @sr Content-Type "text/plain; charset=utf-8"
@@ -104,7 +92,7 @@
     }
 }
 
-code.{$DOMAIN} {
-    # Route the VSCode web UI via subdomain
-    reverse_proxy http://{$VSCODE_HOST}:8080
-}
+# code.{$DOMAIN} {
+#     # Route the VSCode web UI via subdomain
+#     reverse_proxy http://{$VSCODE_HOST}:8080
+# }

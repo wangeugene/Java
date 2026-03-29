@@ -6,6 +6,9 @@ echo "🔎 Detecting Linux distribution..."
 source /etc/os-release
 
 case "$ID" in
+  ubuntu)
+    OS="ubuntu"
+    ;;
   amzn)
     if [[ "$VERSION_ID" =~ '^2' ]]; then
       OS="amzn2"
@@ -46,6 +49,10 @@ elif [[ "$OS" == "centos8" ]]; then
 elif [[ "$OS" == "centos9" ]]; then
   sudo dnf config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
   sudo dnf install -y docker-ce docker-ce-cli containerd.io --allowerasing
+
+elif [[ "$OS" == "ubuntu" ]]; then
+  sudo apt update
+  sudo apt install -y docker.io docker-compose-plugin
 fi
 
 echo "🔧 Enabling Docker..."

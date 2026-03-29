@@ -12,6 +12,18 @@ import AppKit
 enum TimestampBurner {
     static func exportVideoWithTimestamp(from sourceURL: URL) async throws -> URL {
         let asset = AVURLAsset(url: sourceURL)
+        let json = getEventJSONContentFrom(url: sourceURL)
+        if let data = json {
+            if let object = try? JSONSerialization.jsonObject(with: data),
+               let pretty = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+               let text = String(data: pretty, encoding: .utf8) {
+                print("event.json (pretty):\n\(text)")
+            } else {
+                print("event.json bytes: \(data.count) (could not pretty print)")
+            }
+        } else {
+            print("event.json: not found")
+        }
         let composition = AVMutableComposition()
 
         guard
@@ -65,6 +77,28 @@ enum TimestampBurner {
 
         try await export(using: exportSession, to: outputURL)
         return outputURL
+    }
+    
+    private static func getEventJSONContentFrom(url: URL) -> Data? {
+        // Locate event.json next to the passed-in .mp4 file
+        let folderURL = url.deletingLastPathComponent()
+        let jsonURL = folderURL.appendingPathComponent("event.json")
+        do {
+            return try Data(contentsOf: jsonURL)
+        } catch {
+            print("Failed to read event.json at \(jsonURL.path): \(error)")
+            return nil
+        }
+    }
+    
+    private static func decodeEventJSON<T: Decodable>(_ type: T.Type, from url: URL) -> T? {
+        guard let data = getEventJSONContentFrom(url: url) else { return nil }
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            print("Failed to decode event.json: \(error)")
+            return nil
+        }
     }
 
     private static func renderedVideoSize(for track: AVAssetTrack) async throws -> CGSize {
@@ -223,3 +257,4 @@ enum TimestampBurner {
         }
     }
 }
+
