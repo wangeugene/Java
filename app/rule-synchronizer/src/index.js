@@ -40,15 +40,18 @@ async function runOnce() {
         if (proxyLines.length > 2) {
             proxyLines.splice(1, 1); // remove the second line
         }
+        // insert MY_AWS_TROJAN_PROXY_LINE as the new second line
+        // insert at index 1 (after the first line), 0 means to not remove any lines, and then add the new line
+        proxyLines.splice(1, 0, MY_AWS_TROJAN_PROXY_LINE);
         const modifiedProxySection = proxyLines.join("\n");
-        const finalProxySection = modifiedProxySection + MY_AWS_TROJAN_PROXY_LINE + "\n";
+        // console.log(`modifiedProxySection: ${modifiedProxySection}`);
 
         const fileContent = await fs.readFile(SURGE_CONFIG_FILE, "utf-8");
 
         const currentProxySection = extractProxySection(fileContent);
 
         // replace the current proxy section with the modified one
-        const updatedConfig = fileContent.replace(currentProxySection, finalProxySection);
+        const updatedConfig = fileContent.replace(currentProxySection, modifiedProxySection);
 
         // write back to the SURGE_CONFIG_FILE
         await fs.writeFile(SURGE_CONFIG_FILE, updatedConfig, "utf-8");
