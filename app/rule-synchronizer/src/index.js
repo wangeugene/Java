@@ -18,6 +18,13 @@ if (!MY_AWS_TROJAN_PROXY_LINE || MY_AWS_TROJAN_PROXY_LINE.trim() === "") {
     );
 }
 
+const MY_VULTR_TROJAN_PROXY_LINE = process.env.MY_VULTR_TROJAN_PROXY_LINE;
+if (!MY_VULTR_TROJAN_PROXY_LINE || MY_VULTR_TROJAN_PROXY_LINE.trim() === "") {
+    throw new Error(
+        "Missing MY_VULTR_TROJAN_PROXY_LINE. Set it in your environment or a local .env file (do not commit secrets).",
+    );
+}
+
 const INTERVAL_MINUTES = Number.parseInt(process.env.INTERVAL_MINUTES ?? "5", 10);
 const RUN_MODE = (process.env.RUN_MODE ?? "schedule").toLowerCase();
 
@@ -43,8 +50,9 @@ async function runOnce() {
         // insert MY_AWS_TROJAN_PROXY_LINE as the new second line
         // insert at index 1 (after the first line), 0 means to not remove any lines, and then add the new line
         proxyLines.splice(1, 0, MY_AWS_TROJAN_PROXY_LINE);
+        proxyLines.splice(2, 0, MY_VULTR_TROJAN_PROXY_LINE);
         const modifiedProxySection = proxyLines.join("\n");
-        // console.log(`modifiedProxySection: ${modifiedProxySection}`);
+        console.log(`modifiedProxySection: ${modifiedProxySection}`);
 
         const fileContent = await fs.readFile(SURGE_CONFIG_FILE, "utf-8");
 
