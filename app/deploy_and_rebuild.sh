@@ -1,10 +1,18 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
+docker_service_name="$1"
+
+if [ -z "$docker_service_name" ]; then
+  echo "Usage: $0 <docker_service_name>"
+  echo "We have 3 docker services: rule-updater, rule-synchronizer, caddy. defined in compose.yaml, You can specify one of them to rebuild and restart."
+  exit 1
+fi
+
 # Local and remote settings
 LOCAL_DIR="$HOME/Projects/Java/app"
 REMOTE_DIR="/app"
-REMOTE_CMD="cd ${REMOTE_DIR} && ./rebuild_docker_compose.sh"
+REMOTE_CMD="cd ${REMOTE_DIR} && ./server_restart_docker_container.sh ${docker_service_name}"
 # Load env vars from the project .env (portable even if script is invoked from another directory)
 ENV_FILE="${LOCAL_DIR}/.env"
 if [[ ! -f "${ENV_FILE}" ]]; then
