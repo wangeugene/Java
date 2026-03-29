@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 # Usage example:
 # sudo DOMAIN=vultr.309906615.xyz \
-#   TROJAN_PASSWORD='AVeryBadTrajonPass' \
+#   TROJAN_PASSWORD='<YOUR_PASSWORD>' \
 #   CERT_PATH='/etc/letsencrypt/live/vultr.309906615.xyz/fullchain.pem' \
 #   KEY_PATH='/etc/letsencrypt/live/vultr.309906615.xyz/privkey.pem' \
 #   TROJAN_USER='root' \
