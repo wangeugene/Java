@@ -1,4 +1,4 @@
-// To read the configuration from a URL: https://s1.trojanflare.one/surge/01580412-b537-4f92-90d8-b4db69c20d80
+// To read the configuration from a URL: https://s1.trojanflare.one/surge/mocked_id
 // Using the Node.js 24 built-in fetch API
 
 export async function readConfigFromURL(url) {

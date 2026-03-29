@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { readConfigFromURL } from "./configURLReader.js";
 
 describe("readConfigFromURL", () => {
-    const URL = "https://s1.trojanflare.one/surge/01580412-b537-4f92-90d8-b4db69c20d80";
+    const URL = "https://s1.trojanflare.one/surge/mocked_id";
     beforeEach(() => {
         vi.clearAllMocks();
     });
