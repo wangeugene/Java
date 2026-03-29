@@ -7,7 +7,14 @@ import fs from "fs/promises";
 const URL = process.env.SURGE_CONFIG_URL;
 if (!URL || URL.trim() === "") {
     throw new Error(
-        "Missing SURGE_CONFIG_URL. Set it in your environment or a local .env file (do not commit secrets)."
+        "Missing SURGE_CONFIG_URL. Set it in your environment or a local .env file (do not commit secrets).",
+    );
+}
+
+const MY_AWS_TROJAN_PROXY_LINE = process.env.MY_AWS_TROJAN_PROXY_LINE;
+if (!MY_AWS_TROJAN_PROXY_LINE || MY_AWS_TROJAN_PROXY_LINE.trim() === "") {
+    throw new Error(
+        "Missing MY_AWS_TROJAN_PROXY_LINE. Set it in your environment or a local .env file (do not commit secrets).",
     );
 }
 
@@ -34,13 +41,14 @@ async function runOnce() {
             proxyLines.splice(1, 1); // remove the second line
         }
         const modifiedProxySection = proxyLines.join("\n");
+        const finalProxySection = modifiedProxySection + MY_AWS_TROJAN_PROXY_LINE;
 
         const fileContent = await fs.readFile(SURGE_CONFIG_FILE, "utf-8");
 
         const currentProxySection = extractProxySection(fileContent);
 
         // replace the current proxy section with the modified one
-        const updatedConfig = fileContent.replace(currentProxySection, modifiedProxySection);
+        const updatedConfig = fileContent.replace(currentProxySection, finalProxySection);
 
         // write back to the SURGE_CONFIG_FILE
         await fs.writeFile(SURGE_CONFIG_FILE, updatedConfig, "utf-8");
