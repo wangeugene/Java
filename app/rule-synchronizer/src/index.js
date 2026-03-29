@@ -41,7 +41,7 @@ async function runOnce() {
             proxyLines.splice(1, 1); // remove the second line
         }
         const modifiedProxySection = proxyLines.join("\n");
-        const finalProxySection = modifiedProxySection + MY_AWS_TROJAN_PROXY_LINE;
+        const finalProxySection = modifiedProxySection + MY_AWS_TROJAN_PROXY_LINE + "\n";
 
         const fileContent = await fs.readFile(SURGE_CONFIG_FILE, "utf-8");
 
