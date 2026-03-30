@@ -26,26 +26,28 @@ struct EventThumbnailView: View {
                         }
                 }
             }
-            .frame(width: 96, height: 54)
+            .frame(width: 192, height: 108)
             .clipShape(RoundedRectangle(cornerRadius: 8))
 
             // Overlay: timestamp + event name
-            VStack(alignment: .leading, spacing: 2) {
-                Text(event.eventName)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .lineLimit(1)
-            }
-            .padding(6)
-            .foregroundColor(.white)
-            .background(
-                LinearGradient(
-                    colors: [Color.black.opacity(0.7), Color.black.opacity(0.0)],
-                    startPoint: .bottom,
-                    endPoint: .top
+            VStack{
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(event.formattedDate)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                }
+                .padding(6)
+                .foregroundColor(.white)
+                .background(
+                    LinearGradient(
+                        colors: [Color.black.opacity(0.7), Color.black.opacity(0.0)],
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
                 )
-            )
+            }
         }
-        .frame(width: 96, height: 54)
+        .frame(width: 192, height: 108)
     }
 }

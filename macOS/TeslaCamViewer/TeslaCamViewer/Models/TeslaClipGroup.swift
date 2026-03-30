@@ -18,10 +18,3 @@ enum TeslaClipGroup: String, CaseIterable, Identifiable {
 
     var displayName: String { rawValue }
 }
-
-struct TeslaEventFolder: Identifiable, Hashable {
-    let id: String
-    let url: URL
-    let name: String
-    let date: Date?
-}

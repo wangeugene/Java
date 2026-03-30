@@ -18,6 +18,7 @@ struct ContentView: View {
         .toolbar {
             Button("Open TeslaCam Folder") {
                 if let url = FolderPicker.pickTeslaCamFolder() {
+                    print(FileManager.default.isReadableFile(atPath: url.path))
                     viewModel.load(rootURL: url)
                 }
             }

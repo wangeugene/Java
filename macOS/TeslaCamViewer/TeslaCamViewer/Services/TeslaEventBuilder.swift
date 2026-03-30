@@ -8,27 +8,29 @@
 import Foundation
 
 enum TeslaEventBuilder {
-    static func buildEvents(from folders: [TeslaEventFolder]) -> [TeslaEvent] {
-        folders.compactMap { buildEvent(from: $0) }
+    static func buildEvents(from folderURLs: [URL]) -> [TeslaEvent] {
+        folderURLs.compactMap(buildEvent(from:))
     }
-
-    private static func buildEvent(from folder: TeslaEventFolder) -> TeslaEvent? {
+    
+    private static func buildEvent(from folderURL: URL) -> TeslaEvent? {
         let fm = FileManager.default
-
+        
         guard let contents = try? fm.contentsOfDirectory(
-            at: folder.url,
+            at: folderURL,
             includingPropertiesForKeys: nil,
             options: [.skipsHiddenFiles]
         ) else {
             return nil
         }
-
-        let thumbnail = contents.first { $0.lastPathComponent == "thumb.png" }
-        let json = contents.first { $0.lastPathComponent == "event.json" }
-
-        let videos = contents.filter { $0.pathExtension.lowercased() == "mp4" }
-
-        let clips: [TeslaCameraClip] = videos.map { url in
+        
+        let thumbnailURL = contents.first { $0.lastPathComponent == "thumb.png" }
+        let eventJSONURL = contents.first { $0.lastPathComponent == "event.json" }
+        
+        let videoURLs = contents
+            .filter { $0.pathExtension.lowercased() == "mp4" }
+            .sorted { $0.lastPathComponent < $1.lastPathComponent }
+        
+        let clips = videoURLs.map { url in
             TeslaCameraClip(
                 id: url,
                 url: url,
@@ -36,18 +38,18 @@ enum TeslaEventBuilder {
                 camera: parseCamera(from: url.lastPathComponent)
             )
         }
-
+        
         return TeslaEvent(
-            folderURL: folder.url,
-            eventName: folder.name,
-            thumbnailURL: thumbnail,
-            eventJSONURL: json,
+            folderURL: folderURL,
+            eventName: folderURL.lastPathComponent,
+            thumbnailURL: thumbnailURL,
+            eventJSONURL: eventJSONURL,
             clips: clips
         )
     }
-}
-
-private func parseCamera(from fileName: String) -> TeslaCamera {
+    
+    
+    private static func parseCamera(from fileName: String) -> TeslaCamera {
         let name = fileName.lowercased()
         if name.contains("-front") { return .front }
         if name.contains("-back") { return .back }
@@ -57,8 +59,8 @@ private func parseCamera(from fileName: String) -> TeslaCamera {
         if name.contains("right_pillar") { return .rightPillar }
         return .unknown
     }
-
-private func parseTimestamp(from fileName: String) -> Date? {
+    
+    private static func parseTimestamp(from fileName: String) -> Date? {
         let base = fileName.replacingOccurrences(of: ".mp4", with: "")
         let parts = base.split(separator: "-")
         guard parts.count >= 3 else { return nil }
@@ -68,3 +70,4 @@ private func parseTimestamp(from fileName: String) -> Date? {
         formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
         return formatter.date(from: ts)
     }
+}

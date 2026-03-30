@@ -18,36 +18,26 @@ enum TeslaCamScanner {
             return fm.fileExists(atPath: url.path, isDirectory: &isDirectory) && isDirectory.boolValue
         }
     }
+    
+    static func eventFolderURLs(in rootURL: URL, group: TeslaClipGroup) -> [URL] {
+           let fm = FileManager.default
+           let groupURL = rootURL.appendingPathComponent(group.rawValue, isDirectory: true)
 
-    static func eventFolders(in rootURL: URL, group: TeslaClipGroup) -> [TeslaEventFolder] {
-        let fm = FileManager.default
-        let groupURL = rootURL.appendingPathComponent(group.rawValue, isDirectory: true)
+           guard let urls = try? fm.contentsOfDirectory(
+               at: groupURL,
+               includingPropertiesForKeys: [.isDirectoryKey],
+               options: [.skipsHiddenFiles]
+           ) else {
+               return []
+           }
 
-        guard let urls = try? fm.contentsOfDirectory(
-            at: groupURL,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        ) else {
-            return []
-        }
-        
-        return urls
-            .filter { url in
-                var isDirectory: ObjCBool = false
-                return fm.fileExists(atPath: url.path, isDirectory: &isDirectory) && isDirectory.boolValue
-            }
-            .map { url in
-                TeslaEventFolder(
-                    id: url.path,
-                    url: url,
-                    name: url.lastPathComponent,
-                    date: parseTeslaFolderDate(from: url.lastPathComponent)
-                )
-            }
-            .sorted {
-                ($0.date ?? .distantPast) > ($1.date ?? .distantPast)
-            }
-    }
+           return urls
+               .filter { url in
+                   var isDirectory: ObjCBool = false
+                   return fm.fileExists(atPath: url.path, isDirectory: &isDirectory) && isDirectory.boolValue
+               }
+               .sorted { $0.lastPathComponent > $1.lastPathComponent }
+   }
 
     private static func parseTeslaFolderDate(from folderName: String) -> Date? {
         let formatter = DateFormatter()

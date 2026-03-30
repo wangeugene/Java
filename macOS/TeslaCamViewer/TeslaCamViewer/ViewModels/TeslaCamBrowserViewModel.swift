@@ -14,8 +14,6 @@ final class TeslaCamBrowserViewModel: ObservableObject {
     @Published var rootURL: URL?
     @Published var groups: [TeslaClipGroup] = []
     @Published var selectedGroup: TeslaClipGroup?
-    @Published var eventFolders: [TeslaEventFolder] = []
-    @Published var selectedFolder: TeslaEventFolder?
     @Published var events: [TeslaEvent] = []
     @Published var selectedEvent: TeslaEvent?
 
@@ -31,10 +29,6 @@ final class TeslaCamBrowserViewModel: ObservableObject {
         reloadEvents()
     }
 
-    func selectEventFolder(_ eventFolder: TeslaEventFolder?) {
-        guard selectedFolder != eventFolder else { return }
-        selectedFolder = eventFolder
-    }
     
     func selectEvent(_ event: TeslaEvent?) {
         guard selectedEvent != event else { return }
@@ -43,14 +37,14 @@ final class TeslaCamBrowserViewModel: ObservableObject {
 
     private func reloadEvents() {
         guard let rootURL, let selectedGroup else {
-            eventFolders = []
+            events = []
             selectedEvent = nil
             return
         }
 
         print("rootURL: \(rootURL), group: \(selectedGroup)")
-        let folders = TeslaCamScanner.eventFolders(in: rootURL, group: selectedGroup)
-        events = TeslaEventBuilder.buildEvents(from: folders)
+        let evenFolderUrls = TeslaCamScanner.eventFolderURLs(in: rootURL, group: selectedGroup)
+        events = TeslaEventBuilder.buildEvents(from: evenFolderUrls)
         selectedEvent = events.first
     }
 }
