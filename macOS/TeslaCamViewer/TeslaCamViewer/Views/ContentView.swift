@@ -5,26 +5,40 @@ import AppKit
 
 
 struct ContentView: View {
-    @StateObject private var viewModel = VideoPlaybackViewModel()
+    @StateObject private var viewModel = VideoBrowserViewModel()
+    @State private var selectedFolderURL: URL?
 
     var body: some View {
-        VStack(spacing: 20) {
-            selectButton
+        HSplitView {
+            VideoListPane(viewModel: viewModel)
+                .frame(minWidth: 220, idealWidth: 260, maxWidth: 320)
 
-            if let video = viewModel.selectedVideo {
-                SelectedVideoSection(video: video, viewModel: viewModel)
-            } else {
-                emptyStateView
-            }
+            VideoDetailPane(viewModel: viewModel)
+                .frame(minWidth: 500)
         }
-        .padding()
-        .frame(minWidth: 800, minHeight: 600)
-    }
-
-    private var selectButton: some View {
-        Button("Select MP4 File") {
-            viewModel.selectVideo()
+        .frame(minWidth: 900, minHeight: 600)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Open SavedClips Folder") {
+                    if let folderURL = FolderPicker.pickFolder() {
+                        selectedFolderURL = folderURL
+                        viewModel.loadVideos(from: folderURL)
+                    }
+                }
+            }
         }
     }
 }
 
+private enum FolderPicker {
+    static func pickFolder() -> URL? {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.prompt = "Choose SavedClips Folder"
+        panel.message = "Select the Tesla SavedClips folder you want to browse."
+
+        return panel.runModal() == .OK ? panel.url : nil
+    }
+}

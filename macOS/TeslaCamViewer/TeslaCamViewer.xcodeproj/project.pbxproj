@@ -11,6 +11,11 @@
 		0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045D2F7A21950054C569 /* SelectedVideo.swift */; };
 		020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045F2F7A29250054C569 /* SelectedVideoSection.swift */; };
 		020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604612F7A29A20054C569 /* EmptyStateView.swift */; };
+		020604642F7A3B410054C569 /* VideoClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604632F7A3B410054C569 /* VideoClip.swift */; };
+		020604662F7A3B6A0054C569 /* VideoBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604652F7A3B6A0054C569 /* VideoBrowserViewModel.swift */; };
+		020604682F7A41470054C569 /* VideoListPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604672F7A41470054C569 /* VideoListPane.swift */; };
+		0206046A2F7A41520054C569 /* ThumbnailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604692F7A41520054C569 /* ThumbnailRow.swift */; };
+		0206046C2F7A415F0054C569 /* VideoDetailPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206046B2F7A415F0054C569 /* VideoDetailPane.swift */; };
 		029380DA2F6EAB9600F08527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029380D62F6EAB9600F08527 /* Assets.xcassets */; };
 		029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D72F6EAB9600F08527 /* ContentView.swift */; };
 		029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */; };
@@ -24,6 +29,11 @@
 		0206045D2F7A21950054C569 /* SelectedVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideo.swift; sourceTree = "<group>"; };
 		0206045F2F7A29250054C569 /* SelectedVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideoSection.swift; sourceTree = "<group>"; };
 		020604612F7A29A20054C569 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		020604632F7A3B410054C569 /* VideoClip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClip.swift; sourceTree = "<group>"; };
+		020604652F7A3B6A0054C569 /* VideoBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBrowserViewModel.swift; sourceTree = "<group>"; };
+		020604672F7A41470054C569 /* VideoListPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListPane.swift; sourceTree = "<group>"; };
+		020604692F7A41520054C569 /* ThumbnailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailRow.swift; sourceTree = "<group>"; };
+		0206046B2F7A415F0054C569 /* VideoDetailPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailPane.swift; sourceTree = "<group>"; };
 		029380D62F6EAB9600F08527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		029380D72F6EAB9600F08527 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaCamViewerApp.swift; sourceTree = "<group>"; };
@@ -69,6 +79,7 @@
 		02AFB0692F6F711200CEC127 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				020604632F7A3B410054C569 /* VideoClip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -92,6 +103,7 @@
 		02AFB06C2F6F711200CEC127 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				020604652F7A3B6A0054C569 /* VideoBrowserViewModel.swift */,
 				0206045F2F7A29250054C569 /* SelectedVideoSection.swift */,
 				0206045D2F7A21950054C569 /* SelectedVideo.swift */,
 				020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */,
@@ -102,6 +114,9 @@
 		02AFB06D2F6F711200CEC127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0206046B2F7A415F0054C569 /* VideoDetailPane.swift */,
+				020604692F7A41520054C569 /* ThumbnailRow.swift */,
+				020604672F7A41470054C569 /* VideoListPane.swift */,
 				020604612F7A29A20054C569 /* EmptyStateView.swift */,
 				02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */,
 				029380D72F6EAB9600F08527 /* ContentView.swift */,
@@ -189,13 +204,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0206046C2F7A415F0054C569 /* VideoDetailPane.swift in Sources */,
 				02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */,
+				0206046A2F7A41520054C569 /* ThumbnailRow.swift in Sources */,
+				020604642F7A3B410054C569 /* VideoClip.swift in Sources */,
 				029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */,
 				020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */,
 				029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */,
+				020604662F7A3B6A0054C569 /* VideoBrowserViewModel.swift in Sources */,
 				0206045A2F7A1ED90054C569 /* VideoPlaybackViewModel.swift in Sources */,
 				0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */,
 				02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */,
+				020604682F7A41470054C569 /* VideoListPane.swift in Sources */,
 				020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */,
 				02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */,
 			);
