@@ -8,11 +8,11 @@
 import Foundation
 
 enum TeslaEventBuilder {
-    static func buildEvents(from folderURLs: [URL]) -> [TeslaEvent] {
+    nonisolated static func buildEvents(from folderURLs: [URL]) -> [TeslaEvent] {
         folderURLs.compactMap(buildEvent(from:))
     }
     
-    private static func buildEvent(from folderURL: URL) -> TeslaEvent? {
+    nonisolated private static func buildEvent(from folderURL: URL) -> TeslaEvent? {
         let fm = FileManager.default
         
         guard let contents = try? fm.contentsOfDirectory(
@@ -49,7 +49,7 @@ enum TeslaEventBuilder {
     }
     
     
-    private static func parseCamera(from fileName: String) -> TeslaCamera {
+    nonisolated private static func parseCamera(from fileName: String) -> TeslaCamera {
         let name = fileName.lowercased()
         if name.contains("-front") { return .front }
         if name.contains("-back") { return .back }
@@ -60,7 +60,7 @@ enum TeslaEventBuilder {
         return .unknown
     }
     
-    private static func parseTimestamp(from fileName: String) -> Date? {
+    nonisolated private static func parseTimestamp(from fileName: String) -> Date? {
         let base = fileName.replacingOccurrences(of: ".mp4", with: "")
         let parts = base.split(separator: "-")
         guard parts.count >= 3 else { return nil }
@@ -71,3 +71,4 @@ enum TeslaEventBuilder {
         return formatter.date(from: ts)
     }
 }
+

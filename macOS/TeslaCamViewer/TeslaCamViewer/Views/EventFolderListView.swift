@@ -16,7 +16,10 @@ struct EventFolderListView: View {
     var body: some View {
         List(selection: $selectedEvent) {
             ForEach(viewModel.events) { event in
-                EventThumbnailView(event: event)
+                EventThumbnailView(
+                    event: event,
+                    metadata: viewModel.metadata(for: event)
+                )
                     .tag(event)
                     .contentShape(Rectangle())
                     .onTapGesture {
