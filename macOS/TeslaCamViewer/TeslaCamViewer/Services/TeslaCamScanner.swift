@@ -30,7 +30,7 @@ enum TeslaCamScanner {
         ) else {
             return []
         }
-
+        
         return urls
             .filter { url in
                 var isDirectory: ObjCBool = false

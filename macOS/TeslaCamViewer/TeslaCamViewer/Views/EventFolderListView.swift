@@ -7,25 +7,21 @@
 
 
 import SwiftUI
+import AppKit
 
 struct EventFolderListView: View {
     @ObservedObject var viewModel: TeslaCamBrowserViewModel
-    @State private var selectedEvent: TeslaEventFolder?
+    @State private var selectedEvent: TeslaEvent?
 
     var body: some View {
         List(selection: $selectedEvent) {
-            ForEach(viewModel.eventFolders) { event in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(event.name)
-                        .font(.body)
-
-                    if let date = event.date {
-                        Text(date.formatted(date: .abbreviated, time: .standard))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+            ForEach(viewModel.events) { event in
+                EventThumbnailView(event: event)
+                    .tag(event)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedEvent = event
                     }
-                }
-                .tag(event)
             }
         }
         .navigationTitle(viewModel.selectedGroup?.displayName ?? "Events")
@@ -42,7 +38,7 @@ struct EventFolderListView: View {
                 selectedEvent = newValue
             }
         }
-        .onChange(of: viewModel.eventFolders) { _, _ in
+        .onChange(of: viewModel.events) { _, _ in
             selectedEvent = viewModel.selectedEvent
         }
     }

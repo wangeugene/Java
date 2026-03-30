@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import AppKit
 
 struct EventDetailPlaceholderView: View {
     @ObservedObject var viewModel: TeslaCamBrowserViewModel
@@ -15,11 +16,21 @@ struct EventDetailPlaceholderView: View {
         Group {
             if let event = viewModel.selectedEvent {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(event.name)
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                    if let thumbnailURL = event.thumbnailURL,
+                       let nsImage = NSImage(contentsOf: thumbnailURL) {
+                        Image(nsImage: nsImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 220)
+                    } else {
+                        ContentUnavailableView(
+                            "No Thumbnail",
+                            systemImage: "photo",
+                            description: Text("This event does not contain a preview image.")
+                        )
+                    }
 
-                    Text(event.url.path)
+                    Text(event.folderURL.path)
                         .font(.caption)
                         .foregroundColor(.secondary)
 
