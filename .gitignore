@@ -27,6 +27,8 @@ dist/
 .iml
 .json
 .env
+.zip
+.tar
 *.log
 .DS_Store
 .wcworkspacedata
