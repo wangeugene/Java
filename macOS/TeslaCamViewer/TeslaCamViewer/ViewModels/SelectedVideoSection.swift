@@ -1,4 +1,14 @@
-private struct SelectedVideoSection: View {
+//
+//  SelectedVideoSection.swift
+//  TeslaCamViewer
+//
+//  Created by euwang on 3/30/26.
+//
+
+import SwiftUI
+import AVKit
+
+struct SelectedVideoSection: View {
     let video: SelectedVideo
     @ObservedObject var viewModel: VideoPlaybackViewModel
 

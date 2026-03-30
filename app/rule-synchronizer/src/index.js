@@ -50,7 +50,7 @@ async function runOnce() {
         // insert MY_AWS_TROJAN_PROXY_LINE as the new second line
         // insert at index 1 (after the first line), 0 means to not remove any lines, and then add the new line
         proxyLines.splice(1, 0, MY_AWS_TROJAN_PROXY_LINE);
-        proxyLines.splice(2, 0, MY_VULTR_TROJAN_PROXY_LINE);
+        proxyLines.splice(1, 0, MY_VULTR_TROJAN_PROXY_LINE);
         const modifiedProxySection = proxyLines.join("\n");
         console.log(`modifiedProxySection: ${modifiedProxySection}`);
 

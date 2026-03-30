@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0206045A2F7A1ED90054C569 /* VideoPlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */; };
+		0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045D2F7A21950054C569 /* SelectedVideo.swift */; };
+		020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045F2F7A29250054C569 /* SelectedVideoSection.swift */; };
+		020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604612F7A29A20054C569 /* EmptyStateView.swift */; };
 		029380DA2F6EAB9600F08527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029380D62F6EAB9600F08527 /* Assets.xcassets */; };
 		029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D72F6EAB9600F08527 /* ContentView.swift */; };
 		029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewModel.swift; sourceTree = "<group>"; };
+		0206045D2F7A21950054C569 /* SelectedVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideo.swift; sourceTree = "<group>"; };
+		0206045F2F7A29250054C569 /* SelectedVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideoSection.swift; sourceTree = "<group>"; };
+		020604612F7A29A20054C569 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		029380D62F6EAB9600F08527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		029380D72F6EAB9600F08527 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaCamViewerApp.swift; sourceTree = "<group>"; };
@@ -84,6 +92,9 @@
 		02AFB06C2F6F711200CEC127 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0206045F2F7A29250054C569 /* SelectedVideoSection.swift */,
+				0206045D2F7A21950054C569 /* SelectedVideo.swift */,
+				020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -91,6 +102,7 @@
 		02AFB06D2F6F711200CEC127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				020604612F7A29A20054C569 /* EmptyStateView.swift */,
 				02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */,
 				029380D72F6EAB9600F08527 /* ContentView.swift */,
 			);
@@ -135,7 +147,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2630;
-				LastUpgradeCheck = 2630;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					029380C52F6E954900F08527 = {
 						CreatedOnToolsVersion = 26.3;
@@ -179,8 +191,12 @@
 			files = (
 				02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */,
 				029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */,
+				020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */,
 				029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */,
+				0206045A2F7A1ED90054C569 /* VideoPlaybackViewModel.swift in Sources */,
+				0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */,
 				02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */,
+				020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */,
 				02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +238,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -247,6 +264,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -286,6 +304,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -304,6 +323,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -316,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -348,6 +369,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
