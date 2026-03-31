@@ -5,7 +5,6 @@
 //  Created by euwang on 3/30/26.
 //
 
-
 import SwiftUI
 import AppKit
 
@@ -15,28 +14,10 @@ struct EventDetailPlaceholderView: View {
     var body: some View {
         Group {
             if let event = viewModel.selectedEvent {
-                VStack(alignment: .leading, spacing: 12) {
-                    if let thumbnailURL = event.thumbnailURL,
-                       let nsImage = NSImage(contentsOf: thumbnailURL) {
-                        Image(nsImage: nsImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 220)
-                    } else {
-                        ContentUnavailableView(
-                            "No Thumbnail",
-                            systemImage: "photo",
-                            description: Text("This event does not contain a preview image.")
-                        )
-                    }
-
-                    Text(event.folderURL.path)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    Spacer()
-                }
-                .padding()
+                EventDetailContentView(
+                    event: event,
+                    metadata: viewModel.metadata(for: event)
+                )
             } else {
                 ContentUnavailableView(
                     "No Folder Selected",
@@ -47,3 +28,4 @@ struct EventDetailPlaceholderView: View {
         }
     }
 }
+

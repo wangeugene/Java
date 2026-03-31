@@ -26,6 +26,7 @@
 		020604862F7AA9360054C569 /* TeslaEventMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604852F7AA9360054C569 /* TeslaEventMetadata.swift */; };
 		020604882F7AAA880054C569 /* TeslaEventJSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604872F7AAA880054C569 /* TeslaEventJSONLoader.swift */; };
 		0206048A2F7AAB5A0054C569 /* TeslaEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604892F7AAB5A0054C569 /* TeslaEventRepository.swift */; };
+		0206048C2F7B5B650054C569 /* EventDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206048B2F7B5B650054C569 /* EventDetailContentView.swift */; };
 		029380DA2F6EAB9600F08527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029380D62F6EAB9600F08527 /* Assets.xcassets */; };
 		029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D72F6EAB9600F08527 /* ContentView.swift */; };
 		029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */; };
@@ -54,6 +55,7 @@
 		020604852F7AA9360054C569 /* TeslaEventMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaEventMetadata.swift; sourceTree = "<group>"; };
 		020604872F7AAA880054C569 /* TeslaEventJSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaEventJSONLoader.swift; sourceTree = "<group>"; };
 		020604892F7AAB5A0054C569 /* TeslaEventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaEventRepository.swift; sourceTree = "<group>"; };
+		0206048B2F7B5B650054C569 /* EventDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailContentView.swift; sourceTree = "<group>"; };
 		029380D62F6EAB9600F08527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		029380D72F6EAB9600F08527 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaCamViewerApp.swift; sourceTree = "<group>"; };
@@ -88,7 +90,6 @@
 				02AFB06E2F6F715500CEC127 /* App */,
 				02AFB0692F6F711200CEC127 /* Models */,
 				02AFB06A2F6F711200CEC127 /* Services */,
-				02AFB06B2F6F711200CEC127 /* Utilities */,
 				02AFB06C2F6F711200CEC127 /* ViewModels */,
 				02AFB06D2F6F711200CEC127 /* Views */,
 				029380D62F6EAB9600F08527 /* Assets.xcassets */,
@@ -122,13 +123,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		02AFB06B2F6F711200CEC127 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 		02AFB06C2F6F711200CEC127 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +137,7 @@
 		02AFB06D2F6F711200CEC127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0206048B2F7B5B650054C569 /* EventDetailContentView.swift */,
 				020604832F7A7BB40054C569 /* EventThumbnailView.swift */,
 				0206047F2F7A51AD0054C569 /* EventDetailPlaceholderView.swift */,
 				0206047D2F7A519C0054C569 /* EventFolderListView.swift */,
@@ -249,6 +244,7 @@
 				020604722F7A4E0F0054C569 /* TeslaCamera.swift in Sources */,
 				020604762F7A50F10054C569 /* TeslaClipGroup.swift in Sources */,
 				0206046E2F7A4DC00054C569 /* TeslaEvent.swift in Sources */,
+				0206048C2F7B5B650054C569 /* EventDetailContentView.swift in Sources */,
 				020604702F7A4DD40054C569 /* TeslaCameraClip.swift in Sources */,
 				0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */,
 				020604782F7A51190054C569 /* TeslaCamBrowserViewModel.swift in Sources */,
