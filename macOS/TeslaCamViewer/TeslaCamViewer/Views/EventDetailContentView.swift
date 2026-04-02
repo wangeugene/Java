@@ -116,6 +116,17 @@ struct EventDetailContentView: View {
                     .padding(14)
             }
         }
+        .overlay(alignment: .topLeading) {
+            if !playbackViewModel.overlayTimestampText.isEmpty {
+                Text(playbackViewModel.overlayTimestampText)
+                    .font(.system(size: 13, weight: .semibold, design: .monospaced))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.black.opacity(0.72), in: Capsule())
+                    .padding(14)
+            }
+        }
         .overlay(alignment: .bottomLeading) {
             if let errorMessage = playbackViewModel.errorMessage {
                 Text(errorMessage)

@@ -7,6 +7,8 @@
 
 
 import AVFoundation
+import CoreMedia
+import Foundation
 
 struct TeslaComposedTrack {
     let camera: TeslaCamera
@@ -14,4 +16,5 @@ struct TeslaComposedTrack {
     let playerItem: AVPlayerItem
     let segments: [TeslaTrackSegment]
     let totalDuration: CMTime
+    let startDate: Date?
 }

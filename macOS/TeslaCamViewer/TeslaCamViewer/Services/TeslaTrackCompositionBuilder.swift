@@ -23,6 +23,8 @@ enum TeslaTrackCompositionBuilder {
         let sortedClips = track.clips.sorted {
             ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast)
         }
+        
+        let startDate = sortedClips.first?.timestamp
 
         guard !sortedClips.isEmpty else {
             throw TeslaTrackCompositionError.emptyTrack
@@ -100,7 +102,8 @@ enum TeslaTrackCompositionBuilder {
             composition: composition,
             playerItem: playerItem,
             segments: segments,
-            totalDuration: currentTimelineStart
+            totalDuration: currentTimelineStart,
+            startDate: startDate
         )
     }
 }
