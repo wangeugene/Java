@@ -35,3 +35,23 @@ struct TeslaEvent: Identifiable, Hashable {
         return folderURL.lastPathComponent
     }
 }
+
+/*
+   This extension
+ */
+extension TeslaEvent {
+    var tracks: [TeslaCameraTrack] {
+        Dictionary(grouping: clips, by: \.camera)
+            .map { camera, clips in
+                TeslaCameraTrack(
+                    camera: camera,
+                    clips: clips.sorted { ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast) }
+                )
+            }
+            .sorted { $0.camera.rawValue < $1.camera.rawValue }
+    }
+
+    func track(for camera: TeslaCamera) -> TeslaCameraTrack? {
+        tracks.first { $0.camera == camera }
+    }
+}

@@ -7,40 +7,48 @@
 
 import SwiftUI
 import AppKit
+import AVKit
 
 struct EventDetailContentView: View {
     let event: TeslaEvent
     let metadata: TeslaEventMetadata?
 
-    @State private var selectedClip: TeslaCameraClip?
+    @StateObject private var playbackViewModel = EventDetailPlaybackViewModel()
+    @State private var selectedTrack: TeslaCameraTrack?
     @State private var timelineValue: Double = 0
 
-    private var mainClip: TeslaCameraClip? {
-        selectedClip
-        ?? event.clips.first(where: { $0.camera == .front })
-        ?? event.clips.first
+    private var mainTrack: TeslaCameraTrack? {
+        selectedTrack
+        ?? event.track(for: .front)
+        ?? event.tracks.first
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             header
-
             mainPreviewSection
-
             previewStrip
-
             timelineSection
-
             footer
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
-            selectedClip = mainClip
+            selectedTrack = mainTrack
         }
         .onChange(of: event.id) { _, _ in
-            selectedClip = event.clips.first(where: { $0.camera == .front }) ?? event.clips.first
+            selectedTrack = event.track(for: .front) ?? event.tracks.first
             timelineValue = 0
+        }
+        .onChange(of: selectedTrack?.id) { _, _ in
+            guard let track = selectedTrack else {
+                playbackViewModel.player.replaceCurrentItem(with: nil)
+                return
+            }
+
+            Task {
+                await playbackViewModel.load(track: track)
+            }
         }
     }
 
@@ -69,9 +77,9 @@ struct EventDetailContentView: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.black.opacity(0.9))
 
-            if let url = mainClip?.url {
-                VideoPlayerView(url: url)
-                    .id(url)
+            if playbackViewModel.composedTrack != nil {
+                VideoPlayer(player: playbackViewModel.player)
+                    .id(mainTrack?.id)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             } else if let thumbnailURL = event.thumbnailURL,
                       let nsImage = NSImage(contentsOf: thumbnailURL) {
@@ -91,12 +99,22 @@ struct EventDetailContentView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 360)
         .overlay(alignment: .topLeading) {
-            if let mainClip {
-                Label(mainClip.camera.displayName, systemImage: "play.rectangle")
+            if let mainTrack {
+                Label(mainTrack.camera.displayName, systemImage: "play.rectangle")
                     .font(.caption.weight(.semibold))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
                     .background(.ultraThinMaterial, in: Capsule())
+                    .padding(14)
+            }
+        }
+        .overlay(alignment: .bottomLeading) {
+            if let errorMessage = playbackViewModel.errorMessage {
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundColor(.white)
+                    .padding(10)
+                    .background(Color.red.opacity(0.85), in: RoundedRectangle(cornerRadius: 10))
                     .padding(14)
             }
         }
@@ -105,14 +123,14 @@ struct EventDetailContentView: View {
     private var previewStrip: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                ForEach(event.clips) { clip in
+                ForEach(event.tracks) { track in
                     Button {
-                        selectedClip = clip
+                        selectedTrack = track
                     } label: {
-                        ClipPreviewCard(
-                            clip: clip,
+                        TrackPreviewCard(
+                            track: track,
                             event: event,
-                            isSelected: clip.id == mainClip?.id
+                            isSelected: track.id == mainTrack?.id
                         )
                     }
                     .buttonStyle(.plain)
@@ -129,18 +147,30 @@ struct EventDetailContentView: View {
                 .foregroundColor(.secondary)
 
             Slider(value: $timelineValue, in: 0...1)
-                .disabled(mainClip == nil)
+                .disabled(playbackViewModel.composedTrack == nil)
 
             HStack {
                 Text("00:00")
                 Spacer()
-                Text(mainClip?.camera.displayName ?? "No Clip")
+                Text(mainTrack?.camera.displayName ?? "No Track")
                 Spacer()
-                Text("--:--")
+                Text(totalDurationText)
             }
             .font(.caption)
             .foregroundColor(.secondary)
         }
+    }
+
+    private var totalDurationText: String {
+        guard let totalDuration = playbackViewModel.composedTrack?.totalDuration.seconds,
+              totalDuration.isFinite else {
+            return "--:--"
+        }
+
+        let totalSeconds = Int(totalDuration.rounded())
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 
     private var footer: some View {
@@ -157,10 +187,14 @@ struct EventDetailContentView: View {
     }
 }
 
-private struct ClipPreviewCard: View {
-    let clip: TeslaCameraClip
+private struct TrackPreviewCard: View {
+    let track: TeslaCameraTrack
     let event: TeslaEvent
     let isSelected: Bool
+
+    private var firstClip: TeslaCameraClip? {
+        track.clips.sorted { ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast) }.first
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -180,14 +214,14 @@ private struct ClipPreviewCard: View {
                 .frame(width: 132, height: 74)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
 
-                Text(clip.camera.displayName)
+                Text(track.camera.displayName)
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.white)
                     .lineLimit(1)
                     .padding(8)
             }
 
-            Text(clip.timestamp.map(Self.timeFormatter.string(from:)) ?? event.formattedDate)
+            Text(firstClip?.timestamp.map(Self.timeFormatter.string(from:)) ?? event.formattedDate)
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
