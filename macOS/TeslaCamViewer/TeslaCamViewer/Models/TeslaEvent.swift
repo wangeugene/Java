@@ -45,7 +45,8 @@ extension TeslaEvent {
             .map { camera, clips in
                 TeslaCameraTrack(
                     camera: camera,
-                    clips: clips.sorted { ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast) }
+                    clips: clips.sorted { ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast) },
+                    eventID: self.id
                 )
             }
             .sorted { $0.camera.rawValue < $1.camera.rawValue }

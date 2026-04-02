@@ -142,6 +142,9 @@ struct EventDetailContentView: View {
                         )
                     }
                     .buttonStyle(.plain)
+                    .onAppear {
+                            print("Track ID:", track.id)
+                        }
                 }
             }
             .padding(.vertical, 2)
