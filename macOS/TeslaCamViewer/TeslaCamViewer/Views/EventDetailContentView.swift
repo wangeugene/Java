@@ -40,7 +40,7 @@ struct EventDetailContentView: View {
             selectedTrack = event.track(for: .front) ?? event.tracks.first
             timelineValue = 0
         }
-        .onChange(of: selectedTrack?.id) { _, _ in
+        .onChange(of: selectedTrackLoadKey) { _, _ in
             guard let track = selectedTrack else {
                 playbackViewModel.player.replaceCurrentItem(with: nil)
                 return
@@ -72,6 +72,14 @@ struct EventDetailContentView: View {
         }
     }
 
+    
+    private var selectedTrackLoadKey: String {
+        let eventKey = event.id.path
+        let cameraKey = selectedTrack?.camera.rawValue ?? "none"
+        let clipKey = selectedTrack?.clips.first?.id.path ?? "no-clips"
+        return "\(eventKey)|\(cameraKey)|\(clipKey)"
+    }
+    
     private var mainPreviewSection: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
@@ -79,7 +87,7 @@ struct EventDetailContentView: View {
 
             if playbackViewModel.composedTrack != nil {
                 VideoPlayer(player: playbackViewModel.player)
-                    .id(mainTrack?.id)
+                    .id(selectedTrackLoadKey)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             } else if let thumbnailURL = event.thumbnailURL,
                       let nsImage = NSImage(contentsOf: thumbnailURL) {
