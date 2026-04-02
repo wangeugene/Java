@@ -71,6 +71,7 @@ struct EventDetailContentView: View {
 
             if let url = mainClip?.url {
                 VideoPlayerView(url: url)
+                    .id(url)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             } else if let thumbnailURL = event.thumbnailURL,
                       let nsImage = NSImage(contentsOf: thumbnailURL) {
