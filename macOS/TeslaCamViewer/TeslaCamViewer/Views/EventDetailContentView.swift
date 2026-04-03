@@ -16,6 +16,9 @@ struct EventDetailContentView: View {
     @StateObject private var playbackViewModel = EventDetailPlaybackViewModel()
     @State private var selectedTrack: TeslaCameraTrack?
     @State private var timelineValue: Double = 0
+    @State private var videoAspectRatio: CGFloat = 16.0 / 9.0
+
+
 
     private var mainTrack: TeslaCameraTrack? {
         selectedTrack
@@ -32,7 +35,7 @@ struct EventDetailContentView: View {
             footer
         }
         .padding(20)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: 980, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
             selectedTrack = mainTrack
         }
@@ -47,6 +50,7 @@ struct EventDetailContentView: View {
             }
 
             Task {
+                await updateAspectRatio(for: track)   // 👈 HERE
                 await playbackViewModel.load(track: track)
             }
         }
@@ -89,6 +93,17 @@ struct EventDetailContentView: View {
                 VideoPlayer(player: playbackViewModel.player)
                     .id(selectedTrackLoadKey)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(alignment: .topLeading) {
+                        if !playbackViewModel.overlayTimestampText.isEmpty {
+                            Text(playbackViewModel.overlayTimestampText)
+                                .font(.system(size: 13, weight: .semibold, design: .monospaced))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(Color.black.opacity(0.72), in: Capsule())
+                                .padding(14)
+                        }
+                    }
             } else if let thumbnailURL = event.thumbnailURL,
                       let nsImage = NSImage(contentsOf: thumbnailURL) {
                 Image(nsImage: nsImage)
@@ -104,26 +119,15 @@ struct EventDetailContentView: View {
                 .foregroundStyle(.white)
             }
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 360)
-        .overlay(alignment: .topLeading) {
+        .frame(maxWidth: 980, alignment: .leading)
+        .aspectRatio(videoAspectRatio, contentMode: .fit)
+        .overlay(alignment: .topTrailing) {
             if let mainTrack {
                 Label(mainTrack.camera.displayName, systemImage: "play.rectangle")
                     .font(.caption.weight(.semibold))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
                     .background(.ultraThinMaterial, in: Capsule())
-                    .padding(14)
-            }
-        }
-        .overlay(alignment: .topLeading) {
-            if !playbackViewModel.overlayTimestampText.isEmpty {
-                Text(playbackViewModel.overlayTimestampText)
-                    .font(.system(size: 13, weight: .semibold, design: .monospaced))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(Color.black.opacity(0.72), in: Capsule())
                     .padding(14)
             }
         }
@@ -207,6 +211,42 @@ struct EventDetailContentView: View {
                 .textSelection(.enabled)
         }
     }
+   
+    @MainActor
+    private func updateAspectRatio(for track: TeslaCameraTrack) async {
+        let sortedClips = track.clips.sorted {
+            ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast)
+        }
+
+        guard let firstClipURL = sortedClips.first?.url else {
+            return   // ❗ no fallback overwrite
+        }
+
+        do {
+            let asset = AVURLAsset(url: firstClipURL)
+            let videoTracks = try await asset.loadTracks(withMediaType: .video)
+
+            guard let videoTrack = videoTracks.first else {
+                return
+            }
+
+            let naturalSize = try await videoTrack.load(.naturalSize)
+            let preferredTransform = try await videoTrack.load(.preferredTransform)
+            let transformedSize = naturalSize.applying(preferredTransform)
+
+            let width = abs(transformedSize.width)
+            let height = abs(transformedSize.height)
+
+            // ✅ THIS is where your snippet goes
+            if width > 0, height > 0 {
+                videoAspectRatio = width / height
+            }
+
+        } catch {
+            // ❗ do nothing → keep last ratio
+        }
+    }
+    
 }
 
 private struct TrackPreviewCard: View {
