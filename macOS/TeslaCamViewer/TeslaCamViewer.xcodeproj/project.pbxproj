@@ -42,6 +42,7 @@
 		02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */; };
 		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
 		02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */; };
+		02C3F99F2F7F863300F8A43A /* TeslaTrackClipExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		02AFB0732F702EF300CEC127 /* TimestampBurner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampBurner.swift; sourceTree = "<group>"; };
 		02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackFrameExporter.swift; sourceTree = "<group>"; };
+		02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackClipExporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		02AFB06A2F6F711200CEC127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */,
 				02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */,
 				02A75AFF2F7E6DE200B12388 /* TeslaTrackCompositionBuilder.swift */,
 				020604892F7AAB5A0054C569 /* TeslaEventRepository.swift */,
@@ -290,6 +293,7 @@
 				020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */,
 				02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */,
 				020604842F7A7BB40054C569 /* EventThumbnailView.swift in Sources */,
+				02C3F99F2F7F863300F8A43A /* TeslaTrackClipExporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

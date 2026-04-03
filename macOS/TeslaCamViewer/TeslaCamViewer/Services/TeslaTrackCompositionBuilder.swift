@@ -5,17 +5,10 @@
 //  Created by euwang on 4/2/26.
 //
 
-
-//
-//  TeslaTrackCompositionBuilder.swift
-//  TeslaCamViewer
-//
-//  Created by euwang on 4/2/26.
-//
-
 import Foundation
 import AVFoundation
 import CoreMedia
+import CoreGraphics
 
 
 enum TeslaTrackCompositionBuilder {
@@ -39,13 +32,10 @@ enum TeslaTrackCompositionBuilder {
             throw TeslaTrackCompositionError.compositionTrackCreationFailed
         }
 
-        let audioCompositionTrack = composition.addMutableTrack(
-            withMediaType: .audio,
-            preferredTrackID: kCMPersistentTrackID_Invalid
-        )
-
         var currentTimelineStart = CMTime.zero
         var segments: [TeslaTrackSegment] = []
+        var referencePreferredTransform: CGAffineTransform?
+        var referenceDisplaySize: CGSize?
 
         for clip in sortedClips {
             let asset = AVURLAsset(url: clip.url)
@@ -55,8 +45,39 @@ enum TeslaTrackCompositionBuilder {
                 throw TeslaTrackCompositionError.missingVideoTrack(clip.url)
             }
 
+            let naturalSize = try await sourceVideoTrack.load(.naturalSize)
+            let preferredTransform = try await sourceVideoTrack.load(.preferredTransform)
+            let transformedSize = naturalSize.applying(preferredTransform)
+            let displaySize = CGSize(width: abs(transformedSize.width), height: abs(transformedSize.height))
+
             let duration = try await asset.load(.duration)
             let timeRange = CMTimeRange(start: .zero, duration: duration)
+
+            print("Builder clip:", clip.url.lastPathComponent)
+            print("  duration:", duration.seconds)
+            print("  naturalSize:", naturalSize)
+            print("  preferredTransform:", preferredTransform)
+            print("  displaySize:", displaySize)
+
+            if referencePreferredTransform == nil {
+                referencePreferredTransform = preferredTransform
+                referenceDisplaySize = displaySize
+                videoCompositionTrack.preferredTransform = preferredTransform
+            } else {
+                if let referencePreferredTransform,
+                   !transformsAreNearlyEqual(referencePreferredTransform, preferredTransform) {
+                    print("⚠️ Transform mismatch detected for clip:", clip.url.lastPathComponent)
+                    print("  reference:", referencePreferredTransform)
+                    print("  current:", preferredTransform)
+                }
+
+                if let referenceDisplaySize,
+                   (abs(referenceDisplaySize.width - displaySize.width) > 0.5 || abs(referenceDisplaySize.height - displaySize.height) > 0.5) {
+                    print("⚠️ Display size mismatch detected for clip:", clip.url.lastPathComponent)
+                    print("  reference:", referenceDisplaySize)
+                    print("  current:", displaySize)
+                }
+            }
 
             do {
                 try videoCompositionTrack.insertTimeRange(
@@ -66,21 +87,6 @@ enum TeslaTrackCompositionBuilder {
                 )
             } catch {
                 throw TeslaTrackCompositionError.insertionFailed(clip.url, underlying: error)
-            }
-
-            let sourceAudioTracks = try await asset.loadTracks(withMediaType: .audio)
-
-            if let sourceAudioTrack = sourceAudioTracks.first,
-               let audioCompositionTrack {
-                do {
-                    try audioCompositionTrack.insertTimeRange(
-                        timeRange,
-                        of: sourceAudioTrack,
-                        at: currentTimelineStart
-                    )
-                } catch {
-                    throw TeslaTrackCompositionError.insertionFailed(clip.url, underlying: error)
-                }
             }
 
             segments.append(
@@ -95,6 +101,9 @@ enum TeslaTrackCompositionBuilder {
             currentTimelineStart = currentTimelineStart + duration
         }
 
+        print("Builder final composition duration:", currentTimelineStart.seconds)
+        print("Builder composition video track count:", composition.tracks(withMediaType: .video).count)
+
         let playerItem = AVPlayerItem(asset: composition)
 
         return TeslaComposedTrack(
@@ -105,5 +114,17 @@ enum TeslaTrackCompositionBuilder {
             totalDuration: currentTimelineStart,
             startDate: startDate
         )
+    }
+    private static func transformsAreNearlyEqual(
+        _ lhs: CGAffineTransform,
+        _ rhs: CGAffineTransform,
+        tolerance: CGFloat = 0.0001
+    ) -> Bool {
+        abs(lhs.a - rhs.a) <= tolerance &&
+        abs(lhs.b - rhs.b) <= tolerance &&
+        abs(lhs.c - rhs.c) <= tolerance &&
+        abs(lhs.d - rhs.d) <= tolerance &&
+        abs(lhs.tx - rhs.tx) <= tolerance &&
+        abs(lhs.ty - rhs.ty) <= tolerance
     }
 }

@@ -19,6 +19,7 @@ struct EventDetailContentView: View {
     @State private var videoAspectRatio: CGFloat = 16.0 / 9.0
     @State private var exportStatusMessage: String?
     @State private var isExportingSnapshot = false
+    @State private var isExportingClip = false
 
 
 
@@ -80,12 +81,21 @@ struct EventDetailContentView: View {
 
             Spacer(minLength: 0)
 
-            Button(isExportingSnapshot ? "Exporting..." : "Export JPG") {
-                Task {
-                    await exportCurrentFrameAsJPEG()
+            VStack(alignment: .trailing, spacing: 10) {
+                Button(isExportingSnapshot ? "Exporting..." : "Export JPG") {
+                    Task {
+                        await exportCurrentFrameAsJPEG()
+                    }
                 }
+                .disabled(isExportingSnapshot || playbackViewModel.composedTrack == nil)
+
+                Button(isExportingClip ? "Exporting..." : "Export 10s MP4") {
+                    Task {
+                        await exportCurrent10SecondClipAsMP4()
+                    }
+                }
+                .disabled(isExportingClip || playbackViewModel.composedTrack == nil)
             }
-            .disabled(isExportingSnapshot || playbackViewModel.composedTrack == nil)
         }
     }
 
@@ -295,6 +305,44 @@ struct EventDetailContentView: View {
         }
 
         isExportingSnapshot = false
+    }
+    @MainActor
+    private func exportCurrent10SecondClipAsMP4() async {
+        guard !isExportingClip else { return }
+        guard let composedTrack = playbackViewModel.composedTrack else {
+            exportStatusMessage = "No composed track available to export."
+            return
+        }
+
+        let savePanel = NSSavePanel()
+        savePanel.canCreateDirectories = true
+        savePanel.nameFieldStringValue = "\(event.eventName)-10s.mp4"
+        savePanel.allowedContentTypes = [.mpeg4Movie]
+        savePanel.isExtensionHidden = false
+        savePanel.title = "Export 10-Second Clip"
+        savePanel.message = "Choose where to save a 10-second MP4 clip centered on the current playback time."
+
+        guard savePanel.runModal() == .OK, let outputURL = savePanel.url else {
+            exportStatusMessage = "Export canceled."
+            return
+        }
+
+        isExportingClip = true
+        exportStatusMessage = nil
+
+        do {
+            try await TeslaTrackClipExporter.exportClipAroundCurrentTime(
+                from: composedTrack,
+                currentTime: playbackViewModel.player.currentTime(),
+                duration: 10,
+                outputURL: outputURL
+            )
+            exportStatusMessage = "Saved MP4 to \(outputURL.lastPathComponent)"
+        } catch {
+            exportStatusMessage = "Export failed: \(error.localizedDescription)"
+        }
+
+        isExportingClip = false
     }
 }
 
