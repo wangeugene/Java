@@ -2,8 +2,8 @@
 //  EventDetailContentView.swift
 //  TeslaCamViewer
 //
-//  Created by euwang on 3/31/26.
 //
+//  Created by euwang on 3/31/26.
 
 import SwiftUI
 import AppKit
@@ -160,14 +160,6 @@ struct EventDetailContentView: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .background(Color.red.opacity(0.85), in: RoundedRectangle(cornerRadius: 10))
-                }
-
-                if let exportStatusMessage {
-                    Text(exportStatusMessage)
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .background(Color.black.opacity(0.72), in: RoundedRectangle(cornerRadius: 10))
                 }
             }
             .padding(14)
