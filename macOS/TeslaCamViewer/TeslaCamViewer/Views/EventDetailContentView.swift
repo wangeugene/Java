@@ -17,6 +17,8 @@ struct EventDetailContentView: View {
     @State private var selectedTrack: TeslaCameraTrack?
     @State private var timelineValue: Double = 0
     @State private var videoAspectRatio: CGFloat = 16.0 / 9.0
+    @State private var exportStatusMessage: String?
+    @State private var isExportingSnapshot = false
 
 
 
@@ -57,22 +59,33 @@ struct EventDetailContentView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(event.eventName)
-                .font(.title2)
-                .fontWeight(.semibold)
+        HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(event.eventName)
+                    .font(.title2)
+                    .fontWeight(.semibold)
 
-            if let metadata {
-                Text("\(metadata.city) · \(metadata.street) · \(metadata.timestamp)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            } else {
-                Text(event.folderURL.path)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-                    .textSelection(.enabled)
+                if let metadata {
+                    Text("\(metadata.city) · \(metadata.street) · \(metadata.timestamp)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                } else {
+                    Text(event.folderURL.path)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                        .textSelection(.enabled)
+                }
             }
+
+            Spacer(minLength: 0)
+
+            Button(isExportingSnapshot ? "Exporting..." : "Export JPG") {
+                Task {
+                    await exportCurrentFrameAsJPEG()
+                }
+            }
+            .disabled(isExportingSnapshot || playbackViewModel.composedTrack == nil)
         }
     }
 
@@ -122,14 +135,24 @@ struct EventDetailContentView: View {
         .frame(maxWidth: 980, alignment: .leading)
         .aspectRatio(videoAspectRatio, contentMode: .fit)
         .overlay(alignment: .bottomLeading) {
-            if let errorMessage = playbackViewModel.errorMessage {
-                Text(errorMessage)
-                    .font(.caption)
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .background(Color.red.opacity(0.85), in: RoundedRectangle(cornerRadius: 10))
-                    .padding(14)
+            VStack(alignment: .leading, spacing: 8) {
+                if let errorMessage = playbackViewModel.errorMessage {
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Color.red.opacity(0.85), in: RoundedRectangle(cornerRadius: 10))
+                }
+
+                if let exportStatusMessage {
+                    Text(exportStatusMessage)
+                        .font(.caption)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Color.black.opacity(0.72), in: RoundedRectangle(cornerRadius: 10))
+                }
             }
+            .padding(14)
         }
     }
 
@@ -147,9 +170,6 @@ struct EventDetailContentView: View {
                         )
                     }
                     .buttonStyle(.plain)
-                    .onAppear {
-                            print("Track ID:", track.id)
-                        }
                 }
             }
             .padding(.vertical, 2)
@@ -237,6 +257,45 @@ struct EventDetailContentView: View {
         }
     }
     
+    @MainActor
+    private func exportCurrentFrameAsJPEG() async {
+        guard !isExportingSnapshot else { return }
+        guard let composedTrack = playbackViewModel.composedTrack else {
+            exportStatusMessage = "No composed track available to export."
+            return
+        }
+
+        let savePanel = NSSavePanel()
+        savePanel.canCreateDirectories = true
+        savePanel.nameFieldStringValue = "\(event.eventName).jpg"
+        savePanel.allowedContentTypes = [.jpeg]
+        savePanel.isExtensionHidden = false
+        savePanel.title = "Export Snapshot"
+        savePanel.message = "Choose where to save the current frame as a JPEG image."
+
+        guard savePanel.runModal() == .OK, let outputURL = savePanel.url else {
+            exportStatusMessage = "Export canceled."
+            return
+        }
+
+        isExportingSnapshot = true
+        exportStatusMessage = nil
+
+        do {
+            try await TeslaTrackFrameExporter.exportJPEGSnapshot(
+                from: composedTrack,
+                at: playbackViewModel.player.currentTime(),
+                overlayTimestampText: playbackViewModel.overlayTimestampText,
+                metadata: metadata,
+                to: outputURL
+            )
+            exportStatusMessage = "Saved JPEG to \(outputURL.lastPathComponent)"
+        } catch {
+            exportStatusMessage = "Export failed: \(error.localizedDescription)"
+        }
+
+        isExportingSnapshot = false
+    }
 }
 
 private struct TrackPreviewCard: View {

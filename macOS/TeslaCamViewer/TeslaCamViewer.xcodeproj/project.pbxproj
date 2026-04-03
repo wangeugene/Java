@@ -41,6 +41,7 @@
 		02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB06F2F6F785800CEC127 /* FilePicker.swift */; };
 		02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */; };
 		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
+		02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		02AFB06F2F6F785800CEC127 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		02AFB0732F702EF300CEC127 /* TimestampBurner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampBurner.swift; sourceTree = "<group>"; };
+		02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackFrameExporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 		02AFB06A2F6F711200CEC127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */,
 				02A75AFF2F7E6DE200B12388 /* TeslaTrackCompositionBuilder.swift */,
 				020604892F7AAB5A0054C569 /* TeslaEventRepository.swift */,
 				020604872F7AAA880054C569 /* TeslaEventJSONLoader.swift */,
@@ -261,6 +264,7 @@
 				020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */,
 				02A75AFA2F7E558800B12388 /* TeslaStitchedTrack.swift in Sources */,
 				020604882F7AAA880054C569 /* TeslaEventJSONLoader.swift in Sources */,
+				02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */,
 				020604822F7A71C90054C569 /* TeslaEventBuilder.swift in Sources */,
 				0206047E2F7A519C0054C569 /* EventFolderListView.swift in Sources */,
 				02A75B002F7E6DE600B12388 /* TeslaTrackCompositionBuilder.swift in Sources */,
@@ -428,8 +432,18 @@
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -461,8 +475,18 @@
 				DEVELOPMENT_TEAM = N5NMQ67M4X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
