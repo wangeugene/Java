@@ -100,7 +100,7 @@ struct EventDetailContentView: View {
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
-                                .background(Color.black.opacity(0.72), in: Capsule())
+                                .background(Color.white.opacity(0), in: Capsule())
                                 .padding(14)
                         }
                     }
