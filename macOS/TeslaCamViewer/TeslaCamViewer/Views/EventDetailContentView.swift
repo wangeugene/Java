@@ -121,16 +121,6 @@ struct EventDetailContentView: View {
         }
         .frame(maxWidth: 980, alignment: .leading)
         .aspectRatio(videoAspectRatio, contentMode: .fit)
-        .overlay(alignment: .topTrailing) {
-            if let mainTrack {
-                Label(mainTrack.camera.displayName, systemImage: "play.rectangle")
-                    .font(.caption.weight(.semibold))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(.ultraThinMaterial, in: Capsule())
-                    .padding(14)
-            }
-        }
         .overlay(alignment: .bottomLeading) {
             if let errorMessage = playbackViewModel.errorMessage {
                 Text(errorMessage)
