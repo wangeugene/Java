@@ -36,12 +36,6 @@ struct SelectedVideoSection: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-
-            if viewModel.lastOutputURL != nil {
-                Button("Open Processed File") {
-                    viewModel.openProcessedFile()
-                }
-            }
         }
     }
 }

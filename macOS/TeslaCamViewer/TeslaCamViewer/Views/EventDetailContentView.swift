@@ -83,18 +83,26 @@ struct EventDetailContentView: View {
 
             VStack(alignment: .trailing, spacing: 10) {
                 Button(isExportingSnapshot ? "Exporting..." : "Export JPG") {
-                    Task {
-                        await exportCurrentFrameAsJPEG()
-                    }
-                }
-                .disabled(isExportingSnapshot || playbackViewModel.composedTrack == nil)
+                       Task {
+                           await exportCurrentFrameAsJPEG()
+                       }
+                   }
+                   .disabled(isExportingSnapshot || playbackViewModel.composedTrack == nil)
 
-                Button(isExportingClip ? "Exporting..." : "Export 10s MP4") {
-                    Task {
-                        await exportCurrent10SecondClipAsMP4()
-                    }
-                }
-                .disabled(isExportingClip || playbackViewModel.composedTrack == nil)
+                   Button(isExportingClip ? "Exporting..." : "Export 10s MP4") {
+                       Task {
+                           await exportCurrent10SecondClipAsMP4()
+                       }
+                   }
+                   .disabled(isExportingClip || playbackViewModel.composedTrack == nil)
+
+                   Button("Open Last Export") {
+                       playbackViewModel.openLastExport()
+                   }
+                   .disabled(
+                       playbackViewModel.lastExportedClipURL == nil &&
+                       playbackViewModel.lastExportedSnapshotURL == nil
+                   )
             }
         }
     }
@@ -299,6 +307,7 @@ struct EventDetailContentView: View {
                 metadata: metadata,
                 to: outputURL
             )
+            playbackViewModel.lastExportedSnapshotURL = outputURL
             exportStatusMessage = "Saved JPEG to \(outputURL.lastPathComponent)"
         } catch {
             exportStatusMessage = "Export failed: \(error.localizedDescription)"
@@ -338,6 +347,7 @@ struct EventDetailContentView: View {
                 overlayCurrentTimestampText: playbackViewModel.overlayTimestampText,
                 outputURL: outputURL
             )
+            playbackViewModel.lastExportedClipURL = outputURL
             exportStatusMessage = "Saved MP4 to \(outputURL.lastPathComponent)"
         } catch {
             exportStatusMessage = "Export failed: \(error.localizedDescription)"

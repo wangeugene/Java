@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 import Combine
+import AppKit
 
 @MainActor
 final class EventDetailPlaybackViewModel: ObservableObject {
@@ -16,7 +17,8 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     @Published var composedTrack: TeslaComposedTrack?
     @Published var errorMessage: String?
     @Published var overlayTimestampText: String = ""
-
+    @Published var lastExportedClipURL: URL?
+    @Published var lastExportedSnapshotURL: URL?
 
     let player = AVPlayer()
     
@@ -93,4 +95,12 @@ final class EventDetailPlaybackViewModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }()
+    
+    func openLastExport() {
+        if let url = lastExportedClipURL {
+            NSWorkspace.shared.open(url)
+        } else if let url = lastExportedSnapshotURL {
+            NSWorkspace.shared.open(url)
+        }
+    }
 }

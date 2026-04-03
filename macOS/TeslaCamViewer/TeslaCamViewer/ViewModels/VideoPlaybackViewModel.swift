@@ -15,8 +15,7 @@ final class VideoPlaybackViewModel: ObservableObject {
     @Published var selectedVideo: SelectedVideo?
     @Published var isExporting = false
     @Published var exportStatus: String?
-    @Published var lastOutputURL: URL?
-
+   
     let player = AVPlayer()
 
     func selectVideo() {
@@ -24,7 +23,6 @@ final class VideoPlaybackViewModel: ObservableObject {
 
         selectedVideo = SelectedVideo(id: url, url: url)
         exportStatus = nil
-        lastOutputURL = nil
         player.replaceCurrentItem(with: AVPlayerItem(url: url))
         print("Selected:", url)
     }
@@ -37,7 +35,6 @@ final class VideoPlaybackViewModel: ObservableObject {
 
         do {
             let outputURL = try await TimestampBurner.exportVideoWithTimestamp(from: url)
-            lastOutputURL = outputURL
             exportStatus = "Saved to \(outputURL.path)"
         } catch {
             exportStatus = "Export failed: \(error.localizedDescription)"
@@ -45,9 +42,5 @@ final class VideoPlaybackViewModel: ObservableObject {
 
         isExporting = false
     }
-
-    func openProcessedFile() {
-        guard let lastOutputURL else { return }
-        NSWorkspace.shared.open(lastOutputURL)
-    }
+    
 }
