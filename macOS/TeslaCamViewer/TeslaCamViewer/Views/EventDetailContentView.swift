@@ -335,6 +335,7 @@ struct EventDetailContentView: View {
                 from: composedTrack,
                 currentTime: playbackViewModel.player.currentTime(),
                 duration: 10,
+                overlayCurrentTimestampText: playbackViewModel.overlayTimestampText,
                 outputURL: outputURL
             )
             exportStatusMessage = "Saved MP4 to \(outputURL.lastPathComponent)"
