@@ -275,6 +275,37 @@ struct EventDetailContentView: View {
         }
     }
     
+    private func suggestedSnapshotFilename() -> String {
+        let rawTimestamp = playbackViewModel.overlayTimestampText.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !rawTimestamp.isEmpty else {
+            return "\(event.eventName).jpg"
+        }
+
+        let timeOnly: String
+        if let lastComponent = rawTimestamp.split(separator: " ").last {
+            timeOnly = String(lastComponent)
+        } else {
+            timeOnly = rawTimestamp
+        }
+
+        let safeTimeOnly = timeOnly.replacingOccurrences(of: ":", with: "-")
+
+        // Extract date part (YYYY-MM-DD) from overlay or fallback to event metadata
+        let datePart: String
+        if let firstComponent = rawTimestamp.split(separator: " ").first, firstComponent.contains("-") {
+            datePart = String(firstComponent)
+        }
+        else if let metadataTimestamp = metadata?.timestamp {
+            datePart = metadataTimestamp.split(separator: " ").first.map(String.init) ?? "unknown-date"
+        }
+        else {
+            datePart = "unknown-date"
+        }
+
+        return "\(datePart)_\(safeTimeOnly)_snapshot.jpg"
+    }
+
     @MainActor
     private func exportCurrentFrameAsJPEG() async {
         guard !isExportingSnapshot else { return }
@@ -285,7 +316,8 @@ struct EventDetailContentView: View {
 
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
-        savePanel.nameFieldStringValue = "\(event.eventName).jpg"
+        let suggestedSnapshotFilename = suggestedSnapshotFilename()
+        savePanel.nameFieldStringValue = suggestedSnapshotFilename
         savePanel.allowedContentTypes = [.jpeg]
         savePanel.isExtensionHidden = false
         savePanel.title = "Export Snapshot"
