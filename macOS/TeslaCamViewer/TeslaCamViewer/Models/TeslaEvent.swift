@@ -17,6 +17,8 @@ struct TeslaEvent: Identifiable, Hashable {
     let thumbnailURL: URL?
     let eventJSONURL: URL?
     let clips: [TeslaCameraClip]
+    let order: [TeslaCamera] = [.front, .back, .leftRepeater, .rightRepeater, .leftPillar, .rightPillar]
+
 
     var representativeVideoURL: URL? {
         clips.first(where: { $0.camera == .front })?.url ?? clips.first?.url
@@ -49,7 +51,10 @@ extension TeslaEvent {
                     eventID: self.id
                 )
             }
-            .sorted { $0.camera.rawValue < $1.camera.rawValue }
+            .sorted {
+                order.firstIndex(of: $0.camera)! < order.firstIndex(of: $1.camera)!
+            }
+
     }
 
     func track(for camera: TeslaCamera) -> TeslaCameraTrack? {
