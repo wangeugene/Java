@@ -3,10 +3,10 @@ set -Eeuo pipefail
 
 # Usage example:
 # sudo DOMAIN=vultr.309906615.xyz \
-#   TROJAN_PASSWORD='<YOUR_PASSWORD>' \
+#   TROJAN_PASSWORD='AVeryBadTrajanPass' \
 #   CERT_PATH='/etc/letsencrypt/live/vultr.309906615.xyz/fullchain.pem' \
 #   KEY_PATH='/etc/letsencrypt/live/vultr.309906615.xyz/privkey.pem' \
-#   TROJAN_USER='root' \
+#   TROJAN_USER='trojan' \
 #   FALLBACK_ADDR='127.0.0.1' \
 #   FALLBACK_PORT='80' \
 #   ./install_trojan.sh
@@ -27,6 +27,19 @@ CONFIG_FILE="${CONFIG_DIR}/config.json"
 BIN_PATH="/usr/local/bin/trojan"
 SERVICE_FILE="/etc/systemd/system/trojan.service"
 DOWNLOAD_URL="https://github.com/trojan-gfw/trojan/releases/download/v${TROJAN_VERSION}/trojan-${TROJAN_VERSION}-linux-amd64.tar.xz"
+
+open_ports_from_ubuntu_firewall(){
+  sudo ufw status verbose
+  sudo ufw allow 80/tcp
+  sudo ufw allow 443/tcp
+  sudo ufw reload
+  sudo ufw status verbose
+}
+
+start_a_simple_web_server() {
+  sudo apt-get install -y python3
+  sudo python3 -m http.server 80 
+}
 
 log() {
   printf '\n[%s] %s\n' "$(date '+%F %T')" "$*"
@@ -101,10 +114,11 @@ install_packages() {
     xz-utils \
     openssl \
     libssl-dev \
-    libboost-system1.74.0 \
-    libboost-program-options1.74.0 \
-    libboost-filesystem1.74.0 \
     certbot
+
+  if ! ldconfig -p | grep -q 'libstdc++'; then
+    apt-get install -y libstdc++6
+  fi
 }
 
 create_service_user() {
@@ -113,11 +127,15 @@ create_service_user() {
   fi
 
   if ! id -u "${TROJAN_USER}" >/dev/null 2>&1; then
+    local nologin_shell
+    nologin_shell="$(command -v nologin || true)"
+    [[ -n "${nologin_shell}" ]] || nologin_shell="/usr/sbin/nologin"
+
     useradd \
       --system \
       --gid "${TROJAN_GROUP}" \
       --home-dir /nonexistent \
-      --shell /usr/sbin/nologin \
+      --shell "${nologin_shell}" \
       "${TROJAN_USER}"
   fi
 }
@@ -280,13 +298,18 @@ EOF
 
 verify_service() {
   log "Checking service status..."
-  systemctl --no-pager --full status trojan || true
+  sudo systemctl --no-pager --full status trojan || true
 
   log "Checking if trojan is listening on :${LISTEN_PORT}..."
   ss -ltnp | grep ":${LISTEN_PORT}" || true
 
   log "Recent logs:"
-  journalctl -u trojan -n 50 --no-pager || true
+  sudo journalctl -u trojan -n 50 --no-pager || true
+
+  log "Checking systemd is restarting the service on failure..."
+  sudo systemctl show trojan -p NRestarts -p ActiveState -p SubState
+
+  log "Good sign: 	•	ActiveState=active •	SubState=running •	low or zero restart count "
 }
 
 main() {
@@ -312,12 +335,13 @@ main() {
       create_service_user
       install_binary
       install_config
-      validate_files_permissions
       fix_permissions
+      validate_files_permissions
       install_systemd_service
       verify_service
       ;;
     4)
+      require_root
       validate_files_permissions
       verify_service
       ;;
