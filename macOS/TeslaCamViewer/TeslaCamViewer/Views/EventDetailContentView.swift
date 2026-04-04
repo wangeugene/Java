@@ -122,7 +122,6 @@ struct EventDetailContentView: View {
 
             if playbackViewModel.composedTrack != nil {
                 VideoPlayer(player: playbackViewModel.player)
-                    .id(selectedTrackLoadKey)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(alignment: .topLeading) {
                         if !playbackViewModel.overlayTimestampText.isEmpty {
