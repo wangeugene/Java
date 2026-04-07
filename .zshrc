@@ -231,6 +231,10 @@ tesla-sei() {
   local venv_python=""
 
   local candidates=(
+    "$HOME/venvs/tesla-sei/bin/python3"
+    "$HOME/venvs/tesla-sei/bin/python"
+    "$repo/.venv/bin/python3"
+    "$repo/.venv/bin/python"
     "/opt/homebrew/bin/python3"
   )
 
