@@ -231,7 +231,7 @@ tesla-sei() {
   local venv_python=""
 
   local candidates=(
-    "/opt/homebrew/bin/python3 "
+    "/opt/homebrew/bin/python3"
   )
 
   local candidate
