@@ -9,11 +9,11 @@ fi
 
 alias ur='sh ~/Projects/Java/Shell/upload-files-to-remote-server-dir.sh'
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
-alias zshsync='cp -v ~/Projects/Java/.zshrc ~/.zshrc && echo "✅ .zshrc copied to home directory" && source ~/.zshrc || echo "❌ Error syncing .zshrc"'
 alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'
 alias ca='cd /Users/euwang/Projects/Java/app'
 alias cj='cd ~/Projects/Java'
-alias ct='cd ~/tmp'
+alias ct='/Users/euwang/Projects/Java/macOS/TeslaCamViewer'
+alias zd='diff -u ~/.zshrc .zshrc | delta'
 alias dc='open -a "Google Chrome" --args --make-default-browser'
 alias oz='code ~/Projects/Java/.zshrc'
 alias chrome='open -a "Google Chrome"'
@@ -29,6 +29,30 @@ alias b64decode='node -e "console.log(Buffer.from(process.argv[1], \"base64\").t
 
 
 # ============================ Functions ============================
+zshsync() {
+  local src="$HOME/.zshrc"
+  local dst=".zshrc"
+
+  if diff -q "$src" "$dst" > /dev/null; then
+    echo "✅ Already in sync"
+    return
+  fi
+
+  echo "⚠️ Differences:"
+  diff -u "$src" "$dst" | delta
+
+  echo "\nSync local → home? (y/n)"
+  read ans
+
+  if [[ "$ans" == "y" ]]; then
+    cp "$dst" "$src"
+    echo "✅ Synced!"
+  else
+    echo "❌ Cancelled"
+  fi
+}
+
+
 load-dev-env(){
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -179,6 +203,26 @@ pnpm-up() {
   echo "✅ pnpm updated to: $(pnpm -v)"
 }
 
-precmd() { stty sane 2>/dev/null }
+make_delta_default(){
+	git config --global core.pager delta
+	git config --global interactive.diffFilter "delta --color-only"
+	git config --global delta.navigate true
+}
+
+zshdiff() {
+  local file1="${1:-$HOME/.zshrc}"
+  local file2="${2:-.zshrc}"
+
+  if diff -u "$file1" "$file2" > /dev/null; then
+    echo "✅ Files are identical"
+  else
+    echo "⚠️ Differences found:"
+    diff -u "$file1" "$file2" | delta
+  fi
+}
+
+# enable Ctrl + S = forward history search 
+precmd() { stty sane -ixon 2>/dev/null }
 
 # ============================ End of Functions ===========================
+# HELLO
