@@ -116,29 +116,37 @@ enum TeslaTrackClipExporter {
         print("Requested file type:", requestedFileType)
         print("Supported file types:", exportSession.supportedFileTypes)
 
-        do {
-            try await exportSession.export()
-        } catch {
-            print("Export threw error:", error.localizedDescription)
-            print("Final export session status:", exportSession.status.rawValue)
-            print("Final export session error:", exportSession.error?.localizedDescription ?? "nil")
-            throw error
-        }
+        if #available(macOS 15.0, *) {
+            do {
+                try await exportSession.export(to: outputURL, as: requestedFileType)
+                return
+            } catch is CancellationError {
+                throw TeslaTrackClipExportError.exportCanceled
+            } catch {
+                throw TeslaTrackClipExportError.exportFailed(error.localizedDescription)
+            }
+        } else {
+            exportSession.outputURL = outputURL
+            exportSession.outputFileType = requestedFileType
 
-        print("Final export session status:", exportSession.status.rawValue)
-        print("Final export session error:", exportSession.error?.localizedDescription ?? "nil")
+            await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+                exportSession.exportAsynchronously {
+                    continuation.resume()
+                }
+            }
 
-        switch exportSession.status {
-        case .completed:
-            return
-        case .failed:
-            let message = exportSession.error?.localizedDescription ?? "Unknown export error"
-            throw TeslaTrackClipExportError.exportFailed(message)
-        case .cancelled:
-            throw TeslaTrackClipExportError.exportCanceled
-        default:
-            let message = exportSession.error?.localizedDescription ?? "Unexpected export state"
-            throw TeslaTrackClipExportError.exportFailed(message)
+            switch exportSession.status {
+            case .completed:
+                return
+            case .failed:
+                let message = exportSession.error?.localizedDescription ?? "Unknown export error"
+                throw TeslaTrackClipExportError.exportFailed(message)
+            case .cancelled:
+                throw TeslaTrackClipExportError.exportCanceled
+            default:
+                let message = exportSession.error?.localizedDescription ?? "Unexpected export state"
+                throw TeslaTrackClipExportError.exportFailed(message)
+            }
         }
     }
 }
