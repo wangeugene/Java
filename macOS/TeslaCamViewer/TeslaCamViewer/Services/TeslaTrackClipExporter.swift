@@ -171,32 +171,53 @@ private extension TeslaTrackClipExporter {
         let ciContext = CIContext()
         var overlayCache: [Int: CIImage] = [:]
 
-        let videoComposition = AVVideoComposition(asset: asset) { request in
-            let sourceImage = request.sourceImage.clampedToExtent()
-            let currentFrameDate = currentOverlayDate.addingTimeInterval(request.compositionTime.seconds - currentPlaybackTime.seconds)
-            let wholeSecond = Int(floor(currentFrameDate.timeIntervalSince1970))
+        return try await withCheckedThrowingContinuation { continuation in
+            AVVideoComposition.videoComposition(
+                with: asset,
+                applyingCIFiltersWithHandler: { request in
+                    let sourceImage = request.sourceImage.clampedToExtent()
+                    let currentFrameDate = currentOverlayDate.addingTimeInterval(
+                        request.compositionTime.seconds - currentPlaybackTime.seconds
+                    )
+                    let wholeSecond = Int(floor(currentFrameDate.timeIntervalSince1970))
 
-            let overlayCIImage: CIImage
-            if let cached = overlayCache[wholeSecond] {
-                overlayCIImage = cached
-            } else {
-                let formatted = overlayFormatter.string(from: currentFrameDate)
-                let created = makeTimestampOverlayCIImage(
-                    text: formatted,
-                    renderSize: renderSize,
-                    ciContext: ciContext
-                )
-                overlayCache[wholeSecond] = created
-                overlayCIImage = created
-            }
+                    let overlayCIImage: CIImage
+                    if let cached = overlayCache[wholeSecond] {
+                        overlayCIImage = cached
+                    } else {
+                        let formatted = overlayFormatter.string(from: currentFrameDate)
+                        let created = makeTimestampOverlayCIImage(
+                            text: formatted,
+                            renderSize: renderSize,
+                            ciContext: ciContext
+                        )
+                        overlayCache[wholeSecond] = created
+                        overlayCIImage = created
+                    }
 
-            let composited = overlayCIImage.composited(over: sourceImage)
-                .cropped(to: CGRect(origin: .zero, size: renderSize))
+                    let composited = overlayCIImage
+                        .composited(over: sourceImage)
+                        .cropped(to: CGRect(origin: .zero, size: renderSize))
 
-            request.finish(with: composited, context: nil)
+                    request.finish(with: composited, context: nil)
+                },
+                completionHandler: { videoComposition, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else if let videoComposition {
+                        continuation.resume(returning: videoComposition)
+                    } else {
+                        continuation.resume(
+                            throwing: NSError(
+                                domain: "TeslaTrackClipExporter",
+                                code: -1,
+                                userInfo: [NSLocalizedDescriptionKey: "Failed to create AVVideoComposition."]
+                            )
+                        )
+                    }
+                }
+            )
         }
-
-        return videoComposition
     }
 
     static func parseOverlayTimestamp(_ text: String) throws -> Date {

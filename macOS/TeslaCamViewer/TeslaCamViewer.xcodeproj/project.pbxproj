@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0200DE782F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */; };
 		0206045A2F7A1ED90054C569 /* VideoPlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */; };
 		0206045E2F7A21950054C569 /* SelectedVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045D2F7A21950054C569 /* SelectedVideo.swift */; };
 		020604602F7A29250054C569 /* SelectedVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206045F2F7A29250054C569 /* SelectedVideoSection.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVVideoComposition+AsyncCIFilters.swift"; sourceTree = "<group>"; };
 		020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewModel.swift; sourceTree = "<group>"; };
 		0206045D2F7A21950054C569 /* SelectedVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideo.swift; sourceTree = "<group>"; };
 		0206045F2F7A29250054C569 /* SelectedVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideoSection.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				020604732F7A50E60054C569 /* TeslaCamScanner.swift */,
 				02AFB0732F702EF300CEC127 /* TimestampBurner.swift */,
 				02AFB06F2F6F785800CEC127 /* FilePicker.swift */,
+				0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */,
 				02A75AF62F7E541200B12388 /* TeslaCameraTrack.swift in Sources */,
 				020604862F7AA9360054C569 /* TeslaEventMetadata.swift in Sources */,
+				0200DE782F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift in Sources */,
 				0206047A2F7A51530054C569 /* FolderPicker.swift in Sources */,
 				020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */,
 				02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */,
