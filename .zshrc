@@ -47,6 +47,7 @@ zshsync() {
   if [[ "$ans" == "y" ]]; then
     cp "$dst" "$src"
     echo "✅ Synced!"
+    source ~/.zshrc
   else
     echo "❌ Cancelled"
   fi
@@ -223,6 +224,38 @@ zshdiff() {
 
 # enable Ctrl + S = forward history search 
 precmd() { stty sane -ixon 2>/dev/null }
+
+tesla-sei() {
+  local repo="$HOME/Projects/dashcam"
+  local script="$repo/sei_extractor.py"
+  local venv_python=""
+
+  local candidates=(
+    "/opt/homebrew/bin/python3 "
+  )
+
+  local candidate
+  for candidate in "${candidates[@]}"; do
+    if [[ -x "$candidate" ]]; then
+      venv_python="$candidate"
+      break
+    fi
+  done
+
+  if [[ -z "$venv_python" ]]; then
+    echo "❌ Could not find a Python executable for tesla-sei."
+    echo "Checked:"
+    printf '  %s\n' "${candidates[@]}"
+    return 1
+  fi
+
+  if [[ ! -f "$script" ]]; then
+    echo "❌ Could not find sei_extractor.py at: $script"
+    return 1
+  fi
+
+  "$venv_python" "$script" "$@"
+}
 
 # ============================ End of Functions ===========================
 # HELLO
