@@ -127,7 +127,7 @@ private extension TeslaTrackFrameExporter {
         )
 
         let bubblePath = NSBezierPath(roundedRect: bubbleRect, xRadius: 12, yRadius: 12)
-        NSColor.black.withAlphaComponent(0.72).setFill()
+        NSColor.black.withAlphaComponent(0).setFill()
         bubblePath.fill()
 
         let textRect = CGRect(
