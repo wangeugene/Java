@@ -23,5 +23,8 @@ struct ContentView: View {
                 }
             }
         }
+        .onChange(of: viewModel.selectedEvent){
+            viewModel.debugParseNALUnits()
+        }
     }
 }

@@ -53,12 +53,6 @@ enum TeslaTrackCompositionBuilder {
             let duration = try await asset.load(.duration)
             let timeRange = CMTimeRange(start: .zero, duration: duration)
 
-            print("Builder clip:", clip.url.lastPathComponent)
-            print("  duration:", duration.seconds)
-            print("  naturalSize:", naturalSize)
-            print("  preferredTransform:", preferredTransform)
-            print("  displaySize:", displaySize)
-
             if referencePreferredTransform == nil {
                 referencePreferredTransform = preferredTransform
                 referenceDisplaySize = displaySize
@@ -100,9 +94,6 @@ enum TeslaTrackCompositionBuilder {
 
             currentTimelineStart = currentTimelineStart + duration
         }
-
-        print("Builder final composition duration:", currentTimelineStart.seconds)
-        print("Builder composition video track count:", composition.tracks(withMediaType: .video).count)
 
         let playerItem = AVPlayerItem(asset: composition)
 

@@ -7,10 +7,8 @@ fi
 
 # ============================ Aliases ============================
 
-alias ur='sh ~/Projects/Java/Shell/upload-files-to-remote-server-dir.sh'
 alias kp='sh ~/Projects/Java/Shell/killProcesses.sh'
-alias cr='cd /Users/euwang/Projects/Java/app/rule-updater'
-alias ca='cd /Users/euwang/Projects/Java/app'
+alias cdd='cd ~/Downloads/'
 alias cj='cd ~/Projects/Java'
 alias ct='cd /Users/euwang/Projects/Java/macOS/TeslaCamViewer'
 alias zd='diff -u ~/.zshrc .zshrc | delta'

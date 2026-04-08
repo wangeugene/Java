@@ -103,4 +103,62 @@ final class EventDetailPlaybackViewModel: ObservableObject {
             NSWorkspace.shared.open(url)
         }
     }
+    
+    func openLastExportFolder() {
+        if let fileURL = lastExportedClipURL {
+            let folderURL = fileURL.deletingLastPathComponent()
+            NSWorkspace.shared.open(folderURL)
+        } else if let fileURL = lastExportedSnapshotURL {
+            let folderURL = fileURL.deletingLastPathComponent()
+            NSWorkspace.shared.open(folderURL)
+        }
+    }
+    
+    func debugExtractNativeSEI(from clipURL: URL) {
+        print("incoming URL: \(clipURL.lastPathComponent)")
+        Task {
+            do {
+                let extractor = TeslaNativeSEIExtractor()
+                let samples = try await extractor.extract(from: clipURL)
+
+                print("Native SEI extract sample count:", samples.count)
+
+                for (index, sample) in samples.prefix(5).enumerated() {
+                    print("Decoded sample \(index):")
+                    print("  sourceClipURL:", sample.sourceClipURL?.lastPathComponent ?? "nil")
+                    print("  vehicleSpeedMps:", sample.vehicleSpeedMps as Any)
+                    print("  accelX:", sample.linearAccelerationMps2X as Any)
+                    print("  accelY:", sample.linearAccelerationMps2Y as Any)
+                    print("  accelZ:", sample.linearAccelerationMps2Z as Any)
+                    print("  latitudeDeg:", sample.latitudeDeg as Any)
+                    print("  longitudeDeg:", sample.longitudeDeg as Any)
+                }
+            } catch {
+                print("Native SEI extract failed:", error.localizedDescription)
+            }
+        }
+    }
+    
+    func debugReadSamples() {
+        guard let firstClip = selectedTrack?.clips.first
+              else {
+                    print("No clip available")
+                return
+                }
+
+        let clipURL = firstClip.url
+
+        Task {
+            do {
+                let reader = TeslaMP4SampleReader()
+                let samples = try await reader.readVideoSamples(from: clipURL)
+
+                print("Sample count:", samples.count)
+                print("First sample size:", samples.first?.count ?? 0)
+
+            } catch {
+                print("Read failed:", error.localizedDescription)
+            }
+        }
+    }
 }

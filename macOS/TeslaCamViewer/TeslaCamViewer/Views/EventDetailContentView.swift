@@ -103,6 +103,28 @@ struct EventDetailContentView: View {
                        playbackViewModel.lastExportedClipURL == nil &&
                        playbackViewModel.lastExportedSnapshotURL == nil
                    )
+                
+                    Button("Open Last Export Finder Folder") {
+                        playbackViewModel.openLastExportFolder()
+                    }
+                    .disabled(
+                        playbackViewModel.lastExportedClipURL == nil &&
+                        playbackViewModel.lastExportedSnapshotURL == nil
+                    )
+                    
+                    Button("Test Sample Reader") {
+                        playbackViewModel.debugReadSamples()
+                    }
+                        
+                    Button("Test Extract Native SEI") {
+                        if let track = selectedTrack,
+                           let clipURL = track.clips.first?.url {
+                            playbackViewModel.debugExtractNativeSEI(from: clipURL)
+                        } else {
+                            print("No selected track or clip available")
+                        }
+                    }
+
             }
         }
     }
