@@ -8,14 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0200DE782F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */; };
-		0200DE7A2F84F6E1004768C2 /* TeslaSEIExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE792F84F6DE004768C2 /* TeslaSEIExtractor.swift */; };
 		0200DEA12F855E26004768C2 /* TeslaTelemetryTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE9F2F855E26004768C2 /* TeslaTelemetryTrack.swift */; };
 		0200DEA22F855E26004768C2 /* TeslaTelemetryFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE9E2F855E26004768C2 /* TeslaTelemetryFrame.swift */; };
 		0200DEA32F855E26004768C2 /* TeslaSEISample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DE9D2F855E26004768C2 /* TeslaSEISample.swift */; };
 		0200DEAD2F855E3F004768C2 /* TeslaMP4SampleReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEA42F855E3F004768C2 /* TeslaMP4SampleReader.swift */; };
 		0200DEAF2F855E3F004768C2 /* TeslaNativeSEIExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEA62F855E3F004768C2 /* TeslaNativeSEIExtractor.swift */; };
-		0200DEB02F855E3F004768C2 /* TeslaSEIExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEA72F855E3F004768C2 /* TeslaSEIExtracting.swift */; };
-		0200DEB12F855E3F004768C2 /* TeslaSEIExtractionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEA82F855E3F004768C2 /* TeslaSEIExtractionError.swift */; };
 		0200DEB22F855E3F004768C2 /* TeslaSEINALUnitExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEA92F855E3F004768C2 /* TeslaSEINALUnitExtractor.swift */; };
 		0200DEB32F855E3F004768C2 /* TeslaSEIPayloadDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEAA2F855E3F004768C2 /* TeslaSEIPayloadDecoder.swift */; };
 		0200DEB42F855E3F004768C2 /* TeslaSEIProtobufDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200DEAB2F855E3F004768C2 /* TeslaSEIProtobufDecoder.swift */; };
@@ -61,6 +58,7 @@
 		02AF7A342F87A56E00D7B37C /* TeslaProtoModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02AF7A392F87A5AC00D7B37C /* dashcam.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AF7A222F8792F100D7B37C /* dashcam.pb.swift */; };
 		02AF7A3E2F87A61800D7B37C /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 02AF7A3D2F87A61800D7B37C /* SwiftProtobuf */; };
+		02AF7A432F87CA5E00D7B37C /* TeslaSEIExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AF7A422F87CA5E00D7B37C /* TeslaSEIExtracting.swift */; };
 		02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB06F2F6F785800CEC127 /* FilePicker.swift */; };
 		02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */; };
 		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
@@ -94,14 +92,11 @@
 
 /* Begin PBXFileReference section */
 		0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVVideoComposition+AsyncCIFilters.swift"; sourceTree = "<group>"; };
-		0200DE792F84F6DE004768C2 /* TeslaSEIExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIExtractor.swift; sourceTree = "<group>"; };
 		0200DE9D2F855E26004768C2 /* TeslaSEISample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEISample.swift; sourceTree = "<group>"; };
 		0200DE9E2F855E26004768C2 /* TeslaTelemetryFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTelemetryFrame.swift; sourceTree = "<group>"; };
 		0200DE9F2F855E26004768C2 /* TeslaTelemetryTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTelemetryTrack.swift; sourceTree = "<group>"; };
 		0200DEA42F855E3F004768C2 /* TeslaMP4SampleReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaMP4SampleReader.swift; sourceTree = "<group>"; };
 		0200DEA62F855E3F004768C2 /* TeslaNativeSEIExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaNativeSEIExtractor.swift; sourceTree = "<group>"; };
-		0200DEA72F855E3F004768C2 /* TeslaSEIExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIExtracting.swift; sourceTree = "<group>"; };
-		0200DEA82F855E3F004768C2 /* TeslaSEIExtractionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIExtractionError.swift; sourceTree = "<group>"; };
 		0200DEA92F855E3F004768C2 /* TeslaSEINALUnitExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEINALUnitExtractor.swift; sourceTree = "<group>"; };
 		0200DEAA2F855E3F004768C2 /* TeslaSEIPayloadDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIPayloadDecoder.swift; sourceTree = "<group>"; };
 		0200DEAB2F855E3F004768C2 /* TeslaSEIProtobufDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIProtobufDecoder.swift; sourceTree = "<group>"; };
@@ -145,6 +140,7 @@
 		02A75B032F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPlaybackViewModel.swift; sourceTree = "<group>"; };
 		02AF7A222F8792F100D7B37C /* dashcam.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dashcam.pb.swift; sourceTree = "<group>"; };
 		02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TeslaProtoModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		02AF7A422F87CA5E00D7B37C /* TeslaSEIExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaSEIExtracting.swift; sourceTree = "<group>"; };
 		02AFB0672F6F6FD300CEC127 /* TeslaCamViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeslaCamViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AFB06F2F6F785800CEC127 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -195,12 +191,11 @@
 		0200DEAC2F855E3F004768C2 /* SEI */ = {
 			isa = PBXGroup;
 			children = (
+				02AF7A422F87CA5E00D7B37C /* TeslaSEIExtracting.swift */,
 				021CB9322F85FE0C007D3A10 /* TeslaTelemetryDecoder.swift */,
 				021CB9252F85C761007D3A10 /* BitStream */,
 				0200DEA42F855E3F004768C2 /* TeslaMP4SampleReader.swift */,
 				0200DEA62F855E3F004768C2 /* TeslaNativeSEIExtractor.swift */,
-				0200DEA72F855E3F004768C2 /* TeslaSEIExtracting.swift */,
-				0200DEA82F855E3F004768C2 /* TeslaSEIExtractionError.swift */,
 				0200DEA92F855E3F004768C2 /* TeslaSEINALUnitExtractor.swift */,
 				0200DEAA2F855E3F004768C2 /* TeslaSEIPayloadDecoder.swift */,
 				0200DEAB2F855E3F004768C2 /* TeslaSEIProtobufDecoder.swift */,
@@ -301,7 +296,6 @@
 				02AFB0732F702EF300CEC127 /* TimestampBurner.swift */,
 				02AFB06F2F6F785800CEC127 /* FilePicker.swift */,
 				0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */,
-				0200DE792F84F6DE004768C2 /* TeslaSEIExtractor.swift */,
 				0200DEAC2F855E3F004768C2 /* SEI */,
 			);
 			path = Services;
@@ -477,8 +471,6 @@
 				0200DEAD2F855E3F004768C2 /* TeslaMP4SampleReader.swift in Sources */,
 				0200DEAF2F855E3F004768C2 /* TeslaNativeSEIExtractor.swift in Sources */,
 				021CB92F2F85FA3F007D3A10 /* SEIMessage.swift in Sources */,
-				0200DEB02F855E3F004768C2 /* TeslaSEIExtracting.swift in Sources */,
-				0200DEB12F855E3F004768C2 /* TeslaSEIExtractionError.swift in Sources */,
 				0200DEB22F855E3F004768C2 /* TeslaSEINALUnitExtractor.swift in Sources */,
 				0200DEB32F855E3F004768C2 /* TeslaSEIPayloadDecoder.swift in Sources */,
 				0200DEB42F855E3F004768C2 /* TeslaSEIProtobufDecoder.swift in Sources */,
@@ -507,8 +499,8 @@
 				020604782F7A51190054C569 /* TeslaCamBrowserViewModel.swift in Sources */,
 				02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */,
 				02A75AF62F7E541200B12388 /* TeslaCameraTrack.swift in Sources */,
-				0200DE7A2F84F6E1004768C2 /* TeslaSEIExtractor.swift in Sources */,
 				021CB9292F85C97A007D3A10 /* MP4SampleReader.swift in Sources */,
+				02AF7A432F87CA5E00D7B37C /* TeslaSEIExtracting.swift in Sources */,
 				020604862F7AA9360054C569 /* TeslaEventMetadata.swift in Sources */,
 				0200DE782F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift in Sources */,
 				0206047A2F7A51530054C569 /* FolderPicker.swift in Sources */,
