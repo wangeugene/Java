@@ -37,8 +37,8 @@ struct EventDetailContentView: View {
             timelineSection
             footer
         }
-        .padding(20)
-        .frame(maxWidth: 980, maxHeight: .infinity, alignment: .topLeading)
+        .padding(10)
+        .frame(minWidth: 960, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
             selectedTrack = mainTrack
         }
@@ -171,7 +171,7 @@ struct EventDetailContentView: View {
                 .foregroundStyle(.white)
             }
         }
-        .frame(maxWidth: 980, alignment: .leading)
+        .frame(minWidth: 720, maxWidth: 980,minHeight: 480, alignment: .leading)
         .aspectRatio(videoAspectRatio, contentMode: .fit)
         .overlay(alignment: .bottomLeading) {
             VStack(alignment: .leading, spacing: 8) {
@@ -407,6 +407,9 @@ private struct TrackPreviewCard: View {
     let event: TeslaEvent
     let isSelected: Bool
 
+    private var previewWidth: CGFloat { 132 }
+    private var previewHeight: CGFloat { 74 }
+
     private var firstClip: TeslaCameraClip? {
         track.clips.sorted { ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast) }.first
     }
@@ -416,7 +419,7 @@ private struct TrackPreviewCard: View {
             ZStack(alignment: .bottomLeading) {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.gray.opacity(0.16))
-                    .frame(width: 132, height: 74)
+                    .frame(width: previewWidth, height: previewHeight)
                     .overlay {
                         previewBackground
                     }
@@ -426,7 +429,7 @@ private struct TrackPreviewCard: View {
                     startPoint: .bottom,
                     endPoint: .top
                 )
-                .frame(width: 132, height: 74)
+                .frame(width: previewWidth, height: previewHeight)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 Text(track.camera.displayName)
@@ -457,7 +460,7 @@ private struct TrackPreviewCard: View {
             Image(nsImage: nsImage)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 132, height: 74)
+                .frame(width: previewWidth, height: previewHeight)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         } else {
             Image(systemName: "video")
