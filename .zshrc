@@ -256,7 +256,15 @@ tesla-sei() {
     return 1
   fi
 
-  "$venv_python" "$script" "$@"
+    # If xsv is available, pretty-print as table and pipe to less -S
+  if command -v xsv >/dev/null 2>&1; then
+    "$venv_python" "$script" "$@" 2>&1 | xsv table | less -S
+  else
+    # Fallback: use column formatting
+    "$venv_python" "$script" "$@" 2>&1 | column -s, -t | less -S
+  fi
+
+   # stderr → redirect to stdout "$venv_python" "$script" "$@" 2>&1
 }
 
 # ============================ End of Functions ===========================

@@ -157,8 +157,7 @@ private extension TeslaTrackClipExporter {
         currentPlaybackTime: CMTime,
         overlayCurrentTimestampText: String
     ) async throws -> AVVideoComposition {
-        let videoTracks = try await asset.loadTracks(withMediaType: .video)
-        guard let videoTrack = videoTracks.first else {
+        guard let videoTrack = asset.tracks(withMediaType: .video).first else {
             throw TeslaTrackClipExportError.missingVideoTrack
         }
 

@@ -3,6 +3,7 @@ import CoreMedia
 import Foundation
 
 struct TeslaMP4SampleReader {
+    // [length][NAL][length][NAL][length][NAL]... return: Data = [length][NAL]
     func readVideoSamples(from clipURL: URL) async throws -> [Data] {
         let asset = AVURLAsset(url: clipURL)
         let videoTracks = try await asset.loadTracks(withMediaType: .video)

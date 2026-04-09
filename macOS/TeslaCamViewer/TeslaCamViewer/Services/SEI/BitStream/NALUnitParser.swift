@@ -38,9 +38,14 @@ struct NALUnitParser {
                 throw BitstreamError.invalidNALLength
             }
 
-            let payload = sampleData.subdata(in: offset..<(offset + length))
-            let type = classifyNALUnitType(from: payload)
-            nalUnits.append(NALUnit(type: type, payload: payload))
+            // nalData = [nal header][nal payload], [nal header] contains [nal type]
+            // NAL Unit = [NAL header (1 byte)] + [EBSP payload], EBSP = RBSP + emulation prevention bytes
+            // NAL header = | F | NRI | TYPE |
+            // RBSP = Raw Bytes Sequence Payload
+            // When NAL type == 6 (H.264 SEI), then RSBP payload = [payloadType / payloadSize / data] [payloadType / payloadSize / data]...
+            let nalData = sampleData.subdata(in: offset..<(offset + length))
+            let nalType = classifyNALUnitType(from: nalData)
+            nalUnits.append(NALUnit(type: nalType, payload: nalData))
             offset += length
         }
 

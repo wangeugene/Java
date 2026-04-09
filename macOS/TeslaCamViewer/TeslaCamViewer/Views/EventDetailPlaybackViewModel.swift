@@ -20,16 +20,14 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     @Published var lastExportedClipURL: URL?
     @Published var lastExportedSnapshotURL: URL?
 
-    let player = AVPlayer()
+    nonisolated(unsafe) let player = AVPlayer()
     
-    private var timeObserverToken: Any?
+    nonisolated(unsafe) private var timeObserverToken: Any?
 
     deinit {
-        let token = timeObserverToken
-        let player = player
-
-        if let token {
-            Task { @MainActor in
+        if let token = timeObserverToken {
+            let player = player
+            DispatchQueue.main.async {
                 player.removeTimeObserver(token)
             }
         }

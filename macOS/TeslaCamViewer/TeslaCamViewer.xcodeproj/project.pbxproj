@@ -57,12 +57,40 @@
 		02A75B002F7E6DE600B12388 /* TeslaTrackCompositionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75AFF2F7E6DE200B12388 /* TeslaTrackCompositionBuilder.swift */; };
 		02A75B022F7E784100B12388 /* TeslaTrackCompositionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75B012F7E784100B12388 /* TeslaTrackCompositionError.swift */; };
 		02A75B042F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75B032F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift */; };
+		02AF7A332F87A56E00D7B37C /* TeslaProtoModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */; };
+		02AF7A342F87A56E00D7B37C /* TeslaProtoModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02AF7A392F87A5AC00D7B37C /* dashcam.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AF7A222F8792F100D7B37C /* dashcam.pb.swift */; };
+		02AF7A3E2F87A61800D7B37C /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 02AF7A3D2F87A61800D7B37C /* SwiftProtobuf */; };
 		02AFB0702F6F785800CEC127 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB06F2F6F785800CEC127 /* FilePicker.swift */; };
 		02AFB0722F6F7A9500CEC127 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */; };
 		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
 		02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */; };
 		02C3F99F2F7F863300F8A43A /* TeslaTrackClipExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		02AF7A312F87A56E00D7B37C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 029380BE2F6E954900F08527 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02AF7A2A2F87A56E00D7B37C;
+			remoteInfo = TeslaProtoModels;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		02AF7A352F87A56E00D7B37C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				02AF7A342F87A56E00D7B37C /* TeslaProtoModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0200DE772F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVVideoComposition+AsyncCIFilters.swift"; sourceTree = "<group>"; };
@@ -115,6 +143,8 @@
 		02A75AFF2F7E6DE200B12388 /* TeslaTrackCompositionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackCompositionBuilder.swift; sourceTree = "<group>"; };
 		02A75B012F7E784100B12388 /* TeslaTrackCompositionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackCompositionError.swift; sourceTree = "<group>"; };
 		02A75B032F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPlaybackViewModel.swift; sourceTree = "<group>"; };
+		02AF7A222F8792F100D7B37C /* dashcam.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dashcam.pb.swift; sourceTree = "<group>"; };
+		02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TeslaProtoModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AFB0672F6F6FD300CEC127 /* TeslaCamViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeslaCamViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AFB06F2F6F785800CEC127 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		02AFB0712F6F7A9500CEC127 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -123,11 +153,28 @@
 		02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackClipExporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		02AF7A2C2F87A56E00D7B37C /* TeslaProtoModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TeslaProtoModels;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		029380C32F6E954900F08527 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02AF7A332F87A56E00D7B37C /* TeslaProtoModels.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02AF7A282F87A56E00D7B37C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02AF7A3E2F87A61800D7B37C /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,12 +225,16 @@
 			children = (
 				029380D92F6EAB9600F08527 /* TeslaCamViewer */,
 				02AFB0672F6F6FD300CEC127 /* TeslaCamViewer.app */,
+				02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */,
+				02AF7A2C2F87A56E00D7B37C /* TeslaProtoModels */,
+				02AF7A3A2F87A5F500D7B37C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		029380D92F6EAB9600F08527 /* TeslaCamViewer */ = {
 			isa = PBXGroup;
 			children = (
+				02AF7A242F8792F100D7B37C /* Generated */,
 				02AFB06E2F6F715500CEC127 /* App */,
 				02AFB0692F6F711200CEC127 /* Models */,
 				02AFB06A2F6F711200CEC127 /* Services */,
@@ -192,6 +243,29 @@
 				029380D62F6EAB9600F08527 /* Assets.xcassets */,
 			);
 			path = TeslaCamViewer;
+			sourceTree = "<group>";
+		};
+		02AF7A232F8792F100D7B37C /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				02AF7A222F8792F100D7B37C /* dashcam.pb.swift */,
+			);
+			path = Proto;
+			sourceTree = "<group>";
+		};
+		02AF7A242F8792F100D7B37C /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				02AF7A232F8792F100D7B37C /* Proto */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		02AF7A3A2F87A5F500D7B37C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		02AFB0692F6F711200CEC127 /* Models */ = {
@@ -270,6 +344,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		02AF7A262F87A56E00D7B37C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		029380C52F6E954900F08527 /* TeslaCamViewer */ = {
 			isa = PBXNativeTarget;
@@ -278,10 +362,12 @@
 				029380C22F6E954900F08527 /* Sources */,
 				029380C32F6E954900F08527 /* Frameworks */,
 				029380C42F6E954900F08527 /* Resources */,
+				02AF7A352F87A56E00D7B37C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				02AF7A322F87A56E00D7B37C /* PBXTargetDependency */,
 			);
 			name = TeslaCamViewer;
 			packageProductDependencies = (
@@ -290,6 +376,30 @@
 			productReference = 02AFB0672F6F6FD300CEC127 /* TeslaCamViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		02AF7A2A2F87A56E00D7B37C /* TeslaProtoModels */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02AF7A382F87A56E00D7B37C /* Build configuration list for PBXNativeTarget "TeslaProtoModels" */;
+			buildPhases = (
+				02AF7A262F87A56E00D7B37C /* Headers */,
+				02AF7A272F87A56E00D7B37C /* Sources */,
+				02AF7A282F87A56E00D7B37C /* Frameworks */,
+				02AF7A292F87A56E00D7B37C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				02AF7A2C2F87A56E00D7B37C /* TeslaProtoModels */,
+			);
+			name = TeslaProtoModels;
+			packageProductDependencies = (
+				02AF7A3D2F87A61800D7B37C /* SwiftProtobuf */,
+			);
+			productName = TeslaProtoModels;
+			productReference = 02AF7A2B2F87A56E00D7B37C /* TeslaProtoModels.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -297,11 +407,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
+				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					029380C52F6E954900F08527 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					02AF7A2A2F87A56E00D7B37C = {
+						CreatedOnToolsVersion = 26.4;
 					};
 				};
 			};
@@ -314,12 +427,16 @@
 			);
 			mainGroup = 029380BD2F6E954900F08527;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				02AF7A1F2F87923800D7B37C /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 029380BD2F6E954900F08527;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				029380C52F6E954900F08527 /* TeslaCamViewer */,
+				02AF7A2A2F87A56E00D7B37C /* TeslaProtoModels */,
 			);
 		};
 /* End PBXProject section */
@@ -330,6 +447,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				029380DA2F6EAB9600F08527 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02AF7A292F87A56E00D7B37C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +521,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		02AF7A272F87A56E00D7B37C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02AF7A392F87A5AC00D7B37C /* dashcam.pb.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02AF7A322F87A56E00D7B37C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02AF7A2A2F87A56E00D7B37C /* TeslaProtoModels */;
+			targetProxy = 02AF7A312F87A56E00D7B37C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		029380CF2F6E954A00F08527 /* Debug */ = {
@@ -563,7 +703,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -610,6 +750,84 @@
 			};
 			name = Release;
 		};
+		02AF7A362F87A56E00D7B37C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N5NMQ67M4X;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugene.TeslaProtoModels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		02AF7A372F87A56E00D7B37C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N5NMQ67M4X;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugene.TeslaProtoModels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -631,7 +849,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		02AF7A382F87A56E00D7B37C /* Build configuration list for PBXNativeTarget "TeslaProtoModels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02AF7A362F87A56E00D7B37C /* Debug */,
+				02AF7A372F87A56E00D7B37C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02AF7A1F2F87923800D7B37C /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.36.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		02AF7A3D2F87A61800D7B37C /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02AF7A1F2F87923800D7B37C /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 029380BE2F6E954900F08527 /* Project object */;
 }

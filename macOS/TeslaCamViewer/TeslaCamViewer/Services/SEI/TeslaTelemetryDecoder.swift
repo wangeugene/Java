@@ -18,17 +18,35 @@ import Foundation
 struct TeslaTelemetryDecoder {
 
     func decode(from message: SEIMessage, sourceClipURL: URL) -> TeslaSEISample? {
-        // Only handle Tesla-style user_data_unregistered
+        // NAL UNIT = [ NAL HEADER ] [ NAL UNIT ]
+        // NAL HEADER = [ F ] [ NRL ] [ TYPE ] , F = Fixed Bit; NRL =
+        // Only handle SEI user_data_unregistered messages (payloadType == 5)
+        //     •    NAL type for SEI is 6
+        // •    SEI message payloadType == 5 is user_data_unregistered
         guard message.payloadType == 5 else { return nil }
 
+        
+        
+        // SEIMessage.payloadData
+        // [UUID (16 bytes)] + [Tesla telemetry binary data] = payloadData
         let data = message.payloadData
+        print("message.payloadType:", message.payloadType)
+        print("message.payloadSize:", message.payloadSize)
+        print("message.uuid:", message.uuid?.uuidString ?? "nil")
+
+        let hex = data.prefix(32).map { String(format: "%02X", $0) }.joined(separator: " ")
+        print("payloadData first 32 bytes:", hex)
+        
         guard data.count >= 16 else { return nil }
 
+        // payload = [UUID][Tesla Telemetry Data]
+        let payload = data.dropFirst(16)   // 🔥 remove UUID
+
         // Temporary heuristic decoding (will refine later)
-        let speed = readFloat(data, offset: 0)
-        let accelX = readFloat(data, offset: 4)
-        let accelY = readFloat(data, offset: 8)
-        let accelZ = readFloat(data, offset: 12)
+        let speed = readFloat(payload, offset: 0)
+        let accelX = readFloat(payload, offset: 4)
+        let accelY = readFloat(payload, offset: 8)
+        let accelZ = readFloat(payload, offset: 12)
 
         return TeslaSEISample(
             version: nil,
@@ -57,7 +75,10 @@ private extension TeslaTelemetryDecoder {
     func readFloat(_ data: Data, offset: Int) -> Float? {
         guard offset + 4 <= data.count else { return nil }
 
-        return data.subdata(in: offset..<(offset + 4))
-            .withUnsafeBytes { $0.load(as: Float.self) }
+        let value: UInt32 = data.withUnsafeBytes { rawBuffer in
+            rawBuffer.loadUnaligned(fromByteOffset: offset, as: UInt32.self)
+        }
+
+        return Float(bitPattern: UInt32(littleEndian: value))
     }
 }

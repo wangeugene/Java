@@ -58,7 +58,7 @@ struct TeslaSEIPayloadDecoder {
             if payloadType == 5, rawMessageData.count >= 16 {
                 let uuidBytes = rawMessageData.prefix(16)
                 uuid = uuidFromBytes(Data(uuidBytes))
-                payloadData = rawMessageData.dropFirst(16)
+                payloadData = Data(rawMessageData.dropFirst(16))
             } else {
                 uuid = nil
                 payloadData = rawMessageData
