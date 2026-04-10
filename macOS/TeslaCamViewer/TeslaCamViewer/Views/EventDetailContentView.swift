@@ -31,6 +31,7 @@ struct EventDetailContentView: View {
             mainPreviewSection
             previewStrip
         }
+        .frame(minWidth: 720, maxWidth: 980, alignment: .leading)
         .padding(10)
         .frame(minWidth: 960, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
@@ -70,7 +71,7 @@ struct EventDetailContentView: View {
             if playbackViewModel.composedTrack != nil {
                 VideoPlayer(player: playbackViewModel.player)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .overlay(alignment: .topLeading) {
+                    .overlay(alignment: .topTrailing) {
                         if !playbackViewModel.overlayTimestampText.isEmpty {
                             Text(playbackViewModel.overlayTimestampText)
                                 .font(.system(size: 13, weight: .semibold, design: .monospaced))
@@ -96,7 +97,7 @@ struct EventDetailContentView: View {
                 .foregroundStyle(.white)
             }
         }
-        .frame(minWidth: 720, maxWidth: 980,minHeight: 480, alignment: .leading)
+        .frame(minHeight: 480, alignment: .leading)
         .aspectRatio(videoAspectRatio, contentMode: .fit)
         .overlay(alignment: .bottomLeading) {
             VStack(alignment: .leading, spacing: 8) {

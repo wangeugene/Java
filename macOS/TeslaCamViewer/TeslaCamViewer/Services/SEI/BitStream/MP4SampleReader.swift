@@ -47,13 +47,11 @@ struct MP4SampleReader {
             defer { sampleIndex += 1 }
 
             guard let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer) else {
-                print("MP4SampleReader: sample \(sampleIndex) has no CMBlockBuffer")
                 continue
             }
 
             let length = CMBlockBufferGetDataLength(blockBuffer)
             guard length > 0 else {
-                print("MP4SampleReader: sample \(sampleIndex) has zero-length block buffer")
                 continue
             }
 
