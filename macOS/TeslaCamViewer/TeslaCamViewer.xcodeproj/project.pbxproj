@@ -64,6 +64,10 @@
 		02AFB0742F702EF300CEC127 /* TimestampBurner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFB0732F702EF300CEC127 /* TimestampBurner.swift */; };
 		02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */; };
 		02C3F99F2F7F863300F8A43A /* TeslaTrackClipExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */; };
+		02D109BF2F8914480048670C /* EventDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BB2F8914480048670C /* EventDetailFooterView.swift */; };
+		02D109C02F8914480048670C /* TrackPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BE2F8914480048670C /* TrackPreviewCard.swift */; };
+		02D109C12F8914480048670C /* EventDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BC2F8914480048670C /* EventDetailHeaderView.swift */; };
+		02D109C22F8914480048670C /* EventDetailTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BD2F8914480048670C /* EventDetailTimelineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +151,10 @@
 		02AFB0732F702EF300CEC127 /* TimestampBurner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampBurner.swift; sourceTree = "<group>"; };
 		02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackFrameExporter.swift; sourceTree = "<group>"; };
 		02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTrackClipExporter.swift; sourceTree = "<group>"; };
+		02D109BB2F8914480048670C /* EventDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailFooterView.swift; sourceTree = "<group>"; };
+		02D109BC2F8914480048670C /* EventDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailHeaderView.swift; sourceTree = "<group>"; };
+		02D109BD2F8914480048670C /* EventDetailTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailTimelineView.swift; sourceTree = "<group>"; };
+		02D109BE2F8914480048670C /* TrackPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPreviewCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -315,6 +323,10 @@
 		02AFB06D2F6F711200CEC127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				02D109BB2F8914480048670C /* EventDetailFooterView.swift */,
+				02D109BC2F8914480048670C /* EventDetailHeaderView.swift */,
+				02D109BD2F8914480048670C /* EventDetailTimelineView.swift */,
+				02D109BE2F8914480048670C /* TrackPreviewCard.swift */,
 				02A75B032F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift */,
 				0206048B2F7B5B650054C569 /* EventDetailContentView.swift */,
 				020604832F7A7BB40054C569 /* EventThumbnailView.swift */,
@@ -478,6 +490,10 @@
 				02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */,
 				020604822F7A71C90054C569 /* TeslaEventBuilder.swift in Sources */,
 				0206047E2F7A519C0054C569 /* EventFolderListView.swift in Sources */,
+				02D109BF2F8914480048670C /* EventDetailFooterView.swift in Sources */,
+				02D109C02F8914480048670C /* TrackPreviewCard.swift in Sources */,
+				02D109C12F8914480048670C /* EventDetailHeaderView.swift in Sources */,
+				02D109C22F8914480048670C /* EventDetailTimelineView.swift in Sources */,
 				02A75B002F7E6DE600B12388 /* TeslaTrackCompositionBuilder.swift in Sources */,
 				02A75AFC2F7E55DA00B12388 /* TimelineCropSelection.swift in Sources */,
 				0206047C2F7A518F0054C569 /* SidebarView.swift in Sources */,
