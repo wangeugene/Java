@@ -20,7 +20,7 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     @Published var lastExportedClipURL: URL?
     @Published var lastExportedSnapshotURL: URL?
 
-    nonisolated(unsafe) let player = AVPlayer()
+    let player = AVPlayer()
     
     nonisolated(unsafe) private var timeObserverToken: Any?
 

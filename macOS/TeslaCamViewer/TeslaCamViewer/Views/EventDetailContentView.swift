@@ -31,11 +31,8 @@ struct EventDetailContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            header
             mainPreviewSection
             previewStrip
-            timelineSection
-            footer
         }
         .padding(10)
         .frame(minWidth: 960, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
