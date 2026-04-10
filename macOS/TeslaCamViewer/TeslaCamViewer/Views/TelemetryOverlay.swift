@@ -1,0 +1,175 @@
+//
+//  SpeedOverlayView.swift
+//  TeslaCamViewer
+//
+//  Created by euwang on 4/10/26.
+//
+
+import SwiftUI
+
+struct TelemetryOverlayModel: Equatable {
+    var gearText: String
+    var speedText: String
+    var unitText: String
+    var batteryText: String
+    var autopilotActive: Bool
+    var leftIndicatorVisible: Bool
+    var rightIndicatorVisible: Bool
+
+    static let preview = TelemetryOverlayModel(
+        gearText: "D",
+        speedText: "54",
+        unitText: "km/h",
+        batteryText: "81%",
+        autopilotActive: false,
+        leftIndicatorVisible: true,
+        rightIndicatorVisible: true
+    )
+}
+
+struct TelemetryOverlayView: View {
+    let model: TelemetryOverlayModel
+
+    var body: some View {
+        HStack(spacing: 18) {
+            VStack(spacing: 10) {
+                TelemetryGearView(text: model.gearText)
+                TelemetryPedalBarView(value: 0.5, color: .red)
+            }
+
+            TelemetryBlinkerView(direction: .left, isVisible: model.leftIndicatorVisible)
+
+            TelemetrySpeedBlockView(
+                speedText: model.speedText,
+                unitText: model.unitText
+            )
+
+            TelemetryBlinkerView(direction: .right, isVisible: model.rightIndicatorVisible)
+
+            VStack(spacing: 10) {
+                TelemetrySteeringWheelView(isActive: model.autopilotActive)
+                TelemetryPedalBarView(value: 0.7, color: .green)
+            }
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 14)
+        .frame(width: 380, height: 110)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(.ultraThinMaterial)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .strokeBorder(.white.opacity(0.16), lineWidth: 1)
+        )
+        .shadow(radius: 10, y: 4)
+        .scaleEffect(0.8)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Speed \(model.speedText) \(model.unitText), gear \(model.gearText), battery \(model.batteryText)")
+    }
+}
+
+private struct TelemetryGearView: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.system(size: 18, weight: .medium, design: .rounded))
+            .foregroundStyle(.primary.opacity(0.85))
+            .frame(width: 24)
+    }
+}
+
+private enum TelemetryBlinkerDirection {
+    case left
+    case right
+}
+
+private struct TelemetryBlinkerView: View {
+    let direction: TelemetryBlinkerDirection
+    let isVisible: Bool
+
+    private var systemImageName: String {
+        switch direction {
+        case .left:
+            return "arrowtriangle.left.fill"
+        case .right:
+            return "arrowtriangle.right.fill"
+        }
+    }
+
+    var body: some View {
+        Image(systemName: systemImageName)
+            .font(.system(size: 11, weight: .bold))
+            .foregroundStyle(.green.opacity(isVisible ? 0.95 : 0.0))
+            .frame(width: 14, height: 14)
+            .animation(.easeInOut(duration: 0.2), value: isVisible)
+            .accessibilityHidden(true)
+    }
+}
+
+private struct TelemetrySpeedBlockView: View {
+    let speedText: String
+    let unitText: String
+
+    var body: some View {
+        VStack(spacing: 2) {
+            Text(speedText)
+                .font(.system(size: 42, weight: .regular, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(.primary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+
+            Text(unitText)
+                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+private struct TelemetrySteeringWheelView: View {
+    let isActive: Bool
+
+    var body: some View {
+        Image(systemName: "steeringwheel")
+            .font(.system(size: 17, weight: .medium))
+            .foregroundStyle(isActive ? .blue : .primary.opacity(0.7))
+            .frame(width: 20, height: 20)
+    }
+}
+
+
+struct TelemetryPedalBarView: View {
+    let value: Double   // 0...1
+    let color: Color
+
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Capsule()
+                .fill(.white.opacity(0.15))
+
+            Capsule()
+                .fill(color)
+                .frame(maxHeight: .infinity)
+                .scaleEffect(y: value, anchor: .bottom)
+                .animation(.easeOut(duration: 0.15), value: value)
+        }
+        .frame(width: 8, height: 28)
+    }
+}
+
+#Preview {
+    ZStack {
+        LinearGradient(
+            colors: [.green.opacity(0.45), .gray.opacity(0.2)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+
+        TelemetryOverlayView(model: .preview)
+            .padding()
+    }
+    .frame(width: 460, height: 200)
+}

@@ -92,6 +92,10 @@ struct EventDetailContentView: View {
                 )
                 .foregroundStyle(.white)
             }
+            
+            TelemetryOverlayView(model: .preview)
+                .padding(.top, 5)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .frame(minHeight: 480, alignment: .leading)
         .aspectRatio(videoAspectRatio, contentMode: .fit)

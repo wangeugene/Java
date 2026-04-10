@@ -68,6 +68,8 @@
 		02D109C02F8914480048670C /* TrackPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BE2F8914480048670C /* TrackPreviewCard.swift */; };
 		02D109C12F8914480048670C /* EventDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BC2F8914480048670C /* EventDetailHeaderView.swift */; };
 		02D109C22F8914480048670C /* EventDetailTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109BD2F8914480048670C /* EventDetailTimelineView.swift */; };
+		02D109C42F8932450048670C /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109C32F8932450048670C /* ArrowShape.swift */; };
+		02D109C62F8932E70048670C /* TelemetryOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D109C52F8932D70048670C /* TelemetryOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +157,8 @@
 		02D109BC2F8914480048670C /* EventDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailHeaderView.swift; sourceTree = "<group>"; };
 		02D109BD2F8914480048670C /* EventDetailTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailTimelineView.swift; sourceTree = "<group>"; };
 		02D109BE2F8914480048670C /* TrackPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPreviewCard.swift; sourceTree = "<group>"; };
+		02D109C32F8932450048670C /* ArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
+		02D109C52F8932D70048670C /* TelemetryOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -323,6 +327,8 @@
 		02AFB06D2F6F711200CEC127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				02D109C52F8932D70048670C /* TelemetryOverlay.swift */,
+				02D109C32F8932450048670C /* ArrowShape.swift */,
 				02D109BB2F8914480048670C /* EventDetailFooterView.swift */,
 				02D109BC2F8914480048670C /* EventDetailHeaderView.swift */,
 				02D109BD2F8914480048670C /* EventDetailTimelineView.swift */,
@@ -491,7 +497,9 @@
 				020604822F7A71C90054C569 /* TeslaEventBuilder.swift in Sources */,
 				0206047E2F7A519C0054C569 /* EventFolderListView.swift in Sources */,
 				02D109BF2F8914480048670C /* EventDetailFooterView.swift in Sources */,
+				02D109C62F8932E70048670C /* TelemetryOverlay.swift in Sources */,
 				02D109C02F8914480048670C /* TrackPreviewCard.swift in Sources */,
+				02D109C42F8932450048670C /* ArrowShape.swift in Sources */,
 				02D109C12F8914480048670C /* EventDetailHeaderView.swift in Sources */,
 				02D109C22F8914480048670C /* EventDetailTimelineView.swift in Sources */,
 				02A75B002F7E6DE600B12388 /* TeslaTrackCompositionBuilder.swift in Sources */,
@@ -677,6 +685,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -721,6 +730,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -763,7 +773,7 @@
 		02AF7A362F87A56E00D7B37C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -802,7 +812,7 @@
 		02AF7A372F87A56E00D7B37C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
