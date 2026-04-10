@@ -67,8 +67,6 @@ final class TeslaCamBrowserViewModel: ObservableObject {
             do {
                 let reader = MP4SampleReader()
                 let samples = try await reader.readVideoSamples(from: clipURL)
-                print("Sample count:", samples.count)
-                print("First sample size:", samples.first?.count ?? 0)
             } catch {
                 print("Sample read failed:", error.localizedDescription)
             }

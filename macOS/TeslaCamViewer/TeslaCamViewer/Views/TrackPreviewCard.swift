@@ -5,11 +5,13 @@
 
 import SwiftUI
 import AppKit
+import AVKit
 
 struct TrackPreviewCard: View {
     let track: TeslaCameraTrack
     let event: TeslaEvent
     let isSelected: Bool
+    let player: AVPlayer?
 
     private var previewWidth: CGFloat { 132 }
     private var previewHeight: CGFloat { 74 }
@@ -59,7 +61,12 @@ struct TrackPreviewCard: View {
 
     @ViewBuilder
     private var previewBackground: some View {
-        if let thumbnailURL = event.thumbnailURL,
+        if let player = player {
+            VideoPlayer(player: player)
+                .disabled(true)
+                .frame(width: previewWidth, height: previewHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+        } else if let thumbnailURL = event.thumbnailURL,
            let nsImage = NSImage(contentsOf: thumbnailURL) {
             Image(nsImage: nsImage)
                 .resizable()

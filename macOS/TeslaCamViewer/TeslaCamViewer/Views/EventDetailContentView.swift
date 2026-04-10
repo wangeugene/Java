@@ -34,22 +34,18 @@ struct EventDetailContentView: View {
         .frame(minWidth: 720, maxWidth: 980, alignment: .leading)
         .padding(10)
         .frame(minWidth: 960, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .onAppear {
-            selectedTrack = mainTrack
-        }
-        .onChange(of: event.id) { _, _ in
-            selectedTrack = event.track(for: .front) ?? event.tracks.first
-            timelineValue = 0
+        .task(id: event.id) {
+            await playbackViewModel.load(event: event)
+            if let track = event.track(for: .front) ?? event.tracks.first {
+                selectedTrack = track
+                timelineValue = 0
+            }
         }
         .onChange(of: selectedTrackLoadKey) { _, _ in
-            guard let track = selectedTrack else {
-                playbackViewModel.player.replaceCurrentItem(with: nil)
-                return
-            }
-
+            guard let track = selectedTrack else { return }
             Task {
-                await updateAspectRatio(for: track)   // 👈 HERE
-                await playbackViewModel.load(track: track)
+                await updateAspectRatio(for: track)
+                await playbackViewModel.select(track: track)
             }
         }
     }
@@ -113,6 +109,7 @@ struct EventDetailContentView: View {
         }
     }
 
+    
     private var previewStrip: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
@@ -123,7 +120,8 @@ struct EventDetailContentView: View {
                         TrackPreviewCard(
                             track: track,
                             event: event,
-                            isSelected: track.id == mainTrack?.id
+                            isSelected: track.id == mainTrack?.id,
+                            player: playbackViewModel.trackPlayers[track.id]
                         )
                     }
                     .buttonStyle(.plain)

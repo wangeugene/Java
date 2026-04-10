@@ -20,11 +20,19 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     @Published var lastExportedClipURL: URL?
     @Published var lastExportedSnapshotURL: URL?
 
+    // Master player for the main view
     let player = AVPlayer()
     
+    // Mini players for the preview strip cards
+    @Published private(set) var trackPlayers: [String: AVPlayer] = [:]
+    
+    private var allComposedTracks: [String: TeslaComposedTrack] = [:]
+    
     nonisolated(unsafe) private var timeObserverToken: Any?
+    nonisolated(unsafe) private var rateObserver: NSKeyValueObservation?
 
     deinit {
+        rateObserver?.invalidate()
         if let token = timeObserverToken {
             let player = player
             DispatchQueue.main.async {
@@ -33,28 +41,85 @@ final class EventDetailPlaybackViewModel: ObservableObject {
         }
     }
     
-    func load(track: TeslaCameraTrack) async {
+    func load(event: TeslaEvent) async {
+        player.pause()
+        for p in trackPlayers.values { p.pause() }
+        
         do {
-            let composed = try await TeslaTrackCompositionBuilder.build(from: track)
-            selectedTrack = track
-            composedTrack = composed
-            errorMessage = nil
+            var newComposed: [String: TeslaComposedTrack] = [:]
+            var newPlayers: [String: AVPlayer] = [:]
+            
+            // Build player items for all mini track preview cards
+            for track in event.tracks {
+                let composed = try await TeslaTrackCompositionBuilder.build(from: track)
+                newComposed[track.id] = composed
+                
+                let miniPlayer = AVPlayer(playerItem: composed.playerItem)
+                miniPlayer.isMuted = true
+                newPlayers[track.id] = miniPlayer
+            }
+            
+            self.allComposedTracks = newComposed
+            self.trackPlayers = newPlayers
+            self.errorMessage = nil
+            
+        } catch {
+            self.errorMessage = "Failed to load event tracks: \(error.localizedDescription)"
+            self.allComposedTracks = [:]
+            self.trackPlayers = [:]
+        }
+    }
 
-            removeTimeObserver()
-            player.pause()
-            player.replaceCurrentItem(with: composed.playerItem)
+    func select(track: TeslaCameraTrack) async {
+        guard let _ = allComposedTracks[track.id] else { return }
+        
+        selectedTrack = track
+        removeTimeObserver()
+        rateObserver?.invalidate()
+        player.pause()
+
+        do {
+            // Build a brand new AVPlayerItem for the master player since items cannot be shared
+            let masterComposed = try await TeslaTrackCompositionBuilder.build(from: track)
+            composedTrack = masterComposed
+            
+            player.replaceCurrentItem(with: masterComposed.playerItem)
+            
+            // Synchronize master player to whatever time the mini players are currently at
+            if let firstMiniPlayer = trackPlayers.values.first {
+                 await player.seek(to: firstMiniPlayer.currentTime(), toleranceBefore: .zero, toleranceAfter: .zero)
+            }
+            
             installTimeObserver()
+            installRateObserver()
+            
             player.play()
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Failed to build master view: \(error.localizedDescription)"
             composedTrack = nil
             overlayTimestampText = ""
             player.replaceCurrentItem(with: nil)
         }
     }
 
+    private func installRateObserver() {
+        rateObserver = player.observe(\.rate, options: [.new]) { [weak self] player, change in
+            guard let self = self, let rate = change.newValue else { return }
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                for p in self.trackPlayers.values {
+                    if rate == 0 {
+                        p.pause()
+                    } else {
+                        p.play()
+                    }
+                }
+            }
+        }
+    }
+
     private func installTimeObserver() {
-        let interval = CMTime(seconds: 0.2, preferredTimescale: 600)
+        let interval = CMTime(seconds: 0.1, preferredTimescale: 600)
 
         timeObserverToken = player.addPeriodicTimeObserver(
             forInterval: interval,
@@ -62,7 +127,23 @@ final class EventDetailPlaybackViewModel: ObservableObject {
         ) { [weak self] currentTime in
             guard let self else { return }
             Task { @MainActor [weak self] in
-                self?.updateOverlayTimestamp(currentTime: currentTime)
+                guard let self else { return }
+                self.updateOverlayTimestamp(currentTime: currentTime)
+                
+                // If paused (scrubbing), continuously sync mini players to the scrubbed time frame
+                if self.player.rate == 0 {
+                    for p in self.trackPlayers.values {
+                        p.seek(to: currentTime, toleranceBefore: .zero, toleranceAfter: .zero)
+                    }
+                } else {
+                    // Check for drift during playback
+                    for p in self.trackPlayers.values {
+                        let diff = abs(p.currentTime().seconds - currentTime.seconds)
+                        if diff > 0.5 {
+                            p.seek(to: currentTime, toleranceBefore: .zero, toleranceAfter: .zero)
+                        }
+                    }
+                }
             }
         }
     }
@@ -118,19 +199,7 @@ final class EventDetailPlaybackViewModel: ObservableObject {
             do {
                 let extractor = TeslaNativeSEIExtractor()
                 let samples = try await extractor.extract(from: clipURL)
-
                 print("Native SEI extract sample count:", samples.count)
-
-                for (index, sample) in samples.prefix(5).enumerated() {
-                    print("Decoded sample \(index):")
-                    print("  sourceClipURL:", sample.sourceClipURL?.lastPathComponent ?? "nil")
-                    print("  vehicleSpeedMps:", sample.vehicleSpeedMps as Any)
-                    print("  accelX:", sample.linearAccelerationMps2X as Any)
-                    print("  accelY:", sample.linearAccelerationMps2Y as Any)
-                    print("  accelZ:", sample.linearAccelerationMps2Z as Any)
-                    print("  latitudeDeg:", sample.latitudeDeg as Any)
-                    print("  longitudeDeg:", sample.longitudeDeg as Any)
-                }
             } catch {
                 print("Native SEI extract failed:", error.localizedDescription)
             }
@@ -138,22 +207,12 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     }
     
     func debugReadSamples() {
-        guard let firstClip = selectedTrack?.clips.first
-              else {
-                    print("No clip available")
-                return
-                }
-
+        guard let firstClip = selectedTrack?.clips.first else { return }
         let clipURL = firstClip.url
-
         Task {
             do {
                 let reader = TeslaMP4SampleReader()
-                let samples = try await reader.readVideoSamples(from: clipURL)
-
-                print("Sample count:", samples.count)
-                print("First sample size:", samples.first?.count ?? 0)
-
+                _ = try await reader.readVideoSamples(from: clipURL)
             } catch {
                 print("Read failed:", error.localizedDescription)
             }
