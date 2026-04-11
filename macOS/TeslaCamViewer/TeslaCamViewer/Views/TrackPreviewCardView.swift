@@ -7,7 +7,7 @@ import SwiftUI
 import AppKit
 import AVKit
 
-struct TrackPreviewCard: View {
+struct TrackPreviewCardView: View {
     let track: TeslaCameraTrack
     let event: TeslaEvent
     let isSelected: Bool
@@ -45,7 +45,7 @@ struct TrackPreviewCard: View {
                     .padding(8)
             }
 
-            Text(firstClip?.timestamp.map(Self.timeFormatter.string(from:)) ?? event.formattedDate)
+            Text(firstClip?.timestamp.map(TrackPreviewCardView.timeFormatter.string(from:)) ?? event.formattedDate)
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .lineLimit(1)

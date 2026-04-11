@@ -7,28 +7,9 @@
 
 import SwiftUI
 
-struct TelemetryOverlayModel: Equatable {
-    var gearText: String
-    var speedText: String
-    var unitText: String
-    var batteryText: String
-    var autopilotActive: Bool
-    var leftIndicatorVisible: Bool
-    var rightIndicatorVisible: Bool
-
-    static let preview = TelemetryOverlayModel(
-        gearText: "D",
-        speedText: "54",
-        unitText: "km/h",
-        batteryText: "81%",
-        autopilotActive: false,
-        leftIndicatorVisible: true,
-        rightIndicatorVisible: true
-    )
-}
 
 struct TelemetryOverlayView: View {
-    let model: TelemetryOverlayModel
+    let model: TelemetryOverlay
 
     var body: some View {
         HStack(spacing: 18) {
@@ -37,14 +18,14 @@ struct TelemetryOverlayView: View {
                 TelemetryPedalBarView(value: 0.5, color: .red)
             }
 
-            TelemetryBlinkerView(direction: .left, isVisible: model.leftIndicatorVisible)
+            TelemetryBlinkerView(direction: .left, isVisible: model.leftBlinkerVisible)
 
             TelemetrySpeedBlockView(
                 speedText: model.speedText,
                 unitText: model.unitText
             )
 
-            TelemetryBlinkerView(direction: .right, isVisible: model.rightIndicatorVisible)
+            TelemetryBlinkerView(direction: .right, isVisible: model.rightBlinkerVisible)
 
             VStack(spacing: 10) {
                 TelemetrySteeringWheelView(isActive: model.autopilotActive)
@@ -63,9 +44,9 @@ struct TelemetryOverlayView: View {
                 .strokeBorder(.white.opacity(0.16), lineWidth: 1)
         )
         .shadow(radius: 10, y: 4)
-        .scaleEffect(0.8)
+        .scaleEffect(0.6)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Speed \(model.speedText) \(model.unitText), gear \(model.gearText), battery \(model.batteryText)")
+        .accessibilityLabel("Speed \(model.speedText) \(model.unitText), Gear \(model.gearText), Trottle \(model.throttleValue), Brake \(model.brakeValue)")
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct SelectedVideoSection: View {
+struct SelectedVideoSectionView: View {
     let video: SelectedVideo
     @ObservedObject var viewModel: VideoPlaybackViewModel
 

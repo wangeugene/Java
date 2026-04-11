@@ -121,7 +121,7 @@ struct EventDetailContentView: View {
                     Button {
                         selectedTrack = track
                     } label: {
-                        TrackPreviewCard(
+                        TrackPreviewCardView(
                             track: track,
                             event: event,
                             isSelected: track.id == mainTrack?.id,
