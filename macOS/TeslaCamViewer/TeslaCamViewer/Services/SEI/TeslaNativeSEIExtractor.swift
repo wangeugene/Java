@@ -28,7 +28,6 @@ struct TeslaNativeSEIExtractor: TeslaSEIExtracting {
                 
                 if let rbsp = extractTeslaProtoPayload(from: nal.payload),
                    let sample = protobufDecoder.decode(from: rbsp, sourceClipURL: clipURL) {
-                    print("Tesla protobuf payload size:", rbsp.count)
                     results.append(sample)
                 }
             }
