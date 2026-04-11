@@ -113,16 +113,20 @@ final class EventDetailPlaybackViewModel: ObservableObject {
         let sortedClips = track.clips.sorted {
             ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast)
         }
-        guard let firstClipURL = sortedClips.first?.url else { return }
         
-        do {
-            let extractor = TeslaNativeSEIExtractor()
-            let samples = try await extractor.extract(from: firstClipURL)
-            self.telemetrySamples = samples
-        } catch {
-            print("Failed to extract SEI telemetry: \(error)")
-            self.telemetrySamples = []
+        let extractor = TeslaNativeSEIExtractor()
+        var allSamples: [TeslaSEISample] = []
+        
+        for clip in sortedClips {
+            do {
+                let samples = try await extractor.extract(from: clip.url)
+                allSamples.append(contentsOf: samples)
+            } catch {
+                print("Failed to extract SEI telemetry from \(clip.url.lastPathComponent): \(error)")
+            }
         }
+        
+        self.telemetrySamples = allSamples
     }
     
     private func syncTelemetry(to time: CMTime) {

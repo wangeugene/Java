@@ -28,12 +28,6 @@ struct EventDetailContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            EventDetailHeaderView(
-                event: event,
-                metadata: metadata,
-                selectedTrack: selectedTrack,
-                playbackViewModel: playbackViewModel
-            )
             mainPreviewSectionView
             previewStripView
         }
