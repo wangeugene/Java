@@ -42,6 +42,11 @@
 		021CB92F2F85FA3F007D3A10 /* SEIMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021CB92E2F85FA3F007D3A10 /* SEIMessage.swift */; };
 		021CB9332F85FE11007D3A10 /* TeslaTelemetryDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021CB9322F85FE0C007D3A10 /* TeslaTelemetryDecoder.swift */; };
 		028A4E042F89EDA800BD7BEF /* TelemetryOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E032F89EDA800BD7BEF /* TelemetryOverlay.swift */; };
+		028A4E062F89F8C300BD7BEF /* TelemetryOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E052F89F8C300BD7BEF /* TelemetryOverlayViewModel.swift */; };
+		028A4E082F89FAC400BD7BEF /* TelemetryProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E072F89FAC400BD7BEF /* TelemetryProviding.swift */; };
+		028A4E0A2F89FACB00BD7BEF /* TimelineTelemetryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E092F89FACB00BD7BEF /* TimelineTelemetryProvider.swift */; };
+		028A4E0C2F89FAFD00BD7BEF /* GearState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E0B2F89FAFD00BD7BEF /* GearState.swift */; };
+		028A4E0E2F89FB0E00BD7BEF /* VehicleTelemetrySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A4E0D2F89FB0E00BD7BEF /* VehicleTelemetrySample.swift */; };
 		029380DA2F6EAB9600F08527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029380D62F6EAB9600F08527 /* Assets.xcassets */; };
 		029380DB2F6EAB9600F08527 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D72F6EAB9600F08527 /* ContentView.swift */; };
 		029380DC2F6EAB9600F08527 /* TeslaCamViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */; };
@@ -130,6 +135,11 @@
 		021CB92E2F85FA3F007D3A10 /* SEIMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEIMessage.swift; sourceTree = "<group>"; };
 		021CB9322F85FE0C007D3A10 /* TeslaTelemetryDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaTelemetryDecoder.swift; sourceTree = "<group>"; };
 		028A4E032F89EDA800BD7BEF /* TelemetryOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryOverlay.swift; sourceTree = "<group>"; };
+		028A4E052F89F8C300BD7BEF /* TelemetryOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryOverlayViewModel.swift; sourceTree = "<group>"; };
+		028A4E072F89FAC400BD7BEF /* TelemetryProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryProviding.swift; sourceTree = "<group>"; };
+		028A4E092F89FACB00BD7BEF /* TimelineTelemetryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTelemetryProvider.swift; sourceTree = "<group>"; };
+		028A4E0B2F89FAFD00BD7BEF /* GearState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearState.swift; sourceTree = "<group>"; };
+		028A4E0D2F89FB0E00BD7BEF /* VehicleTelemetrySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleTelemetrySample.swift; sourceTree = "<group>"; };
 		029380D62F6EAB9600F08527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		029380D72F6EAB9600F08527 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		029380D82F6EAB9600F08527 /* TeslaCamViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeslaCamViewerApp.swift; sourceTree = "<group>"; };
@@ -272,6 +282,8 @@
 		02AFB0692F6F711200CEC127 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				028A4E0D2F89FB0E00BD7BEF /* VehicleTelemetrySample.swift */,
+				028A4E0B2F89FAFD00BD7BEF /* GearState.swift */,
 				028A4E032F89EDA800BD7BEF /* TelemetryOverlay.swift */,
 				0200DEA02F855E26004768C2 /* SEI */,
 				02A75B012F7E784100B12388 /* TeslaTrackCompositionError.swift */,
@@ -293,6 +305,8 @@
 		02AFB06A2F6F711200CEC127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				028A4E092F89FACB00BD7BEF /* TimelineTelemetryProvider.swift */,
+				028A4E072F89FAC400BD7BEF /* TelemetryProviding.swift */,
 				02C3F99E2F7F863300F8A43A /* TeslaTrackClipExporter.swift */,
 				02C3F99C2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift */,
 				02A75AFF2F7E6DE200B12388 /* TeslaTrackCompositionBuilder.swift */,
@@ -312,6 +326,7 @@
 		02AFB06C2F6F711200CEC127 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				028A4E052F89F8C300BD7BEF /* TelemetryOverlayViewModel.swift */,
 				020604772F7A51190054C569 /* TeslaCamBrowserViewModel.swift */,
 				020604592F7A1ED90054C569 /* VideoPlaybackViewModel.swift */,
 				02A75B032F7E7AA600B12388 /* EventDetailPlaybackViewModel.swift */,
@@ -488,7 +503,9 @@
 				020604882F7AAA880054C569 /* TeslaEventJSONLoader.swift in Sources */,
 				02C3F99D2F7F6ED900F8A43A /* TeslaTrackFrameExporter.swift in Sources */,
 				020604822F7A71C90054C569 /* TeslaEventBuilder.swift in Sources */,
+				028A4E0C2F89FAFD00BD7BEF /* GearState.swift in Sources */,
 				0206047E2F7A519C0054C569 /* EventFolderListView.swift in Sources */,
+				028A4E0A2F89FACB00BD7BEF /* TimelineTelemetryProvider.swift in Sources */,
 				02D109BF2F8914480048670C /* EventDetailFooterView.swift in Sources */,
 				02D109C62F8932E70048670C /* TelemetryOverlayView.swift in Sources */,
 				02D109C02F8914480048670C /* TrackPreviewCardView.swift in Sources */,
@@ -517,8 +534,11 @@
 				02A75AF62F7E541200B12388 /* TeslaCameraTrack.swift in Sources */,
 				021CB9292F85C97A007D3A10 /* MP4SampleReader.swift in Sources */,
 				02AF7A432F87CA5E00D7B37C /* TeslaSEIExtracting.swift in Sources */,
+				028A4E062F89F8C300BD7BEF /* TelemetryOverlayViewModel.swift in Sources */,
 				020604862F7AA9360054C569 /* TeslaEventMetadata.swift in Sources */,
 				0200DE782F84A262004768C2 /* AVVideoComposition+AsyncCIFilters.swift in Sources */,
+				028A4E082F89FAC400BD7BEF /* TelemetryProviding.swift in Sources */,
+				028A4E0E2F89FB0E00BD7BEF /* VehicleTelemetrySample.swift in Sources */,
 				0206047A2F7A51530054C569 /* FolderPicker.swift in Sources */,
 				021CB9232F85C639007D3A10 /* NALUnit.swift in Sources */,
 				020604622F7A29A20054C569 /* EmptyStateView.swift in Sources */,
