@@ -99,7 +99,7 @@ struct EventDetailContentView: View {
                 .foregroundStyle(.white)
             }
             
-            TelemetryOverlayView(model: .preview)
+            TelemetryOverlayView(model: playbackViewModel.currentTelemetry)
                 .padding(.top, 5)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }

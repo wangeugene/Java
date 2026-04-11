@@ -19,6 +19,9 @@ final class EventDetailPlaybackViewModel: ObservableObject {
     @Published var overlayTimestampText: String = ""
     @Published var lastExportedClipURL: URL?
     @Published var lastExportedSnapshotURL: URL?
+    
+    @Published var currentTelemetry: TelemetryOverlay = .preview
+    private var telemetrySamples: [TeslaSEISample] = []
 
     // Master player for the main view
     let player = AVPlayer()
@@ -93,6 +96,10 @@ final class EventDetailPlaybackViewModel: ObservableObject {
             installTimeObserver()
             installRateObserver()
             
+            Task {
+                await self.extractTelemetry(for: track)
+            }
+            
             player.play()
         } catch {
             errorMessage = "Failed to build master view: \(error.localizedDescription)"
@@ -100,6 +107,51 @@ final class EventDetailPlaybackViewModel: ObservableObject {
             overlayTimestampText = ""
             player.replaceCurrentItem(with: nil)
         }
+    }
+
+    private func extractTelemetry(for track: TeslaCameraTrack) async {
+        let sortedClips = track.clips.sorted {
+            ($0.timestamp ?? .distantPast) < ($1.timestamp ?? .distantPast)
+        }
+        guard let firstClipURL = sortedClips.first?.url else { return }
+        
+        do {
+            let extractor = TeslaNativeSEIExtractor()
+            let samples = try await extractor.extract(from: firstClipURL)
+            self.telemetrySamples = samples
+        } catch {
+            print("Failed to extract SEI telemetry: \(error)")
+            self.telemetrySamples = []
+        }
+    }
+    
+    private func syncTelemetry(to time: CMTime) {
+        guard !telemetrySamples.isEmpty, time.isNumeric else { return }
+        
+        let fps = 36.0
+        var index = Int((time.seconds * fps).rounded())
+        index = max(0, min(telemetrySamples.count - 1, index))
+        
+        let sample = telemetrySamples[index]
+        self.currentTelemetry = TelemetryOverlay(
+            version: sample.version,
+            gearState: sample.gearState,
+            frameSequenceNumber: sample.frameSequenceNumber,
+            vehicleSpeedMps: sample.vehicleSpeedMps,
+            acceleratorPedalPosition: sample.acceleratorPedalPosition,
+            steeringWheelAngle: sample.steeringWheelAngle,
+            blinkerOnLeft: sample.blinkerOnLeft,
+            blinkerOnRight: sample.blinkerOnRight,
+            brakeApplied: sample.brakeApplied,
+            autopilotState: sample.autopilotState,
+            latitudeDeg: sample.latitudeDeg,
+            longitudeDeg: sample.longitudeDeg,
+            headingDeg: sample.headingDeg,
+            linearAccelerationMps2X: sample.linearAccelerationMps2X,
+            linearAccelerationMps2Y: sample.linearAccelerationMps2Y,
+            linearAccelerationMps2Z: sample.linearAccelerationMps2Z,
+            sourceClipURL: sample.sourceClipURL
+        )
     }
 
     private func installRateObserver() {
@@ -129,6 +181,7 @@ final class EventDetailPlaybackViewModel: ObservableObject {
             Task { @MainActor [weak self] in
                 guard let self else { return }
                 self.updateOverlayTimestamp(currentTime: currentTime)
+                self.syncTelemetry(to: currentTime)
                 
                 // If paused (scrubbing), continuously sync mini players to the scrubbed time frame
                 if self.player.rate == 0 {

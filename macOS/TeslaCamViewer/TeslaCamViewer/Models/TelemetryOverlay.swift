@@ -31,7 +31,7 @@ struct TelemetryOverlay: Codable, Equatable {
         version: 1,
         gearState: "GEAR_DRIVE",
         frameSequenceNumber: 2004179,
-        vehicleSpeedMps: 20.911,
+        vehicleSpeedMps: 15.0,
         acceleratorPedalPosition: 22.8,
         steeringWheelAngle: 1.9,
         blinkerOnLeft: true,
