@@ -28,8 +28,8 @@ struct EventDetailContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            mainPreviewSection
-            previewStrip
+            mainPreviewSectionView
+            previewStripView
         }
         .frame(minWidth: 720, maxWidth: 980, alignment: .leading)
         .padding(10)
@@ -59,7 +59,7 @@ struct EventDetailContentView: View {
         return "\(eventKey)|\(cameraKey)|\(clipKey)"
     }
     
-    private var mainPreviewSection: some View {
+    private var mainPreviewSectionView: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.black.opacity(0.9))
@@ -114,7 +114,7 @@ struct EventDetailContentView: View {
     }
 
     
-    private var previewStrip: some View {
+    private var previewStripView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
                 ForEach(event.tracks) { track in
