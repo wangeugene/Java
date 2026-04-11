@@ -36,15 +36,23 @@ final class TelemetryOverlayViewModel: ObservableObject {
         }
 
         return TelemetryOverlay(
-            gearText: sample.gear.rawValue,
-            speedText: String(Int(sample.speedKmh.rounded())),
-            unitText: "km/h",
-            autopilotActive: sample.autopilotActive,
-            leftBlinkerVisible: sample.leftBlinkerVisible,
-            rightBlinkerVisible: sample.rightBlinkerVisible,
-            throttleValue: sample.throttleValue.clamped(to: 0...1),
-            brakeValue: sample.brakeValue.clamped(to: 0...1),
-            steeringAngleValue: sample.steeringAngleValue.rounded()
+            version: nil,
+            gearState: "GEAR_" + sample.gear.rawValue.uppercased(),
+            frameSequenceNumber: nil,
+            vehicleSpeedMps: sample.speedKmh / 3.6,
+            acceleratorPedalPosition: sample.throttleValue * 100.0,
+            steeringWheelAngle: sample.steeringAngleValue,
+            blinkerOnLeft: sample.leftBlinkerVisible,
+            blinkerOnRight: sample.rightBlinkerVisible,
+            brakeApplied: sample.brakeValue > 0,
+            autopilotState: sample.autopilotActive ? "AUTOPILOT" : "NONE",
+            latitudeDeg: nil,
+            longitudeDeg: nil,
+            headingDeg: nil,
+            linearAccelerationMps2X: nil,
+            linearAccelerationMps2Y: nil,
+            linearAccelerationMps2Z: nil,
+            sourceClipURL: nil
         )
     }
 }
