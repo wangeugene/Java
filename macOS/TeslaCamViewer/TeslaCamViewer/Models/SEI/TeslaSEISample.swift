@@ -1,6 +1,6 @@
 import Foundation
 
-struct TeslaSEISample: Hashable {
+struct TeslaSEISample: Hashable, Encodable {
     let version: Int?
     let gearState: String?
     let frameSequenceNumber: Int?

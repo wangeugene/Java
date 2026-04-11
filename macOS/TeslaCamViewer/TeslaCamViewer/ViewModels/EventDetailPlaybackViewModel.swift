@@ -200,6 +200,21 @@ final class EventDetailPlaybackViewModel: ObservableObject {
                 let extractor = TeslaNativeSEIExtractor()
                 let samples = try await extractor.extract(from: clipURL)
                 print("Native SEI extract sample count:", samples.count)
+                // print first 5 samples all telemetry fields
+                samples.prefix(5).forEach { sample in
+                    do {
+                        // JSON output
+                        let encoder = JSONEncoder()
+                        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                        let jsonData = try encoder.encode(sample)
+                        if let jsonString = String(data: jsonData, encoding: .utf8) {
+                            print("--- JSON ---")
+                            print(jsonString)
+                        }
+                    } catch {
+                        print("JSON encode failed:", error)
+                    }
+                }
             } catch {
                 print("Native SEI extract failed:", error.localizedDescription)
             }
