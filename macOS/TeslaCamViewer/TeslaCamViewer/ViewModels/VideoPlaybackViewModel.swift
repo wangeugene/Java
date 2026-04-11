@@ -18,14 +18,6 @@ final class VideoPlaybackViewModel: ObservableObject {
    
     let player = AVPlayer()
 
-    func selectVideo() {
-        guard let url = FilePicker.pickVideo() else { return }
-
-        selectedVideo = SelectedVideo(id: url, url: url)
-        exportStatus = nil
-        player.replaceCurrentItem(with: AVPlayerItem(url: url))
-        print("Selected:", url)
-    }
 
     func exportSelectedVideo() async {
         guard let url = selectedVideo?.url else { return }

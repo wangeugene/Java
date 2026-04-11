@@ -15,7 +15,7 @@ struct TelemetryOverlayView: View {
         HStack(spacing: 18) {
             VStack(spacing: 10) {
                 TelemetryGearView(text: model.gearText)
-                TelemetryPedalBarView(value: 0.5, color: .red)
+                TelemetryPedalBarView(value: model.brakeValue, color: .red)
             }
 
             TelemetryBlinkerView(direction: .left, isVisible: model.leftBlinkerVisible)
@@ -24,12 +24,17 @@ struct TelemetryOverlayView: View {
                 speedText: model.speedText,
                 unitText: model.unitText
             )
+            .frame(width: 60)
+            
 
             TelemetryBlinkerView(direction: .right, isVisible: model.rightBlinkerVisible)
 
             VStack(spacing: 10) {
-                TelemetrySteeringWheelView(isActive: model.autopilotActive)
-                TelemetryPedalBarView(value: 0.7, color: .green)
+                TelemetrySteeringWheelView(
+                    isAutoPilotActive: model.autopilotActive,
+                    rotateAngle: model.steeringAngleValue
+                )
+                TelemetryPedalBarView(value: model.throttleValue, color: .green)
             }
         }
         .padding(.horizontal, 18)
@@ -110,12 +115,14 @@ private struct TelemetrySpeedBlockView: View {
 }
 
 private struct TelemetrySteeringWheelView: View {
-    let isActive: Bool
+    let isAutoPilotActive: Bool
+    let rotateAngle: Double
 
     var body: some View {
         Image(systemName: "steeringwheel")
             .font(.system(size: 17, weight: .medium))
-            .foregroundStyle(isActive ? .blue : .primary.opacity(0.7))
+            .rotationEffect(Angle(degrees: rotateAngle))
+            .foregroundStyle(isAutoPilotActive ? .blue : .primary.opacity(0.7))
             .frame(width: 20, height: 20)
     }
 }
